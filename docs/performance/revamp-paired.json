@@ -1,0 +1,3580 @@
+{
+  "method": "Adjacent before/after views; order reversed on run 2; fresh page per view; one browser at a time",
+  "viewport": [
+    1440,
+    900
+  ],
+  "frames": 12,
+  "samples": [
+    {
+      "run": 0,
+      "name": "desk",
+      "version": "before",
+      "medianMs": 280.5,
+      "p95Ms": 346.5,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "desk",
+      "version": "after",
+      "medianMs": 289.3999999985099,
+      "p95Ms": 565,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 15,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "aisle",
+      "version": "before",
+      "medianMs": 954.5,
+      "p95Ms": 1012.7000000029802,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "aisle",
+      "version": "after",
+      "medianMs": 940.9000000059605,
+      "p95Ms": 1034,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "drawer",
+      "version": "before",
+      "medianMs": 720.3999999985099,
+      "p95Ms": 807.7000000029802,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 122,
+      "triangles": 227154,
+      "geometries": 86,
+      "textures": 23,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "drawer",
+      "version": "after",
+      "medianMs": 725.6000000014901,
+      "p95Ms": 748,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 122,
+      "triangles": 227154,
+      "geometries": 86,
+      "textures": 23,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W1",
+      "version": "before",
+      "medianMs": 933.3999999985099,
+      "p95Ms": 1001.2999999970198,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W1",
+      "version": "after",
+      "medianMs": 937.7999999970198,
+      "p95Ms": 986.3999999985099,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W2",
+      "version": "before",
+      "medianMs": 932.3000000044703,
+      "p95Ms": 1017.5,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 130,
+      "triangles": 230766,
+      "geometries": 91,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W2",
+      "version": "after",
+      "medianMs": 940.0999999940395,
+      "p95Ms": 1006.1999999955297,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 130,
+      "triangles": 230766,
+      "geometries": 91,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W3",
+      "version": "before",
+      "medianMs": 971.1000000014901,
+      "p95Ms": 1056.7000000029802,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 2,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 145,
+      "triangles": 265706,
+      "geometries": 97,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W3",
+      "version": "after",
+      "medianMs": 964.8000000044703,
+      "p95Ms": 1036.5,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 2,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 145,
+      "triangles": 265706,
+      "geometries": 97,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W4",
+      "version": "before",
+      "medianMs": 1405.6000000014901,
+      "p95Ms": 3117.89999999851,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 275,
+      "triangles": 318979,
+      "geometries": 144,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "travel-W4",
+      "version": "after",
+      "medianMs": 1449.8000000044703,
+      "p95Ms": 3376.89999999851,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 275,
+      "triangles": 318979,
+      "geometries": 144,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "notebook",
+      "version": "before",
+      "medianMs": 293.1000000014901,
+      "p95Ms": 478.80000000447035,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "notebook",
+      "version": "after",
+      "medianMs": 91.30000000447035,
+      "p95Ms": 348.80000000447035,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 5,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "files",
+      "version": "before",
+      "medianMs": 296,
+      "p95Ms": 387.40000000596046,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "files",
+      "version": "after",
+      "medianMs": 59.69999999552965,
+      "p95Ms": 343.80000000447035,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "computer",
+      "version": "before",
+      "medianMs": 290.80000000447035,
+      "p95Ms": 390.70000000298023,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "computer",
+      "version": "after",
+      "medianMs": 73.89999999850988,
+      "p95Ms": 350.69999999552965,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "desk",
+      "version": "after",
+      "medianMs": 291,
+      "p95Ms": 304.80000000447035,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 15,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "desk",
+      "version": "before",
+      "medianMs": 292.40000000596046,
+      "p95Ms": 365,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "aisle",
+      "version": "after",
+      "medianMs": 944.8999999985099,
+      "p95Ms": 973.3000000044703,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "aisle",
+      "version": "before",
+      "medianMs": 941.5,
+      "p95Ms": 976.7999999970198,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "drawer",
+      "version": "after",
+      "medianMs": 721.4000000059605,
+      "p95Ms": 805.7999999970198,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 122,
+      "triangles": 227154,
+      "geometries": 86,
+      "textures": 23,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "drawer",
+      "version": "before",
+      "medianMs": 715.6999999955297,
+      "p95Ms": 805.2000000029802,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 122,
+      "triangles": 227154,
+      "geometries": 86,
+      "textures": 23,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W1",
+      "version": "after",
+      "medianMs": 945.1999999955297,
+      "p95Ms": 992.2000000029802,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W1",
+      "version": "before",
+      "medianMs": 948.5,
+      "p95Ms": 990.8999999985099,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W2",
+      "version": "after",
+      "medianMs": 993.3999999985099,
+      "p95Ms": 1024.2000000029802,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 130,
+      "triangles": 230766,
+      "geometries": 91,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W2",
+      "version": "before",
+      "medianMs": 958.8999999985099,
+      "p95Ms": 1006.8999999985099,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 130,
+      "triangles": 230766,
+      "geometries": 91,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W3",
+      "version": "after",
+      "medianMs": 971.8999999985099,
+      "p95Ms": 1042,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 2,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 145,
+      "triangles": 265706,
+      "geometries": 97,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W3",
+      "version": "before",
+      "medianMs": 969.6999999955297,
+      "p95Ms": 1055.1000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 2,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 145,
+      "triangles": 265706,
+      "geometries": 97,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W4",
+      "version": "after",
+      "medianMs": 1405.6000000014901,
+      "p95Ms": 2931.89999999851,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 275,
+      "triangles": 318979,
+      "geometries": 144,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "travel-W4",
+      "version": "before",
+      "medianMs": 1400.9000000059605,
+      "p95Ms": 3043.60000000149,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 275,
+      "triangles": 318979,
+      "geometries": 144,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "notebook",
+      "version": "after",
+      "medianMs": 62.099999994039536,
+      "p95Ms": 328.1000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "notebook",
+      "version": "before",
+      "medianMs": 286.59999999403954,
+      "p95Ms": 296.90000000596046,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "files",
+      "version": "after",
+      "medianMs": 71.19999999552965,
+      "p95Ms": 354.70000000298023,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "files",
+      "version": "before",
+      "medianMs": 297.8999999985099,
+      "p95Ms": 314.6000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "computer",
+      "version": "after",
+      "medianMs": 79.79999999701977,
+      "p95Ms": 314.90000000596046,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "computer",
+      "version": "before",
+      "medianMs": 293.70000000298023,
+      "p95Ms": 305.1000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "desk",
+      "version": "before",
+      "medianMs": 289.6000000014901,
+      "p95Ms": 326.29999999701977,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "desk",
+      "version": "after",
+      "medianMs": 281.5,
+      "p95Ms": 496.6000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "aisle",
+      "version": "before",
+      "medianMs": 951,
+      "p95Ms": 1047.3999999985099,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "aisle",
+      "version": "after",
+      "medianMs": 942.8999999985099,
+      "p95Ms": 977.2999999970198,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "drawer",
+      "version": "before",
+      "medianMs": 720,
+      "p95Ms": 808.6000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 122,
+      "triangles": 227154,
+      "geometries": 86,
+      "textures": 23,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "drawer",
+      "version": "after",
+      "medianMs": 720.1999999955297,
+      "p95Ms": 770.7000000029802,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 122,
+      "triangles": 227154,
+      "geometries": 86,
+      "textures": 23,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W1",
+      "version": "before",
+      "medianMs": 944.3999999985099,
+      "p95Ms": 961.1999999955297,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W1",
+      "version": "after",
+      "medianMs": 943.3999999985099,
+      "p95Ms": 1013.5999999940395,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 92,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W2",
+      "version": "before",
+      "medianMs": 941.8999999985099,
+      "p95Ms": 992.6000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 130,
+      "triangles": 230766,
+      "geometries": 91,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W2",
+      "version": "after",
+      "medianMs": 941.3000000044703,
+      "p95Ms": 982.6000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 130,
+      "triangles": 230766,
+      "geometries": 91,
+      "textures": 26,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W3",
+      "version": "before",
+      "medianMs": 968.5,
+      "p95Ms": 1026.5,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 2,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 145,
+      "triangles": 265706,
+      "geometries": 97,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W3",
+      "version": "after",
+      "medianMs": 973.5999999940395,
+      "p95Ms": 1030.6999999955297,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 2,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 145,
+      "triangles": 265706,
+      "geometries": 97,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W4",
+      "version": "before",
+      "medianMs": 1405.1999999955297,
+      "p95Ms": 3190.10000000149,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 275,
+      "triangles": 318979,
+      "geometries": 144,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "travel-W4",
+      "version": "after",
+      "medianMs": 1430.5999999940395,
+      "p95Ms": 2685.7999999970198,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 275,
+      "triangles": 318979,
+      "geometries": 144,
+      "textures": 30,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "notebook",
+      "version": "before",
+      "medianMs": 299.20000000298023,
+      "p95Ms": 314,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "notebook",
+      "version": "after",
+      "medianMs": 61.29999999701977,
+      "p95Ms": 319.20000000298023,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "files",
+      "version": "before",
+      "medianMs": 297.3999999985099,
+      "p95Ms": 358.5,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "files",
+      "version": "after",
+      "medianMs": 67.10000000149012,
+      "p95Ms": 349.79999999701977,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "computer",
+      "version": "before",
+      "medianMs": 302.1000000014901,
+      "p95Ms": 455.1000000014901,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "computer",
+      "version": "after",
+      "medianMs": 97.29999999701977,
+      "p95Ms": 327.80000000447035,
+      "pixelRatio": 1,
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "renderedFrames": 6,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 116,
+      "triangles": 105971,
+      "geometries": 50,
+      "textures": 15,
+      "objects": 29
+    }
+  ]
+}

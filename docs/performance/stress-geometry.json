@@ -1,0 +1,129 @@
+{
+  "camera": "W1 aisle",
+  "stats": {
+    "renderedFrames": 7,
+    "zone": "archive",
+    "wing": 0,
+    "fanOn": false,
+    "held": null,
+    "brewing": false,
+    "dispensing": false,
+    "shredding": false,
+    "printerInput": null,
+    "sensors": 3,
+    "lightTimeout": 8,
+    "heating": false,
+    "printing": false,
+    "seated": false,
+    "tap": false,
+    "capture": "locked",
+    "doors": [
+      {
+        "side": 0,
+        "destination": 1,
+        "open": false,
+        "progress": 0
+      },
+      {
+        "side": 1,
+        "destination": 2,
+        "open": false,
+        "progress": 0
+      },
+      {
+        "side": 2,
+        "destination": 3,
+        "open": false,
+        "progress": 0
+      },
+      {
+        "side": 3,
+        "destination": 0,
+        "open": false,
+        "progress": 0
+      }
+    ],
+    "calls": 132,
+    "triangles": 234640,
+    "geometries": 94,
+    "textures": 26,
+    "objects": 30
+  },
+  "items": [
+    {
+      "label": "cabinet handles",
+      "calls": 11,
+      "triangles": 78912
+    },
+    {
+      "label": "cabinet-construction",
+      "calls": 11,
+      "triangles": 46032
+    },
+    {
+      "label": "archive-room-0",
+      "calls": 24,
+      "triangles": 31196
+    },
+    {
+      "label": "drawer fronts",
+      "calls": 11,
+      "triangles": 26304
+    },
+    {
+      "label": "pendant-light",
+      "calls": 9,
+      "triangles": 20224
+    },
+    {
+      "label": "distant-box-files",
+      "calls": 8,
+      "triangles": 10368
+    },
+    {
+      "label": "stocked-box-files",
+      "calls": 2,
+      "triangles": 6720
+    },
+    {
+      "label": "drawer labels",
+      "calls": 11,
+      "triangles": 4384
+    },
+    {
+      "label": "BoxGeometry",
+      "calls": 21,
+      "triangles": 3408
+    },
+    {
+      "label": "tube-light",
+      "calls": 4,
+      "triangles": 3168
+    },
+    {
+      "label": "stool",
+      "calls": 1,
+      "triangles": 2700
+    },
+    {
+      "label": "clock-case-and-rim",
+      "calls": 1,
+      "triangles": 1128
+    },
+    {
+      "label": "wall-clock",
+      "calls": 1,
+      "triangles": 48
+    },
+    {
+      "label": "readable-aisle-sign",
+      "calls": 16,
+      "triangles": 32
+    },
+    {
+      "label": "worn-wall-compositions",
+      "calls": 1,
+      "triangles": 16
+    }
+  ]
+}

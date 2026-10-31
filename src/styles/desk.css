@@ -1,0 +1,23 @@
+/* Personal stationery uses the archive's existing paper, ink and type. */
+.office-notices{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin:24px 0}
+.paper-cream{background:#eee5cc}.paper-rose{background:#ecd6cb}.paper-blue{background:#d8e2df}.paper-sage{background:#dce2c8}
+
+
+.mail-fields label,#compose-form>label{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}#mail-body{width:100%;font:inherit;line-height:1.6;padding:10px;border:1px solid #89917b;background:#ffffff36;color:#28382f;box-sizing:border-box}
+.board-tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:16px 0}.board-tools label{display:flex;gap:8px;align-items:center}.board-tools select{max-width:220px}
+.personal-board{position:relative;aspect-ratio:1200/650;border:10px solid #544735;overflow:hidden;touch-action:none}.personal-board canvas{display:block;width:100%;height:100%}.personal-board [data-pin]{position:absolute;width:13%;height:19%;background:transparent;color:transparent;border:none;padding:0;cursor:grab;touch-action:none}.personal-board [data-pin]:focus-visible{outline:3px solid #f7edbe;outline-offset:4px;color:#28382f;background:#eee5cc}
+.drawer-artifact{display:block;margin:28px 8px 12px;padding:24px 16px;border:1px dashed #89917b;background:#ddd2ac;color:#28382f;text-align:left}.drawer-artifact small{display:block;margin-bottom:10px;letter-spacing:.1em}.drawer-bottom{border-top:1px solid #89917b55;margin-top:20px;padding-top:16px}
+.mail-layout{display:grid;grid-template-columns:minmax(200px,30%) 1fr;min-height:380px;margin:24px 0}.mail-index{border-right:1px solid #89917b;padding-right:20px;max-height:520px;overflow:auto}.mail-index button{display:flex;flex-direction:column;gap:8px;width:100%;text-align:left;padding:15px 10px;margin-bottom:8px}.mail-index .unread{border-left:4px solid #60734e}.mail-index span{font-weight:normal}.mail-paper{padding:8px 28px}.mail-body{white-space:pre-wrap;line-height:1.8}.mail-signature{font-style:italic;line-height:1.6;opacity:.75;margin-top:35px}.mail-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mail-fields label:last-child{grid-column:1/-1}#compose-form fieldset{border:1px solid #89917b66;padding:18px;display:grid;gap:12px}#compose-form fieldset label{display:flex;flex-direction:column;gap:8px}#compose-form select{max-width:100%;min-width:0;padding:9px}
+.office-notices article{padding:22px;color:#28382f;line-height:1.7;box-shadow:1px 3px 0 #28382f15}.mug-dispute{border-left:3px solid #89917b;padding:10px 24px;line-height:1.7}.mug-dispute .mono{font-size:.7em;letter-spacing:.12em}
+.cosmetic-file-stamp{display:inline-block;transform:rotate(-3deg);border:2px solid #875146;color:#875146;padding:8px;margin:20px 0;font:700 13px monospace;letter-spacing:.08em}
+@media(max-width:800px){.mail-layout{grid-template-columns:1fr}.mail-index{border-right:0;max-height:200px}.mail-paper{padding:20px 0}.mail-fields{grid-template-columns:1fr}.board-tools label{flex-wrap:wrap}}
+
+
+.panel[data-screen="pinboard"]>.personal-board{margin:0 32px;width:calc(100% - 64px);box-sizing:border-box}
+.panel[data-screen="pinboard"]>.board-tools,.panel[data-screen="pinboard"]>.board-connections,.panel[data-screen="computer"]>.mail-layout,.panel[data-screen="computer"]>.muted{margin-left:32px;margin-right:32px}
+.panel[data-screen="computer"]>#compose-form{padding:0 32px 24px}
+.panel[data-screen="notices"]>.office-notices,.panel[data-screen="notices"]>.mug-dispute{margin-left:32px;margin-right:32px}
+@media(max-width:800px){.personal-board{min-height:260px}.panel[data-screen="computer"]>#compose-form{padding:0 16px 16px}}
+
+.mail-body,.office-notices article p,.mug-dispute p{font-size:var(--document-size,18px)}
+.mail-body,.mail-index span,.board-connections p{overflow-wrap:anywhere;min-width:0}

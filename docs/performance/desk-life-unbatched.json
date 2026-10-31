@@ -1,0 +1,377 @@
+{
+  "renderer": "Chromium SwiftShader (software; not a hardware FPS claim)",
+  "viewport": [
+    1440,
+    900
+  ],
+  "quality": "medium",
+  "framesPerView": 35,
+  "drawerFrames": 12,
+  "loadingMs": 4518.378066,
+  "samples": [
+    {
+      "name": "desk",
+      "meanMs": 146.38571428571427,
+      "p95Ms": 176.69999999925494,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 121,
+      "triangles": 99525,
+      "geometries": 45,
+      "textures": 14,
+      "objects": 29,
+      "heapBytes": 52897924
+    },
+    {
+      "name": "aisle",
+      "meanMs": 503.0028571428997,
+      "p95Ms": 552.9000000022352,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 88,
+      "textures": 25,
+      "objects": 29,
+      "heapBytes": 44152269
+    },
+    {
+      "name": "drawer",
+      "meanMs": 552.0750000001863,
+      "p95Ms": 613.8000000007451,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 122,
+      "triangles": 227154,
+      "geometries": 88,
+      "textures": 25,
+      "objects": 29,
+      "heapBytes": 47671261
+    },
+    {
+      "name": "travel-W1",
+      "meanMs": 623.5914285714073,
+      "p95Ms": 849,
+      "zone": "archive",
+      "wing": 0,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 131,
+      "triangles": 233466,
+      "geometries": 88,
+      "textures": 25,
+      "objects": 29,
+      "heapBytes": 45442289
+    },
+    {
+      "name": "travel-W2",
+      "meanMs": 566.7971428572067,
+      "p95Ms": 595.0999999977648,
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 130,
+      "triangles": 230766,
+      "geometries": 118,
+      "textures": 35,
+      "objects": 29,
+      "heapBytes": 46475330
+    },
+    {
+      "name": "travel-W3",
+      "meanMs": 594.682857142921,
+      "p95Ms": 632.1000000014901,
+      "zone": "archive",
+      "wing": 2,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 145,
+      "triangles": 265706,
+      "geometries": 154,
+      "textures": 49,
+      "objects": 29,
+      "heapBytes": 46507499
+    },
+    {
+      "name": "travel-W4",
+      "meanMs": 873.094285714307,
+      "p95Ms": 933.4000000022352,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 2,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 281,
+      "triangles": 317909,
+      "geometries": 234,
+      "textures": 61,
+      "objects": 29,
+      "heapBytes": 48854559
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+import { chromium } from '@playwright/test';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+const label = process.argv[2] || 'local';
+const baseURL = process.env.STRESS_BASE_URL || 'http://127.0.0.1:5173';
+const browser = await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || (existsSync('/usr/bin/chromium') ? '/usr/bin/chromium' : undefined),headless:true,args:['--no-sandbox','--enable-unsafe-swiftshader','--disable-dev-shm-usage']});
+const records=[];
+try {
+ for(let run=0;run<3;run++) {
+  const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
+  const start=performance.now();await page.goto(baseURL+'/?test=1');await page.waitForSelector('#start',{timeout:120000});const loadingMs=performance.now()-start;
+  const info=await page.evaluate(()=>{const canvas=document.querySelector('canvas'),gl=canvas?.getContext('webgl2')||canvas?.getContext('webgl');const debug=gl?.getExtension('WEBGL_debug_renderer_info');return {renderer:debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):'unavailable',userAgent:navigator.userAgent};});
+  await page.evaluate(()=>{const g=window.__GAME__;g.save.started=true;g.save.settings.quality='medium';g.world.setSettings(g.save.settings);g.save.upgrades.push('pinboard','stationery');g.save.deskLife.notes=Array.from({length:24},(_,i)=>({id:i+1,sheet:i,title:`Working note ${i+1}`,text:i===0?'Long investigation entry with detailed observations, document references and a line of notes. '.repeat(85):'A retained working theory.',paper:'cream',strokes:[]}));g.save.deskLife.nextNote=25;g.save.deskLife.pins=g.save.deskLife.notes.map((n,i)=>({note:n.id,kind:'notebook',x:(i%6)/6,y:Math.floor(i/6)/4}));g.save.deskLife.strings=Array.from({length:48},(_,i)=>({from:i%24+1,to:(i+1)%24+1,fromKind:'notebook',toKind:'notebook',color:'red',label:'Working connection'}));g.world.syncDesk(g.save);g.resume();});
+  for(const scene of ['nook','aisle','moving','w2-machine','drawer','board','notebook']) {
+   const data=await page.evaluate(async scene=>{const g=window.__GAME__;g.save.wing=scene==='w2-machine'?1:scene==='aisle'||scene==='moving'||scene==='drawer'?0:3;g.save.position=scene==='w2-machine'?[0,1.7,-46.8]:scene==='aisle'||scene==='moving'||scene==='drawer'?[-22,1.7,-8]:[-13,1.7,-46.35];g.save.rotation=[0,0];g.world.restore(g.save);g.resume();if(scene==='moving')g.world.keys.add('KeyW');if(scene==='drawer')g.openStorage('archive:7:0');if(scene==='board')g.stationery.board();if(scene==='notebook')g.showNotebook('collection');for(let i=0;i<6;i++)await new Promise(requestAnimationFrame);let last=performance.now();const frames=[];for(let i=0;i<18;i++){await new Promise(requestAnimationFrame);const now=performance.now();frames.push(now-last);last=now;}frames.sort((a,b)=>a-b);if(scene==='moving')g.world.keys.delete('KeyW');return {medianMs:frames[9],p95Ms:frames[17],meanMs:frames.reduce((a,b)=>a+b,0)/frames.length,heap:performance.memory?.usedJSHeapSize??null,...g.stats()};},scene);
+   records.push({run,kind:'frames',scene,loadingMs,...data});console.log(label,run,scene,Math.round(data.medianMs),Math.round(data.p95Ms),data.calls,data.triangles);
+  }
+  const actions=await page.evaluate(async()=>{const g=window.__GAME__;g.save.wing=3;g.save.position=[-13,1.7,-46.35];g.save.rotation=[0,0];g.world.restore(g.save);g.resume();const out=[];const time=(name,fn)=>{const t=performance.now();fn();out.push({name,ms:performance.now()-t});};for(let i=0;i<3;i++){time('open-drawer',()=>g.openStorage('archive:7:0'));time('open-board-populated',()=>g.stationery.board());time('open-notebook-editor',()=>g.showNotebook('notes'));time('open-collection',()=>g.showNotebook('collection'));time('open-discoveries',()=>g.showNotebook('discoveries'));time('open-long-note-reading',()=>g.deskScreens.readNote(1));}return out;});
+  records.push({run,kind:'actions',actions});console.log(label,run,'actions',JSON.stringify(actions));
+  await mkdir('docs/performance',{recursive:true});await writeFile(`docs/performance/stress-${label}.json`,JSON.stringify({info,quality:'medium',viewport:[1440,900],rendererNote:'Headless Chromium; inspect info.renderer to distinguish software from hardware WebGL.',sampling:'Three isolated runs; 6 warmup and 18 RAF intervals per scene; 3 synchronous action samples per run.',records},null,2));await page.close();
+ }
+} finally {await browser.close();}

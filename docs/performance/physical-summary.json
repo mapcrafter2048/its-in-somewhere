@@ -1,0 +1,76 @@
+{
+  "renderer": "Chromium / SwiftShader software rendering",
+  "scenes": [
+    {
+      "scene": "nook",
+      "before": {
+        "medianMs": 164.5,
+        "p95Ms": 223.89999999850988,
+        "calls": 117,
+        "triangles": 96055
+      },
+      "after": {
+        "medianMs": 168.79999999701977,
+        "p95Ms": 225,
+        "calls": 117,
+        "triangles": 96055
+      },
+      "medianDeltaPercent": 2.613981761106232
+    },
+    {
+      "scene": "drawer",
+      "before": {
+        "medianMs": 39.399999998509884,
+        "p95Ms": 260.19999999552965,
+        "calls": 117,
+        "triangles": 96055
+      },
+      "after": {
+        "medianMs": 39.19999999552965,
+        "p95Ms": 271.19999999552965,
+        "calls": 117,
+        "triangles": 96055
+      },
+      "medianDeltaPercent": -0.5076142207812051
+    },
+    {
+      "scene": "board",
+      "before": {
+        "medianMs": 42.599999994039536,
+        "p95Ms": 259.5,
+        "calls": 117,
+        "triangles": 96055
+      },
+      "after": {
+        "medianMs": 46.100000001490116,
+        "p95Ms": 274.6000000014901,
+        "calls": 117,
+        "triangles": 96055
+      },
+      "medianDeltaPercent": 8.21596245995373
+    },
+    {
+      "scene": "w2",
+      "before": {
+        "medianMs": 94.20000000298023,
+        "p95Ms": 151.60000000149012,
+        "calls": 45,
+        "triangles": 80574
+      },
+      "after": {
+        "medianMs": 127.79999999701977,
+        "p95Ms": 168.09999999403954,
+        "calls": 48,
+        "triangles": 85022
+      },
+      "medianDeltaPercent": 35.66878980146129
+    }
+  ],
+  "newW2Cost": {
+    "initialCalls": 53,
+    "initialTriangles": 93374,
+    "finalCalls": 48,
+    "finalTriangles": 85022
+  },
+  "note": "Matrix W2 adds a directly visible machine/bin/clock housing. Compare the adjacent paired run before attributing long-run software timing differences solely to the new geometry."
+}

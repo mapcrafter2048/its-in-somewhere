@@ -1,0 +1,18 @@
+{
+  "renderer": "Chromium SwiftShader (software; not a hardware FPS claim)",
+  "viewport": [1440, 900],
+  "quality": "medium",
+  "framesPerView": 35,
+  "loadingMs": 4495.396522,
+  "note": "Summary recovered from the baseline command output because Playwright clears test-results between runs. Drawer in this sequence was closed; the corrected open-drawer sample below used 12 frames.",
+  "samples": [
+    {"name":"desk","meanMs":144.15714285714284,"calls":111,"triangles":103053,"geometries":48,"textures":10},
+    {"name":"aisle","meanMs":555.0771428571215,"calls":129,"triangles":259386,"geometries":90,"textures":21},
+    {"name":"drawer-closed","meanMs":514.4685714285289,"calls":121,"triangles":253986,"geometries":90,"textures":21},
+    {"name":"travel-W1","meanMs":711.3,"calls":129,"triangles":259386,"geometries":90,"textures":21},
+    {"name":"travel-W2","meanMs":674.2914285714073,"calls":128,"triangles":256686,"geometries":120,"textures":31},
+    {"name":"travel-W3","meanMs":688.9599999999361,"calls":143,"triangles":291626,"geometries":156,"textures":45},
+    {"name":"travel-W4","meanMs":1005.4342857142644,"calls":270,"triangles":344769,"geometries":239,"textures":56}
+  ],
+  "openDrawer": {"frames":12,"loadingMs":4155.66412,"meanMs":408.1666666666667,"calls":121,"triangles":253986,"geometries":84,"textures":18}
+}

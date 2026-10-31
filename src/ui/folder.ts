@@ -1,0 +1,7 @@
+import {escapeHtml as esc} from './dom';
+import '../styles/folder.css';
+export interface FolderView { indexHeader:string; index:string; indexFooter:string; reference:string; location:string; paper:string; navigation?:string; tools?:string; extra?:string; phase?:'ready'|'loading'|'error' }
+/** The filing index sits beside an open jacket; its labels are printed on the folder. */
+export function folderFrame(view:FolderView){
+ return `<section class="reader physical-folder" role="dialog" aria-modal="true" aria-label="Original file folder" data-phase="${view.phase??'ready'}"><div class="drawer-context"><button data-drawer-back aria-label="Return folder to drawer">← Return to ${esc(view.location)}</button><span>OPEN ORIGINAL / ${esc(view.reference)}</span><details class="folder-contents"><summary>Contents slip</summary><aside class="folder-sidebar"><header>${view.indexHeader}</header><div class="folder-list">${view.index}</div><footer>${view.indexFooter}</footer></aside></details></div><div class="reader-main"><div class="folder-jacket-label"><span>ORIGINAL FILE / ${esc(view.reference)}</span><small>${esc(view.location)}</small></div><button data-drawer-back class="close folder-close" aria-label="Close folder and return to drawer">×</button><div class="folder-paper-stack"><div class="paper-scroll" tabindex="0" ${view.phase==='loading'?'aria-busy="true"':''}>${view.paper}</div></div><footer class="reader-footer">${view.navigation??''}${view.tools?`<div class="reader-actions">${view.tools}</div>`:''}</footer>${view.extra??''}</div></section>`;
+}

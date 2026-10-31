@@ -1,0 +1,658 @@
+{
+  "method": "Final dirty-paper and inactive-held-object initialization correction; same medium-quality W4 camera as the paired audit",
+  "viewport": [
+    1440,
+    900
+  ],
+  "frames": 12,
+  "samples": [
+    {
+      "run": 0,
+      "name": "desk",
+      "medianMs": 279.69999999552965,
+      "p95Ms": 461.8999999985099,
+      "heldVisible": false,
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "notebook",
+      "medianMs": 61.600000001490116,
+      "p95Ms": 323.79999999701977,
+      "heldVisible": false,
+      "renderedFrames": 19,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "files",
+      "medianMs": 87.5,
+      "p95Ms": 343,
+      "heldVisible": false,
+      "renderedFrames": 24,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 0,
+      "name": "computer",
+      "medianMs": 82.10000000149012,
+      "p95Ms": 350.90000000596046,
+      "heldVisible": false,
+      "renderedFrames": 28,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "desk",
+      "medianMs": 295.5,
+      "p95Ms": 487.79999999701977,
+      "heldVisible": false,
+      "renderedFrames": 16,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "notebook",
+      "medianMs": 73.30000000447035,
+      "p95Ms": 350.19999999552965,
+      "heldVisible": false,
+      "renderedFrames": 21,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "files",
+      "medianMs": 58.5,
+      "p95Ms": 342.80000000447035,
+      "heldVisible": false,
+      "renderedFrames": 26,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 1,
+      "name": "computer",
+      "medianMs": 59.600000001490116,
+      "p95Ms": 365.6000000014901,
+      "heldVisible": false,
+      "renderedFrames": 31,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "desk",
+      "medianMs": 293.69999999552965,
+      "p95Ms": 422.3999999985099,
+      "heldVisible": false,
+      "renderedFrames": 14,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "notebook",
+      "medianMs": 73.39999999850988,
+      "p95Ms": 366.29999999701977,
+      "heldVisible": false,
+      "renderedFrames": 19,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "files",
+      "medianMs": 63.29999999701977,
+      "p95Ms": 350.3999999985099,
+      "heldVisible": false,
+      "renderedFrames": 24,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    },
+    {
+      "run": 2,
+      "name": "computer",
+      "medianMs": 59.5,
+      "p95Ms": 362.1000000014901,
+      "heldVisible": false,
+      "renderedFrames": 28,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 115,
+      "triangles": 100595,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29
+    }
+  ]
+}

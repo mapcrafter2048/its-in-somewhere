@@ -1,0 +1,671 @@
+{
+  "renderer": "Chromium / SwiftShader software rendering",
+  "quality": "medium",
+  "viewport": [
+    1440,
+    900
+  ],
+  "method": "3 runs; 5 warmup frames and 36 RAF samples per scene; unchanged scripted camera and content",
+  "samples": [
+    {
+      "run": 0,
+      "scene": "nook",
+      "loadingMs": 3930,
+      "medianMs": 153.20000000298023,
+      "p95Ms": 234.5,
+      "renderedFrames": 44,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 48210708
+    },
+    {
+      "run": 0,
+      "scene": "drawer",
+      "loadingMs": 3930,
+      "medianMs": 36.5,
+      "p95Ms": 278,
+      "renderedFrames": 61,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 50080568
+    },
+    {
+      "run": 0,
+      "scene": "board",
+      "loadingMs": 3930,
+      "medianMs": 39,
+      "p95Ms": 258.8999999985099,
+      "renderedFrames": 72,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 50995667
+    },
+    {
+      "run": 0,
+      "scene": "w2",
+      "loadingMs": 3930,
+      "medianMs": 95.79999999701977,
+      "p95Ms": 151.60000000149012,
+      "renderedFrames": 114,
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 3,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 45,
+      "triangles": 80574,
+      "geometries": 55,
+      "textures": 18,
+      "objects": 29,
+      "memory": 56305372
+    },
+    {
+      "run": 1,
+      "scene": "nook",
+      "loadingMs": 3386,
+      "medianMs": 164.5,
+      "p95Ms": 178.39999999850988,
+      "renderedFrames": 44,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 47780920
+    },
+    {
+      "run": 1,
+      "scene": "drawer",
+      "loadingMs": 3386,
+      "medianMs": 40.79999999701977,
+      "p95Ms": 260.19999999552965,
+      "renderedFrames": 54,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 49034725
+    },
+    {
+      "run": 1,
+      "scene": "board",
+      "loadingMs": 3386,
+      "medianMs": 43,
+      "p95Ms": 259.5,
+      "renderedFrames": 64,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 49863992
+    },
+    {
+      "run": 1,
+      "scene": "w2",
+      "loadingMs": 3386,
+      "medianMs": 94.20000000298023,
+      "p95Ms": 163.40000000596046,
+      "renderedFrames": 105,
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 3,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 45,
+      "triangles": 80574,
+      "geometries": 55,
+      "textures": 18,
+      "objects": 29,
+      "memory": 55475563
+    },
+    {
+      "run": 2,
+      "scene": "nook",
+      "loadingMs": 3017,
+      "medianMs": 176.90000000596046,
+      "p95Ms": 223.89999999850988,
+      "renderedFrames": 44,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 48370164
+    },
+    {
+      "run": 2,
+      "scene": "drawer",
+      "loadingMs": 3017,
+      "medianMs": 39.399999998509884,
+      "p95Ms": 259.20000000298023,
+      "renderedFrames": 54,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 49766109
+    },
+    {
+      "run": 2,
+      "scene": "board",
+      "loadingMs": 3017,
+      "medianMs": 42.599999994039536,
+      "p95Ms": 300,
+      "renderedFrames": 64,
+      "zone": "archive",
+      "wing": 3,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 1,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "idle",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 117,
+      "triangles": 96055,
+      "geometries": 49,
+      "textures": 15,
+      "objects": 29,
+      "memory": 50592680
+    },
+    {
+      "run": 2,
+      "scene": "w2",
+      "loadingMs": 3017,
+      "medianMs": 87.39999999850988,
+      "p95Ms": 127.69999999552965,
+      "renderedFrames": 105,
+      "zone": "archive",
+      "wing": 1,
+      "fanOn": false,
+      "held": null,
+      "brewing": false,
+      "dispensing": false,
+      "shredding": false,
+      "printerInput": null,
+      "sensors": 3,
+      "lightTimeout": 8,
+      "heating": false,
+      "printing": false,
+      "seated": false,
+      "tap": false,
+      "capture": "locked",
+      "doors": [
+        {
+          "side": 0,
+          "destination": 1,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 1,
+          "destination": 2,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 2,
+          "destination": 3,
+          "open": false,
+          "progress": 0
+        },
+        {
+          "side": 3,
+          "destination": 0,
+          "open": false,
+          "progress": 0
+        }
+      ],
+      "calls": 45,
+      "triangles": 80574,
+      "geometries": 55,
+      "textures": 18,
+      "objects": 29,
+      "memory": 55865907
+    }
+  ]
+}

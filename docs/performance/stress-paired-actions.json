@@ -1,0 +1,761 @@
+{
+  "method": "Three adjacent alternating runs, five warmed synchronous timings per action per run; software-rendered Chromium.",
+  "results": [
+    {
+      "run": 0,
+      "phase": "before",
+      "timings": [
+        {
+          "name": "drawer",
+          "ms": 2.2999999970197678
+        },
+        {
+          "name": "board",
+          "ms": 9.700000002980232
+        },
+        {
+          "name": "notes",
+          "ms": 7.600000001490116
+        },
+        {
+          "name": "collection",
+          "ms": 31.600000001490116
+        },
+        {
+          "name": "discoveries",
+          "ms": 4
+        },
+        {
+          "name": "long-note",
+          "ms": 19.399999998509884
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6999999955296516
+        },
+        {
+          "name": "board",
+          "ms": 3.5
+        },
+        {
+          "name": "notes",
+          "ms": 3
+        },
+        {
+          "name": "collection",
+          "ms": 14.800000004470348
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.899999998509884
+        },
+        {
+          "name": "long-note",
+          "ms": 18.299999997019768
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5
+        },
+        {
+          "name": "board",
+          "ms": 3.8000000044703484
+        },
+        {
+          "name": "notes",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "collection",
+          "ms": 14.700000002980232
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.7999999970197678
+        },
+        {
+          "name": "long-note",
+          "ms": 17.80000000447035
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5999999940395355
+        },
+        {
+          "name": "board",
+          "ms": 3.5
+        },
+        {
+          "name": "notes",
+          "ms": 2.9000000059604645
+        },
+        {
+          "name": "collection",
+          "ms": 15
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "long-note",
+          "ms": 18.200000002980232
+        },
+        {
+          "name": "drawer",
+          "ms": 0.3999999985098839
+        },
+        {
+          "name": "board",
+          "ms": 3.2999999970197678
+        },
+        {
+          "name": "notes",
+          "ms": 2.7000000029802322
+        },
+        {
+          "name": "collection",
+          "ms": 15.799999997019768
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "long-note",
+          "ms": 19.399999998509884
+        }
+      ]
+    },
+    {
+      "run": 0,
+      "phase": "after",
+      "timings": [
+        {
+          "name": "drawer",
+          "ms": 2.100000001490116
+        },
+        {
+          "name": "board",
+          "ms": 9.399999998509884
+        },
+        {
+          "name": "notes",
+          "ms": 6.200000002980232
+        },
+        {
+          "name": "collection",
+          "ms": 24.099999994039536
+        },
+        {
+          "name": "discoveries",
+          "ms": 3
+        },
+        {
+          "name": "long-note",
+          "ms": 18.80000000447035
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5999999940395355
+        },
+        {
+          "name": "board",
+          "ms": 3.8000000044703484
+        },
+        {
+          "name": "notes",
+          "ms": 2.7999999970197678
+        },
+        {
+          "name": "collection",
+          "ms": 15.399999998509884
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "long-note",
+          "ms": 19.399999998509884
+        },
+        {
+          "name": "drawer",
+          "ms": 0.7000000029802322
+        },
+        {
+          "name": "board",
+          "ms": 5.0999999940395355
+        },
+        {
+          "name": "notes",
+          "ms": 3
+        },
+        {
+          "name": "collection",
+          "ms": 15.5
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.9000000059604645
+        },
+        {
+          "name": "long-note",
+          "ms": 18.5
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5999999940395355
+        },
+        {
+          "name": "board",
+          "ms": 3.8000000044703484
+        },
+        {
+          "name": "notes",
+          "ms": 2.7999999970197678
+        },
+        {
+          "name": "collection",
+          "ms": 15.5
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.899999998509884
+        },
+        {
+          "name": "long-note",
+          "ms": 19.5
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5
+        },
+        {
+          "name": "board",
+          "ms": 3.600000001490116
+        },
+        {
+          "name": "notes",
+          "ms": 2.600000001490116
+        },
+        {
+          "name": "collection",
+          "ms": 15.100000001490116
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "long-note",
+          "ms": 18.700000002980232
+        }
+      ]
+    },
+    {
+      "run": 1,
+      "phase": "after",
+      "timings": [
+        {
+          "name": "drawer",
+          "ms": 0.9000000059604645
+        },
+        {
+          "name": "board",
+          "ms": 3.6999999955296516
+        },
+        {
+          "name": "notes",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "collection",
+          "ms": 15.399999998509884
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "long-note",
+          "ms": 18.200000002980232
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6000000014901161
+        },
+        {
+          "name": "board",
+          "ms": 3.6999999955296516
+        },
+        {
+          "name": "notes",
+          "ms": 2.9000000059604645
+        },
+        {
+          "name": "collection",
+          "ms": 15.099999994039536
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.9000000059604645
+        },
+        {
+          "name": "long-note",
+          "ms": 18.69999999552965
+        },
+        {
+          "name": "drawer",
+          "ms": 0.7000000029802322
+        },
+        {
+          "name": "board",
+          "ms": 3.899999998509884
+        },
+        {
+          "name": "notes",
+          "ms": 2.899999998509884
+        },
+        {
+          "name": "collection",
+          "ms": 15.200000002980232
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "long-note",
+          "ms": 18.900000005960464
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5999999940395355
+        },
+        {
+          "name": "board",
+          "ms": 3.600000001490116
+        },
+        {
+          "name": "notes",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "collection",
+          "ms": 16
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "long-note",
+          "ms": 19.80000000447035
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5999999940395355
+        },
+        {
+          "name": "board",
+          "ms": 3.600000001490116
+        },
+        {
+          "name": "notes",
+          "ms": 3
+        },
+        {
+          "name": "collection",
+          "ms": 15.399999998509884
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.600000001490116
+        },
+        {
+          "name": "long-note",
+          "ms": 19
+        }
+      ]
+    },
+    {
+      "run": 1,
+      "phase": "before",
+      "timings": [
+        {
+          "name": "drawer",
+          "ms": 0.7000000029802322
+        },
+        {
+          "name": "board",
+          "ms": 3.7999999970197678
+        },
+        {
+          "name": "notes",
+          "ms": 2.7000000029802322
+        },
+        {
+          "name": "collection",
+          "ms": 14.899999998509884
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "long-note",
+          "ms": 19.30000000447035
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6999999955296516
+        },
+        {
+          "name": "board",
+          "ms": 4
+        },
+        {
+          "name": "notes",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "collection",
+          "ms": 15.299999997019768
+        },
+        {
+          "name": "discoveries",
+          "ms": 3
+        },
+        {
+          "name": "long-note",
+          "ms": 19.200000002980232
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6999999955296516
+        },
+        {
+          "name": "board",
+          "ms": 4.200000002980232
+        },
+        {
+          "name": "notes",
+          "ms": 3.2000000029802322
+        },
+        {
+          "name": "collection",
+          "ms": 16.099999994039536
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.9000000059604645
+        },
+        {
+          "name": "long-note",
+          "ms": 19.599999994039536
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6000000014901161
+        },
+        {
+          "name": "board",
+          "ms": 4.300000004470348
+        },
+        {
+          "name": "notes",
+          "ms": 3.399999998509884
+        },
+        {
+          "name": "collection",
+          "ms": 17.299999997019768
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.899999998509884
+        },
+        {
+          "name": "long-note",
+          "ms": 19.900000005960464
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6999999955296516
+        },
+        {
+          "name": "board",
+          "ms": 3.600000001490116
+        },
+        {
+          "name": "notes",
+          "ms": 2.7999999970197678
+        },
+        {
+          "name": "collection",
+          "ms": 16.200000002980232
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.899999998509884
+        },
+        {
+          "name": "long-note",
+          "ms": 19.399999998509884
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "phase": "before",
+      "timings": [
+        {
+          "name": "drawer",
+          "ms": 0.8999999985098839
+        },
+        {
+          "name": "board",
+          "ms": 3.600000001490116
+        },
+        {
+          "name": "notes",
+          "ms": 2.7999999970197678
+        },
+        {
+          "name": "collection",
+          "ms": 15
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.7999999970197678
+        },
+        {
+          "name": "long-note",
+          "ms": 18.5
+        },
+        {
+          "name": "drawer",
+          "ms": 0.7000000029802322
+        },
+        {
+          "name": "board",
+          "ms": 3.7999999970197678
+        },
+        {
+          "name": "notes",
+          "ms": 3
+        },
+        {
+          "name": "collection",
+          "ms": 15.399999998509884
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "long-note",
+          "ms": 18.19999999552965
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6000000014901161
+        },
+        {
+          "name": "board",
+          "ms": 3.7000000029802322
+        },
+        {
+          "name": "notes",
+          "ms": 2.7999999970197678
+        },
+        {
+          "name": "collection",
+          "ms": 14.600000001490116
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.600000001490116
+        },
+        {
+          "name": "long-note",
+          "ms": 18.100000001490116
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5999999940395355
+        },
+        {
+          "name": "board",
+          "ms": 3.600000001490116
+        },
+        {
+          "name": "notes",
+          "ms": 2.7000000029802322
+        },
+        {
+          "name": "collection",
+          "ms": 15.299999997019768
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.600000001490116
+        },
+        {
+          "name": "long-note",
+          "ms": 18.100000001490116
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6999999955296516
+        },
+        {
+          "name": "board",
+          "ms": 3.5
+        },
+        {
+          "name": "notes",
+          "ms": 2.899999998509884
+        },
+        {
+          "name": "collection",
+          "ms": 14.700000002980232
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.7000000029802322
+        },
+        {
+          "name": "long-note",
+          "ms": 17.899999998509884
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "phase": "after",
+      "timings": [
+        {
+          "name": "drawer",
+          "ms": 2.1999999955296516
+        },
+        {
+          "name": "board",
+          "ms": 9.900000005960464
+        },
+        {
+          "name": "notes",
+          "ms": 7.5
+        },
+        {
+          "name": "collection",
+          "ms": 34.29999999701977
+        },
+        {
+          "name": "discoveries",
+          "ms": 9.299999997019768
+        },
+        {
+          "name": "long-note",
+          "ms": 41.5
+        },
+        {
+          "name": "drawer",
+          "ms": 1
+        },
+        {
+          "name": "board",
+          "ms": 5.100000001490116
+        },
+        {
+          "name": "notes",
+          "ms": 3.7000000029802322
+        },
+        {
+          "name": "collection",
+          "ms": 16.100000001490116
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.899999998509884
+        },
+        {
+          "name": "long-note",
+          "ms": 18.19999999552965
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6000000014901161
+        },
+        {
+          "name": "board",
+          "ms": 3.8000000044703484
+        },
+        {
+          "name": "notes",
+          "ms": 2.5999999940395355
+        },
+        {
+          "name": "collection",
+          "ms": 15.600000001490116
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "long-note",
+          "ms": 18.399999998509884
+        },
+        {
+          "name": "drawer",
+          "ms": 0.6000000014901161
+        },
+        {
+          "name": "board",
+          "ms": 3.5999999940395355
+        },
+        {
+          "name": "notes",
+          "ms": 2.8000000044703484
+        },
+        {
+          "name": "collection",
+          "ms": 14.899999998509884
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.600000001490116
+        },
+        {
+          "name": "long-note",
+          "ms": 17.600000001490116
+        },
+        {
+          "name": "drawer",
+          "ms": 0.5
+        },
+        {
+          "name": "board",
+          "ms": 3.399999998509884
+        },
+        {
+          "name": "notes",
+          "ms": 2.600000001490116
+        },
+        {
+          "name": "collection",
+          "ms": 15.5
+        },
+        {
+          "name": "discoveries",
+          "ms": 2.6999999955296516
+        },
+        {
+          "name": "long-note",
+          "ms": 18
+        }
+      ]
+    }
+  ]
+}

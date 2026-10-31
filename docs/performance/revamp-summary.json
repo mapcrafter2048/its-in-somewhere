@@ -1,0 +1,302 @@
+{
+  "method": "Adjacent before/after views; order reversed on run 2; fresh page per view; one browser at a time",
+  "rows": [
+    {
+      "name": "desk",
+      "beforeMedianMs": 289.6000000014901,
+      "afterMedianMs": 289.3999999985099,
+      "beforeP95Ms": 346.5,
+      "afterP95Ms": 496.6000000014901,
+      "pairedMedianChangePct": -0.47879617165934585,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": 3.1729055253154614,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": -0.47879617165934585,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": -2.796961326467007,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "aisle",
+      "beforeMedianMs": 951,
+      "afterMedianMs": 942.8999999985099,
+      "beforeP95Ms": 1012.7000000029802,
+      "afterP95Ms": 977.2999999970198,
+      "pairedMedianChangePct": -0.8517350159295556,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": -1.42482975317334,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": 0.3611258628263281,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": -0.8517350159295556,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "beforeMedianMs": 720,
+      "afterMedianMs": 721.4000000059605,
+      "beforeP95Ms": 807.7000000029802,
+      "afterP95Ms": 770.7000000029802,
+      "pairedMedianChangePct": 0.7218212108538236,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": 0.7218212108538236,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": 0.7964230837594455,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": 0.027777777156900996,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "travel-W1",
+      "beforeMedianMs": 944.3999999985099,
+      "afterMedianMs": 943.3999999985099,
+      "beforeP95Ms": 990.8999999985099,
+      "afterP95Ms": 992.2000000029802,
+      "pairedMedianChangePct": -0.10588733587479915,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": 0.47139490020535746,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": -0.34791776536323704,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": -0.10588733587479915,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "travel-W2",
+      "beforeMedianMs": 941.8999999985099,
+      "afterMedianMs": 941.3000000044703,
+      "beforeP95Ms": 1006.8999999985099,
+      "afterP95Ms": 1006.1999999955297,
+      "pairedMedianChangePct": 0.8366405652184605,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": 0.8366405652184605,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": 3.597872562316562,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": -0.06370102920060239,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "travel-W3",
+      "beforeMedianMs": 969.6999999955297,
+      "afterMedianMs": 971.8999999985099,
+      "beforeP95Ms": 1055.1000000014901,
+      "afterP95Ms": 1036.5,
+      "pairedMedianChangePct": 0.22687429132621784,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": -0.6487488412120435,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": 0.22687429132621784,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": 0.52658750583785,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "travel-W4",
+      "beforeMedianMs": 1405.1999999955297,
+      "afterMedianMs": 1430.5999999940395,
+      "beforeP95Ms": 3117.89999999851,
+      "afterP95Ms": 2931.89999999851,
+      "pairedMedianChangePct": 1.80757187578926,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": 3.1445645989565563,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": 0.3354986077171551,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": 1.80757187578926,
+          "budgetUnchanged": true,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "notebook",
+      "beforeMedianMs": 293.1000000014901,
+      "afterMedianMs": 62.099999994039536,
+      "beforeP95Ms": 314,
+      "afterP95Ms": 328.1000000014901,
+      "pairedMedianChangePct": -78.33217027378541,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": -68.85022176594808,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": -78.33217027378541,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": -79.51203208676164,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "files",
+      "beforeMedianMs": 297.3999999985099,
+      "afterMedianMs": 67.10000000149012,
+      "beforeP95Ms": 358.5,
+      "afterP95Ms": 349.79999999701977,
+      "pairedMedianChangePct": -77.43779421592927,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": -79.83108108259134,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": -76.0993622034623,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": -77.43779421592927,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        }
+      ]
+    },
+    {
+      "name": "computer",
+      "beforeMedianMs": 293.70000000298023,
+      "afterMedianMs": 79.79999999701977,
+      "beforeP95Ms": 390.70000000298023,
+      "afterP95Ms": 327.80000000447035,
+      "pairedMedianChangePct": -72.82941777452842,
+      "pairs": [
+        {
+          "run": 0,
+          "changePct": -74.5873452553735,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 1,
+          "changePct": -72.82941777452842,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        },
+        {
+          "run": 2,
+          "changePct": -67.79212181511424,
+          "budgetUnchanged": false,
+          "rendererMatches": true
+        }
+      ]
+    }
+  ],
+  "normalScenesWithinTenPercent": true,
+  "renderBudgetsUnchanged": false,
+  "rendererMatches": true,
+  "longDeskAudit": {
+    "framesPerView": 60,
+    "beforeMedianMs": 283.20000000298023,
+    "afterMedianMs": 275.69999999552965,
+    "beforeP95Ms": 320.09999999403954,
+    "afterP95Ms": 314.69999999552965,
+    "p95PairedChangesPct": [
+      -1.6869728205593404,
+      -4.111321948192215,
+      -3.0693677079929094
+    ],
+    "withinTenPercent": true
+  },
+  "finalPausedRenderBudgetsMatch": true
+}

@@ -1,0 +1,11 @@
+import {test,expect} from '@playwright/test';
+test('F9 shows live FPS on the user device and remains usable while a notebook field has focus',async({page})=>{
+ await page.goto('/?test=1');await expect(page.locator('#start')).toBeVisible();await page.evaluate(()=>{const g=(window as any).__GAME__;g.save.started=true;g.save.settings.quality='low';g.world.setSettings(g.save.settings);g.resume();});
+ const meter=page.locator('#performance-meter');await expect(meter).toBeHidden();await page.keyboard.press('F9');await expect(meter).toBeVisible();await expect(meter).toContainText('FPS',{timeout:15000});await expect(meter).toContainText('95% frame');
+ await page.evaluate(()=>(window as any).__GAME__.showNotebook('notes'));await page.locator('#note-text').focus();await page.keyboard.press('F9');await expect(meter).toBeHidden();await page.keyboard.press('F9');await expect(meter).toBeVisible();await expect(meter).toContainText('3D',{timeout:15000});await page.keyboard.press('F9');await expect(meter).toBeHidden();
+});
+test('distant cabinet handles use simpler geometry while nearby handles and drawer movement stay detailed',async({page})=>{
+ await page.goto('/?test=1');await expect(page.locator('#start')).toBeVisible();
+ const outcome=await page.evaluate(()=>{const g=(window as any).__GAME__,w=g.world;g.save.started=true;g.save.settings.quality='medium';w.setSettings(g.save.settings);g.save.wing=0;g.save.position=[-22,1.7,-8];g.save.rotation=[0,0];w.restore(g.save);g.resume();w.paperDirty=true;w.updatePaperDetail();const batches=w.bankBatches.filter((b:any)=>b.wing===0),near=batches.find((b:any)=>b.handles.visible),far=batches.find((b:any)=>b.farHandles.visible);if(!near||!far)throw new Error('Missing near or distant cabinet batches');const a=near.handles.geometry.index.count/3,b=far.farHandles.geometry.index.count/3;w.openDrawer(far.units[0],0);w.updateDrawer(1,false);const entry=w.bankIndex.get(far.units[0]);const detailed=far.handles.instanceMatrix.array.slice(entry.start*16,entry.start*16+16),simple=far.farHandles.instanceMatrix.array.slice(entry.start*16,entry.start*16+16);return {near:a,far:b,matched:Array.from(detailed).every((v,i)=>v===simple[i])};});
+ expect(outcome.near).toBeGreaterThan(outcome.far);expect(outcome.matched).toBe(true);
+});

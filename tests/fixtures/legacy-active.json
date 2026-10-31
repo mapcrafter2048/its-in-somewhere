@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "seed": 7391,
+  "target": 1052,
+  "started": true,
+  "completed": false,
+  "position": [
+    5,
+    1.7,
+    2
+  ],
+  "rotation": [
+    0,
+    0
+  ],
+  "inspected": [
+    224,
+    225,
+    226,
+    227,
+    228,
+    229,
+    230,
+    231,
+    1052,
+    769,
+    57
+  ],
+  "searched": [
+    224,
+    225
+  ],
+  "bookmarks": [
+    224,
+    1052
+  ],
+  "clues": [
+    769,
+    57
+  ],
+  "claimedStories": [],
+  "claimedMilestones": [
+    8
+  ],
+  "credits": 173,
+  "upgrades": [
+    "drawers",
+    "bookmarks"
+  ],
+  "hintLevel": 0,
+  "selectedFile": 1052,
+  "selectedPhrase": "the discrepancy was considered an acceptable loss",
+  "messages": [],
+  "settings": {
+    "sensitivity": 1,
+    "volume": 0.3,
+    "textSize": 18,
+    "quality": "medium",
+    "reducedMotion": false
+  },
+  "playSeconds": 1820
+}

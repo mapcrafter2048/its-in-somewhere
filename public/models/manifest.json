@@ -1,0 +1,56 @@
+{
+  "author": "Kenney",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "assets": [
+    {
+      "file": "chairDesk.glb",
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "license": "CC0-1.0",
+      "sha256": "46406619186034cbe92b19b79a5f1a8e3f442a17a70a7524ef2c0ad0f35095c6"
+    },
+    {
+      "file": "chairRounded.glb",
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "license": "CC0-1.0",
+      "sha256": "53f4933ec547179c499f04dbda1231cf44b83ec82c7f4ab981cdf680aee5c973"
+    },
+    {
+      "file": "loungeSofa.glb",
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "license": "CC0-1.0",
+      "sha256": "1886b811c0d3ad0d8525a4fd43adf4112c497c8e0ed906f06877ca3517f4c7dd"
+    },
+    {
+      "file": "pottedPlant.glb",
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "license": "CC0-1.0",
+      "sha256": "5b760eda2766f75fda36b2c5df652a1662f82981ef64cd8fa7fe7bcd386b3a15"
+    },
+    {
+      "file": "styrofoam-dinner.glb",
+      "source": "https://kenney.nl/assets/food-kit",
+      "license": "CC0-1.0",
+      "sha256": "8aea06883ec0075b9220e35aab1d9a2faf9364f87fee3493609697371685a182"
+    },
+    {
+      "file": "styrofoam.glb",
+      "source": "https://kenney.nl/assets/food-kit",
+      "license": "CC0-1.0",
+      "sha256": "c200d274835a9fdeef0aaa39224199b7abbcb374fb87e3cd41605153d5c1c474"
+    },
+    {
+      "file": "cup.glb",
+      "source": "https://kenney.nl/assets/food-kit",
+      "license": "CC0-1.0",
+      "sha256": "f9d6786fe9836f16ebb10cc1cb5a8ea8d512c7ae6cfa22394af653e5a5b05f09"
+    }
+  ],
+  "resources": [
+    {
+      "file": "Textures/colormap.png",
+      "source": "https://kenney.nl/assets/food-kit",
+      "license": "CC0-1.0",
+      "sha256": "75baf74d9483a0fc56ac21ceba346fbe16fc24a2a1bf0524c53e6bbe802e1153"
+    }
+  ]
+}
