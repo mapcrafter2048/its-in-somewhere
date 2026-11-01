@@ -1,6 +1,12 @@
 # It’s In Here Somewhere
 
-A first-person archive comedy built with Three.js, TypeScript, and Vite. Martin wants one sentence before lunch. There are now **152,616 files**, four connected wings, inconveniently good recordkeeping, and people with reasons to prefer the edited version.
+A first-person archive comedy built with Three.js, TypeScript, and Next.js. Martin wants one sentence before lunch. There are now **152,616 files**, four connected wings, inconveniently good recordkeeping, and people with reasons to prefer the edited version.
+
+## Archive variety and optional discoveries
+
+New shifts add twelve physical record families with 48 authored ordinary variants: fax sheets, carbon copies, access logs, deliveries, receipts, charts, plans, contracts, annotations, damaged transcripts, newsletters and original/revised reports. Three optional threads connect 18 physical records with new digital files and password clues. The CRT’s **Catalogue** searches selected pre-existing batch descriptions; reading paper never digitizes it. Correct evidence sent through mail can produce a saved office notice or farewell message.
+
+Martin’s sentence remains the only main requirement. Existing shifts keep their original records; start a new shift for the expanded collection, using **Export backup and start new shift** to retain a return copy. [Expansion guide](docs/RECORDS-EXPANSION.md) explains the catalogue, correspondence, accessibility and compatibility.
 
 ## Play
 
@@ -18,13 +24,13 @@ npm run build
 npm run preview
 ```
 
-The build is in `dist/`. Serve it over HTTP, including its `content/` and `models/` directories. The normal preview address is **http://localhost:4173**. All reference texts, geometry, sound and dependencies are bundled locally; the game calls no external AI or content service. Reference packs load on demand from the same host as the game. No API key is needed.
+The build is in `.next/`; run it with `npm run start` (or `npm run preview`). Next.js serves the bundled game and the assets in `public/`. The normal preview address is **http://localhost:3000**. All reference texts, geometry, sound and dependencies are bundled locally; the game calls no external AI or content service. Reference packs load on demand from the same host as the game. No API key is needed.
 
 Saves belong to a browser profile and origin. **Use the same address/port you used before to resume your existing shift**, or export/import a backup when moving between addresses.
 
 ## Deployment
 
-The repository is prepared for Vercel: import `mapcrafter2048/its-in-somewhere`, use the repository root and `main`, and retain the checked-in Vite build settings. No environment variables are required. [Deployment instructions](docs/DEPLOYMENT.md) cover validation, caching and transferring browser saves. Deployment preparation does not publish a live site.
+The repository is prepared for Vercel: use the existing `mapcrafter2048/its-in-somewhere` project, the repository root, and the checked-in Next.js build settings. Verify a preview deployment before releasing to `main`. No environment variables are required. [Deployment instructions](docs/DEPLOYMENT.md) cover validation, caching and transferring browser saves. Deployment preparation does not publish a live site.
 
 ## Make the desk yours
 
@@ -44,7 +50,7 @@ Press **N** to open one cloth-bound notebook: Notes, Discoveries, Collection and
 - **Two new upgrades:** the comparison stand (40 credits) and coloured cabinet tabs (28 credits).
 - **Save migration:** existing targets, inspected file text, original story placements, money, equipment, bookmarks, search markings and submission state carry forward. Original saves are backed up before conversion, and existing backups remain intact.
 
-The archive intentionally reuses its source excerpts, office procedures and social situations at a distance. It does **not** contain 152,616 individually authored unique texts. At the default seed, the audit counts approximately 25.84 million displayed words across the full archive, drawn from a much smaller reusable corpus. Local body/fragment repetitions are separated by at least 634 file positions in the tested seeds. The 3–5 hour playthrough remains a design target requiring human playtesting.
+The archive intentionally reuses its source excerpts, office procedures and social situations at a distance. It does **not** contain 152,616 individually authored unique texts. For the released record pack at the default seed, the audit counts approximately 25.84 million displayed words across the full archive, drawn from a much smaller reusable corpus. Expanded shifts mix shorter new forms into that archive. Local body/fragment repetitions are separated by at least 634 file positions in the released pack and 192 in the expanded pack for the tested seeds. The 3–5 hour playthrough remains a design target requiring human playtesting.
 
 ## Interfaces with a physical identity
 

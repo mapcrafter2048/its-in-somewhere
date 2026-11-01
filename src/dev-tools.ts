@@ -1,0 +1,11 @@
+import * as archive from './archive';
+import * as hubLayout from './hub-layout';
+import * as storage from './storage';
+import * as propModels from './prop-models';
+import * as appliances from './appliances';
+import * as footsteps from './footsteps';
+import * as officeLife from './desk/office-life-world';
+import * as paper from './desk/paper';
+import * as state from './state';
+import * as generator from './content/generator';
+export const modules = { archive, hubLayout, storage, propModels, appliances, footsteps, officeLife, paper, state, generator };

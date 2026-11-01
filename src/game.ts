@@ -1,3 +1,5 @@
+import { recordParagraphs } from './ui/record-format';
+import { THREADS } from './content/packs/records';
 import {StationeryScreens} from './desk/stationery-ui';
 import {STATIONERY_BACKUP_KEY,TOOL_NAMES,DRINKS,finishVending,drinkCan,recycleCan} from './desk/stationery';
 import {officeTime} from './shift-clock';
@@ -34,6 +36,7 @@ import { openComparison } from './comparison';
 import { UPGRADES, buy, readPage, freshSave, inspect, loadSave, persist, validateSave, collectVoucher, pendingVoucherValue, redeemVouchers, setMarker, backupExpansion, backupLegacy, backupEnvironment, backupInventory, ProgressIndex } from './state';
 import { DEPARTMENTS, MONTHS, PHRASE, WINGS, COLUMNS, ROWS, TOTAL, FIRST_ROW_Z, fileId, location, reference } from './archive';
 import type { Save, UpgradeId, CabinetMarker, ArchiveDocument } from './types';
+export async function mountGame() {
 const $ = <T extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
 const icon = (s: string) => `<span aria-hidden="true">${s}</span>`;
 const app = $('#app');
@@ -86,7 +89,7 @@ try {
 catch {
     loaded = { save: freshSave(), error: 'Browser storage is unavailable. Use exported backups to retain progress.' };
 }
-let save = loaded.save, archive = createArchive(save.seed, save.legacy, save.earlyVouchers, save.placementVersion), mode = 'title', pageIndex = 0, sheetIndex = 0, currentId: number | null = null, highlight = '', revealed = new Set<string>(), cellComment = '';
+let save = loaded.save, archive = createArchive(save.seed, save.legacy, save.earlyVouchers, save.placementVersion, save.recordPack), mode = 'title', pageIndex = 0, sheetIndex = 0, currentId: number | null = null, highlight = '', revealed = new Set<string>(), cellComment = '';
 let switchTimer: ReturnType<typeof setTimeout> | undefined, saveTimer = 0, ambientTimer = 0, storageBlocked = !!loaded.error;
 addEventListener('blur', () => audio.setSceneState(false, false));
 const shiftSession = new ShiftSession();
@@ -192,6 +195,8 @@ function updateHUD() {
     if (save.completed)
         $('#assignment .assignment-foot').textContent = 'Phrase found. The archive is still yours.';
 }
+const toolHelpShown=new Set<string>();
+const toolHelp:Record<string,string>={inventory:'Retain carries an original. F reads it; G places it in aimed storage. Originals and printed copies share your bag.',notebook:'Write notes, sketch or clip a passage from an open record. The pinboard at your desk connects your notes; discoveries stay optional.',map:'Select a filing location for its reference. R marks rear drawers; WC wall cabinets; BX file boxes. Map selection never moves you.',supplies:'Equipment is optional. Collect vouchers in files and redeem them at your W4 desk.',computer:'The computer holds existing digital files, mail and a partial batch catalogue. Reading paper does not digitize it.'};
 function show(next: string, html: string) {
     if (!['reader','reader-loading','reader-error'].includes(next)) readerRequest++;
     accrueShift();
@@ -217,8 +222,9 @@ function show(next: string, html: string) {
     $('#overlay').querySelector<HTMLElement>('.panel')?.setAttribute('data-screen', next);
     decorateInterface($('#overlay'), next);
     document.querySelectorAll<HTMLButtonElement>('[data-drawer-back]').forEach(b=>b.onclick=()=>readerContainer?openStorage(readerContainer):resume());
-    requestAnimationFrame(() => $('#overlay').querySelector<HTMLElement>('button:not([disabled]),input,[tabindex="0"]')?.focus());
+    requestAnimationFrame(() => {const overlay=$('#overlay');if(!overlay.contains(document.activeElement))overlay.querySelector<HTMLElement>('button:not([disabled]),input,[tabindex="0"]')?.focus();});
     updateHUD();
+    if(toolHelp[next]&&!toolHelpShown.has(next)){toolHelpShown.add(next);notify(toolHelp[next],false);}
 }
 function resume() {
     accrueShift();
@@ -321,7 +327,7 @@ function renderReader() {
     const hasSheets = !!doc.sheets?.length;
     let body = '';
     if (pageIndex < doc.pages.length) {
-        body = `<div id="page-text" class="document-text">${doc.pages[pageIndex].split('\n\n').map(p => `<p>${mark(esc(p))}</p>`).join('')}</div>`;
+        body = `<div id="page-text" class="document-text">${recordParagraphs(doc,doc.pages[pageIndex],mark)}</div>`;
     }
     else if (hasSheets) {
         const s = doc.sheets![sheetIndex];
@@ -329,7 +335,7 @@ function renderReader() {
         body = `<div class="sheet-tabs">${doc.sheets!.map((s, i) => `<button data-sheet="${i}" class="${i === sheetIndex ? 'selected' : ''}">${esc(s.name)}</button>`).join('')}</div><div class="sheet-tools"><span>${esc(s.name)} / ${s.rows.length} rows</span>${s.hiddenRows?.length ? `<button id="reveal-rows">${isRevealed ? 'Hide restored rows' : 'Reveal hidden rows'} ${icon('↕')}</button>` : '<span>Inspect cells for comments</span>'}</div><div class="table-scroll"><table class="sheet"><thead><tr><th scope="col">#</th>${s.columns.map(c => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${s.rows.map((row, ri) => !isRevealed && s.hiddenRows?.includes(ri) ? `<tr><td colspan="${s.columns.length + 1}" class="hidden-row">··· hidden row ···</td></tr>` : `<tr class="${s.hiddenRows?.includes(ri) ? 'restored' : ''}"><th scope="row">${ri + 1}</th>${row.map((c, ci) => `<td><button data-cell="${ri},${ci}" class="cell ${c.comment ? 'has-comment' : ''}" title="${c.comment ? 'Has a comment. Click to inspect.' : 'Inspect cell'}">${mark(esc(c.value))}</button></td>`).join('')}</tr>`).join('')}</tbody></table></div><div id="cell-comment" class="cell-comment" role="status">${esc(cellComment || 'Click a cell to inspect its contents. A folded corner indicates a retained comment.')}</div>`;
     }
     const max = doc.pages.length + (hasSheets ? 1 : 0);
-    show('reader', folderFrame({ ...readerIndex(doc), reference: reference(doc.id), paper: `<article class="document-paper ${documentClass(doc)}">${documentLetterhead(doc)}<div class="doc-header"><span>RECORDS & RETENTION</span><span>${esc(doc.kind.toUpperCase())}</span></div><div class="doc-meta"><span>FILED ${esc(doc.date)}</span><span>${esc(doc.author)}</span></div><h2>${esc(doc.title)}</h2><p class="doc-subject">${esc(doc.subject)}</p>${body}${doc.source ? `<div class="source-credit"><span>REFERENCE EXTRACT · ${esc(doc.source.title)}</span><button data-tool="sources" class="text-button">Source & reuse credits ↗</button></div>` : ''}${doc.voucher ? `<aside class="voucher"><span class="eyebrow">SUPPLY ALLOWANCE / ${doc.voucher.value} CREDITS</span><p>${esc(doc.voucher.note)}</p><button id="collect-voucher" ${save.collectedVouchers.includes(doc.id) ? 'disabled' : ''}>${save.collectedVouchers.includes(doc.id) ? 'Voucher collected' : 'Collect voucher ↗'}</button></aside>` : ''}${doc.annotation ? `<aside class="annotation">${esc(doc.annotation)}</aside>` : ''}${doc.story ? `<div class="evidence-status">${save.clues.includes(doc.id) ? '✓ Evidence retained in your notebook' : hasSheets ? 'Inspect the workbook for evidence.' : 'Correspondence retained.'}</div>` : ''}${documentColophon(doc)}</article>`, navigation: `<div class="page-navigation"><button id="prev-page" ${pageIndex === 0 ? 'disabled' : ''} aria-label="Previous page">←</button><span>${pageIndex >= doc.pages.length ? 'WORKBOOK' : `PAGE ${pageIndex + 1}`} / ${max}</span><button id="next-page" ${pageIndex >= max - 1 ? 'disabled' : ''} aria-label="Next page">→</button></div>`, tools: `<button id="bookmark" title="Carry this original" ${!readerContainer || ['inventory','held'].includes(currentContainer(physical,doc.id)) ? 'disabled' : ''}>${['inventory','held'].includes(currentContainer(physical,doc.id)) ? '★ Retained · inventory' : '☆ Retain original'}</button><button id="mark-searched" class="${save.searched.includes(doc.id) ? 'is-checked' : ''}">${save.searched.includes(doc.id) ? '✓ Searched' : 'Mark searched'}</button><button id="take-file" class="primary" ${!readerContainer || !!physical.held || currentContainer(physical, doc.id) !== readerContainer ? 'disabled' : ''}>Pick up original ↗</button>`, extra: `${save.upgrades.includes('highlighter') ? `<form id="highlight-form" class="highlight-bar"><label for="keyword">Keyword lens</label><input id="keyword" maxlength="32" placeholder="One word on this page" value="${esc(highlight)}"><button>Highlight</button></form>` : ''}` }));
+    show('reader', folderFrame({ ...readerIndex(doc), reference: reference(doc.id), paper: `<article class="document-paper ${documentClass(doc)}">${documentLetterhead(doc)}<div class="doc-header"><span>RECORDS & RETENTION</span><span>${esc((doc.presentation?.family??doc.kind).toUpperCase())}</span></div><div class="doc-meta"><span>FILED ${esc(doc.date)}</span><span>${esc(doc.author)}</span></div><h2>${esc(doc.title)}</h2><p class="doc-subject">${esc(doc.subject)}</p>${body}${doc.source ? `<div class="source-credit"><span>REFERENCE EXTRACT · ${esc(doc.source.title)}</span><button data-tool="sources" class="text-button">Source & reuse credits ↗</button></div>` : ''}${doc.voucher ? `<aside class="voucher"><span class="eyebrow">SUPPLY ALLOWANCE / ${doc.voucher.value} CREDITS</span><p>${esc(doc.voucher.note)}</p><button id="collect-voucher" ${save.collectedVouchers.includes(doc.id) ? 'disabled' : ''}>${save.collectedVouchers.includes(doc.id) ? 'Voucher collected' : 'Collect voucher ↗'}</button></aside>` : ''}${doc.annotation ? `<aside class="annotation">${esc(doc.annotation)}</aside>` : ''}${doc.story||doc.thread ? `<div class="evidence-status">${save.clues.includes(doc.id) ? '✓ Evidence retained in your notebook' : hasSheets ? 'Inspect the workbook for evidence.' : 'Correspondence retained.'}</div>` : ''}${documentColophon(doc)}</article>`, navigation: `<div class="page-navigation"><button id="prev-page" ${pageIndex === 0 ? 'disabled' : ''} aria-label="Previous page">←</button><span>${pageIndex >= doc.pages.length ? 'WORKBOOK' : `PAGE ${pageIndex + 1}`} / ${max}</span><button id="next-page" ${pageIndex >= max - 1 ? 'disabled' : ''} aria-label="Next page">→</button></div>`, tools: `<button id="bookmark" title="Carry this original" ${!readerContainer || ['inventory','held'].includes(currentContainer(physical,doc.id)) ? 'disabled' : ''}>${['inventory','held'].includes(currentContainer(physical,doc.id)) ? '★ Retained · inventory' : '☆ Retain original'}</button><button id="mark-searched" class="${save.searched.includes(doc.id) ? 'is-checked' : ''}">${save.searched.includes(doc.id) ? '✓ Searched' : 'Mark searched'}</button><button id="take-file" class="primary" ${!readerContainer || !!physical.held || currentContainer(physical, doc.id) !== readerContainer ? 'disabled' : ''}>Pick up original ↗</button>`, extra: `${save.upgrades.includes('highlighter') ? `<form id="highlight-form" class="highlight-bar"><label for="keyword">Keyword lens</label><input id="keyword" maxlength="32" placeholder="One word on this page" value="${esc(highlight)}"><button>Highlight</button></form>` : ''}` }));
     $('.reader-actions').insertAdjacentHTML('afterbegin', '<button id="clip-page">Clip to notebook</button><button id="apply-file-stamp">Stamp file</button>');
     const stamp = deskFor(save).fileStamps[String(doc.id)];
     if (stamp)
@@ -887,7 +893,14 @@ function discoveryEntries(): NotebookEntry[] {
         }
         if (save.claimedStories.includes(story.id)) entries.push({ id: `ending-${story.id}`, title: `${story.title} / conclusion`, className:'scrapbook-conclusion', text: story.ending });
     }
-    if (!retained.length) entries.push({ id: 'no-discoveries', title: 'Nothing unusual. Yet.', text: 'Read the files. Inspect spreadsheet comments and hidden rows. The office has excellent recordkeeping and questionable judgement.' });
+    for(const thread of THREADS){
+        const ids=archive.threadLocations?.get(thread.id)??[],found=ids.filter(id=>save.clues.includes(id));
+        if(!found.length)continue;
+        entries.push({id:`thread-${thread.id}`,title:thread.title,text:`Optional correspondence · ${found.length} / 6 records retained. Ask about these accounts at the desk computer.`,className:'scrapbook-case'});
+        for(const id of found){const d=archive.get(id);entries.push({id:`evidence-${id}`,title:reference(id),text:d.evidence??'',className:'book-evidence scrapbook-clipping',html:`<div class="book-actions"><button data-retained="${id}">Read retained copy ↗</button></div><p>Enclosure: ${esc(reference(d.next!))}</p>`});}
+        if(save.deskLife?.resolved.includes(thread.id))entries.push({id:`outcome-${thread.id}`,title:'Correspondence received',text:thread.notice,className:'scrapbook-conclusion'});
+    }
+    if (!retained.length&&!THREADS.some(t=>archive.threadLocations?.get(t.id)?.some(id=>save.clues.includes(id)))) entries.push({ id: 'no-discoveries', title: 'Nothing unusual. Yet.', text: 'Read the files. Inspect spreadsheet comments and hidden rows. The office has excellent recordkeeping and questionable judgement.' });
     entries.push({ id: 'discovery-tools', title: 'Keep investigating', html: '<div class="book-actions"><button data-tool="comparison">Compare documents</button><button data-tool="inventory">Carried files</button></div><p class="book-introduction">Visit the desk computer for correspondence.</p>' });
     return entries;
 }
@@ -944,7 +957,7 @@ function showMap(wing = world.wing, kind: 'front' | 'rear' | 'wall' | 'box' = 'f
     });
 }
 function showSources() {
-    show('sources', shell('Reference collection', 'SOURCES / REUSE & ATTRIBUTION', `<p class="panel-intro">These extracts are real reference works. Office cover sheets and annotations are fictional. Some historical passages reflect outdated views. Reading them is optional.</p><div class="source-list">${SOURCE_MANIFEST.map(s => `<article><h3>${esc(s.title)}</h3><p>${esc(s.author)} · ${esc(s.edition)}</p><p>${esc(s.license)}</p><p class="small">${esc(s.notice)}</p><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">Original source ↗</a> · <a href="${esc(s.licenseUrl)}" target="_blank" rel="noopener noreferrer">Reuse terms ↗</a>${s.id === 'python' ? ` · <a href="${import.meta.env.BASE_URL}content/python-license.txt" target="_blank" rel="noopener">Bundled license notices ↗</a>` : ''}</article>`).join('')}<article><h3>Shoe footsteps · Kenney</h3><p>Five concrete-footstep recordings from Impact Sounds 1.0, CC0. Bundled locally with a short room response.</p><a href="https://kenney.nl/assets/impact-sounds" target="_blank" rel="noopener noreferrer">Original sound pack</a> · <a href="${import.meta.env.BASE_URL}audio/footsteps/LICENSE.txt">Bundled license</a></article><article><h3>Office models · Kenney</h3><p>Selected furniture and food models are bundled locally under CC0 1.0.</p><a href="https://kenney.nl/assets/furniture-kit" target="_blank" rel="noopener noreferrer">Furniture Kit</a> · <a href="https://kenney.nl/assets/food-kit" target="_blank" rel="noopener noreferrer">Food Kit</a> · <a href="${import.meta.env.BASE_URL}models/manifest.json" target="_blank" rel="noopener noreferrer">Bundled asset manifest</a></article></div>`));
+    show('sources', shell('Reference collection', 'SOURCES / REUSE & ATTRIBUTION', `<p class="panel-intro">These extracts are real reference works. Office cover sheets and annotations are fictional. Some historical passages reflect outdated views. Reading them is optional.</p><div class="source-list">${SOURCE_MANIFEST.map(s => `<article><h3>${esc(s.title)}</h3><p>${esc(s.author)} · ${esc(s.edition)}</p><p>${esc(s.license)}</p><p class="small">${esc(s.notice)}</p><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">Original source ↗</a> · <a href="${esc(s.licenseUrl)}" target="_blank" rel="noopener noreferrer">Reuse terms ↗</a>${s.id === 'python' ? ` · <a href="/content/python-license.txt" target="_blank" rel="noopener">Bundled license notices ↗</a>` : ''}</article>`).join('')}<article><h3>Shoe footsteps · Kenney</h3><p>Five concrete-footstep recordings from Impact Sounds 1.0, CC0. Bundled locally with a short room response.</p><a href="https://kenney.nl/assets/impact-sounds" target="_blank" rel="noopener noreferrer">Original sound pack</a> · <a href="/audio/footsteps/LICENSE.txt">Bundled license</a></article><article><h3>Office models · Kenney</h3><p>Selected furniture and food models are bundled locally under CC0 1.0.</p><a href="https://kenney.nl/assets/furniture-kit" target="_blank" rel="noopener noreferrer">Furniture Kit</a> · <a href="https://kenney.nl/assets/food-kit" target="_blank" rel="noopener noreferrer">Food Kit</a> · <a href="/models/manifest.json" target="_blank" rel="noopener noreferrer">Bundled asset manifest</a></article></div>`));
 }
 function showComparison() {
     if (!save.upgrades.includes('comparison')) {
@@ -988,15 +1001,15 @@ function showPause() {
     write();
 }
 function showReset() {
-    show('reset', shell('Start a new shift?', 'THIS REPLACES LOCAL PROGRESS', `<div class="prose"><p>Your discoveries, upgrades, and search markings will be cleared. The new archive will have different file placements.</p><p>Export a backup first if you want to return to this shift.</p></div><div class="panel-foot"><button id="cancel-reset">Keep this shift</button><button id="confirm-reset" class="danger">Replace progress</button></div>`));
+    show('reset', shell('Start a new shift?', 'THIS REPLACES LOCAL PROGRESS', `<div class="prose"><p>Your discoveries, upgrades, and search markings will be cleared. The new archive will have different file placements.</p><p>New shifts include the expanded record collection. Your current shift keeps its original contents. Export a backup if you want to return to it.</p></div><div class="panel-foot"><button id="cancel-reset">Keep this shift</button><button id="export-reset">Export backup and start new shift</button><button id="confirm-reset" class="danger">Replace progress</button></div>`));
     $('#cancel-reset').onclick = showPause;
-    $('#confirm-reset').onclick = () => {
+    const replaceShift = () => {
         const settings = { ...save.settings };
         accrueShift();
         shiftSession.reset();
         save = freshSave(crypto.getRandomValues(new Uint32Array(1))[0]);
         save.settings = settings;
-        archive = createArchive(save.seed, save.legacy, save.earlyVouchers, save.placementVersion);
+        archive = createArchive(save.seed, save.legacy, save.earlyVouchers, save.placementVersion, save.recordPack);
         storageBlocked = false;
         $('#storage-alert').hidden = true;
         audio.stopMachines();
@@ -1011,6 +1024,8 @@ function showReset() {
         write();
         showTitle();
     };
+    $('#confirm-reset').onclick=replaceShift;
+    $('#export-reset').onclick=()=>{try{exportSave();replaceShift();}catch{notify('Backup could not be exported. Your current shift is still open.');}};
 }
 function exportSave() {
     accrueShift();
@@ -1054,7 +1069,7 @@ $<HTMLInputElement>('#import-file').onchange = async (e) => {
             accrueShift();
             shiftSession.reset();
             save = imported;
-            archive = createArchive(save.seed, save.legacy, save.earlyVouchers, save.placementVersion);
+            archive = createArchive(save.seed, save.legacy, save.earlyVouchers, save.placementVersion, save.recordPack);
             storageBlocked = false;
             $('#storage-alert').hidden = true;
             audio.stopMachines();
@@ -1434,18 +1449,21 @@ addEventListener('beforeunload', () => {
     if (save.started)
         write();
 });
-showTitle();
-if (import.meta.env.DEV && new URLSearchParams(locationSearch()).has('test')) {
+if (process.env.NODE_ENV === 'development' && new URLSearchParams(locationSearch()).has('test')) {
+    const { modules } = await import('./dev-tools');
     (window as unknown as {
         __GAME__: unknown;
     }).__GAME__ = { get save() {
             return save;
         }, get archive() {
             return archive;
-        }, world, audio, deskScreens, stationery, placements: () => placements, visit, openStorage, showMap, showNotebook, showSupplies, showDesk, showComparison, showSources, showWhiteboard, showPrinter, showPrintedCopy, showInventory, showShredder, resume, showEnding, write, get mode() {
+        }, modules, world, audio, deskScreens, stationery, placements: () => placements, visit, openStorage, showMap, showNotebook, showSupplies, showDesk, showComparison, showSources, showWhiteboard, showPrinter, showPrintedCopy, showInventory, showShredder, resume, showEnding, write, get mode() {
             return mode;
         }, stats: () => world.stats(), tutorialId: TUTORIAL_ID, PHRASE };
 }
 function locationSearch() {
     return window.location.search;
+}
+
+showTitle();
 }

@@ -17,7 +17,7 @@ export class ShoeFootsteps {
  load(){
   if(this.request)return this.request;
   this.request=Promise.all(Array.from({length:5},async(_,i)=>{
-   const response=await fetch(`${import.meta.env.BASE_URL}audio/footsteps/footstep_concrete_${String(i).padStart(3,'0')}.ogg`);
+   const response=await fetch(`/audio/footsteps/footstep_concrete_${String(i).padStart(3,'0')}.ogg`);
    if(!response.ok)throw Error('Local footsteps unavailable.');return this.context.decodeAudioData(await response.arrayBuffer());
   })).then(samples=>{for(const sample of samples){let peak=0;for(let channel=0;channel<sample.numberOfChannels;channel++)for(const value of sample.getChannelData(channel))peak=Math.max(peak,Math.abs(value));const scale=.70/Math.max(peak,1e-6);for(let channel=0;channel<sample.numberOfChannels;channel++){const values=sample.getChannelData(channel);for(let i=0;i<values.length;i++)values[i]*=scale;}}this.samples=samples;}).catch(error=>{this.request=undefined;throw error;});return this.request;
  }

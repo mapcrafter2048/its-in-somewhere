@@ -32,9 +32,12 @@ export function drawArchiveWallArt(c:CanvasRenderingContext2D,wing:number){
    for(const [values,color] of [[[260,243,221,172,130],green],[[251,250,249,248,247],ochre]] as const){c.strokeStyle=color;c.lineWidth=4;c.beginPath();values.forEach((y,n)=>{if(n)c.lineTo(100+n*143,y);else c.moveTo(100,y);});c.stroke();values.forEach((y,n)=>{c.fillStyle=color;c.beginPath();c.arc(100+n*143,y,4,0,Math.PI*2);c.fill();});}
    for(let n=0;n<5;n++)text(String(2021+n),80+n*143,300,16);text('PAPER',100,326,17,green);text('SHELVES',270,326,17,ochre);footer('ILLUSTRATIVE DATA / Capacity review: optimistically pending.');
   }else if(i===5){
-   heading('RETENTION REVIEW / OFFICE HUMOUR');
-   c.strokeStyle='#878972';c.lineWidth=2;for(let n=0;n<5;n++){c.beginPath();c.moveTo(40,110+n*48);c.lineTo(727,110+n*48);c.stroke();}for(const x of [40,322,727]){c.beginPath();c.moveTo(x,110);c.lineTo(x,302);c.stroke();}
-   [['RECORD','REVIEW DATE'],['Unfinished requests','After the next meeting'],['Missing originals','When they reappear'],['This chart','Ask Tess first']].forEach(([a,b],n)=>{text(a,54,141+n*48,19);text(b,339,141+n*48,19);});footer('DECORATIVE NOTICE / Actual filing rules remain unchanged.');
+   const marks=['✉ / ADMINISTRATION','▤ / COMMERCIAL RECORDS','⚙ / TECHNICAL SERVICES','§ / EXECUTIVE DEPOSITORY'];
+   const titles=['CORRESPONDENCE REGISTER','SHIPMENT CONTROL','SERVICE DIAGRAM','POLICY CIRCULAR'];
+   const lines=[['Incoming → checked → retained','Keep the complete thread.','One sentence may omit the context.'],['Order → received → reconciled','Count units, not packaging.','Keep the receiver signature.'],['Report → isolate → inspect','Asset number before diagnosis.','A service promise is not a repair.'],['Original → amendment → approval','Retain the superseded issue.','Authority requires a dated signature.']];
+   heading(titles[wing]);text(marks[wing],43,137,25);
+   lines[wing].forEach((line,n)=>text(line,43,195+n*43,24));
+   footer('DEPARTMENT LANDMARK / Historic procedures retained.');
   }else if(i===6){
    heading('CORRESPONDENCE / PLEASE RETAIN');
    const notes=[['The missing file','has been moved','to a safer','missing location.'],['PLEASE DO NOT','FILE THIS','NOTICE.','— Records'],['If found, return','my pen. It is','not an archive','accession. —Tess']];

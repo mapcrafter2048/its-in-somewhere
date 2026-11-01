@@ -1,0 +1,27 @@
+/* Record-specific stock and structures, shared across every physical reader. */
+.archive-paper:has(.record-fax){background:#e6e4d6;color:#252a24;font-family:monospace}
+.archive-paper:has(.record-carbon){background:#d5dfe0;color:#253e55;box-shadow:inset 8px 0 #b7c4d1}
+.archive-paper:has(.record-access){background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#8a9b9218 32px)}
+.archive-paper:has(.record-receipt){border-inline:2px dashed #a89c83;background:#eee8d6}
+.archive-paper:has(.record-contract){border-top:5px double #5f6256}
+.archive-paper:has(.record-damaged){background-image:radial-gradient(ellipse at 100% 0,#8a6a3933,transparent 35%);border-right:3px dashed #9b865f}
+.archive-paper:has(.record-newsletter){border-top:7px solid #596d59}
+.record-format{margin:0 0 1.2rem;padding:.8rem 0;border-bottom:1px solid #7e806866;overflow-wrap:anywhere;color:inherit}
+.record-register{font:700 .8em monospace;letter-spacing:.08em;margin-bottom:.6rem}
+.record-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem 1rem;margin:.5rem 0;font-size:.85em}
+.record-fields div{min-width:0}.record-fields dt{font-weight:bold}.record-fields dd{margin:0}
+.record-figure{margin:1rem 0}.record-figure svg{width:100%;max-height:210px;color:#405e64}.record-figure svg text{font:16px monospace;fill:currentColor}.record-plan svg text{font-size:14px}.record-figure figcaption,.record-diagram-text{font-size:.8em}
+.record-table-scroll{max-width:100%;overflow-x:auto}.record-table{border-collapse:collapse;width:100%;font-size:.85em}.record-table caption{text-align:left;font-weight:bold;padding:.4rem 0}.record-table th,.record-table td{padding:.5rem;border:1px solid #7d8778;text-align:left;white-space:normal;overflow-wrap:anywhere}
+.record-handwriting{margin:.8rem 0;padding:.8rem 1rem;border-left:3px solid #5d6d8b;background:#e7e3cf;color:#314c75;transform:rotate(-.4deg)}.record-handwriting span{font:.7em monospace}.record-handwriting p{font:italic 1em Georgia,serif;margin:.4rem 0}
+.record-revision-stamp{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;padding:.6rem;border:2px solid #64775e}.record-revision-stamp small{width:100%}
+.record-transcript-label{font:.75em monospace;padding:.5rem;border:1px dashed #806f50}
+.pc-catalogue form,.pc-password{display:flex;gap:.6rem;flex-wrap:wrap;align-items:end}.pc-catalogue label{flex:1}.pc-catalogue input{width:100%}.pc-catalogue-entry{border:1px solid #7e8877;margin:.8rem 0;padding:1rem;background:#eeeedf}.pc-catalogue-entry h3{margin:0 0 .5rem}.pc-catalogue-entry dl{display:grid;grid-template-columns:max-content 1fr;gap:.25rem .8rem}.pc-catalogue-entry dd{margin:0;overflow-wrap:anywhere}.pc-catalogue-entry dt{font-weight:bold}.pc-password input{max-width:100%}.pc-password-status{width:100%}
+.office-outcomes{display:grid;gap:1rem}.office-outcomes article{padding:1rem;border:1px solid #8e957a;background:#e1e4d0}
+@media(max-width:720px){.record-fields{grid-template-columns:1fr}.pc-catalogue-entry dl{grid-template-columns:1fr}.record-figure svg text{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.record-handwriting{transform:none}}
+
+.record-delivery{border:2px solid #687c78;padding:1rem}.record-delivery .record-fields{grid-template-columns:1fr 1fr}.record-delivery::after{content:'RECEIVING CHECK / SIGNED ACCOUNT BELOW';display:block;margin-top:.8rem;border-top:1px dashed #687c78;padding-top:.5rem;font:.75em monospace}
+.record-contract .record-register{font-family:Georgia,serif;font-size:1em}.record-clause{padding:.5rem .75rem;border-left:2px solid #858773}
+.archive-paper:has(.record-newsletter) .document-text{columns:2 14em;column-gap:2rem}.record-newsletter .record-register{font:700 1.2em Georgia,serif;border-bottom:3px double #596d59;padding-bottom:.5rem}
+.pc-catalogue{padding:18px;font-size:var(--document-size);line-height:1.6;min-width:0;overflow-wrap:anywhere}.pc-catalogue form{font-size:.85em}.pc-catalogue-entry dl{font-size:.85em}
+@media(max-width:720px){.record-delivery .record-fields{grid-template-columns:1fr}}

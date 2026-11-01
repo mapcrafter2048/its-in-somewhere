@@ -1,3 +1,6 @@
+import { threadById, THREADS } from '../content/packs/records';
+import { sendThreadMail } from './thread-mail';
+import { EXPLORATION_FILES } from './exploration';
 import { initialStationery, validateStationery, noteKey } from './stationery';
 import { conversationNode } from './conversations';
 import type { Save } from '../types';
@@ -89,6 +92,7 @@ export function migrateDesk(save: Save) {
 }
 export function sendMail(save: Save, archive: Archive, draft: MailDraft) {
     const d = deskFor(save);
+    const thread=threadById(draft.caseId);if(thread)return sendThreadMail(save,archive,draft,thread);
     const selected = draft.choice ? conversationNode(save, archive, draft).options.find(o => o.id === draft.choice) : undefined;
     if (draft.choice && (!selected || selected.locked)) throw new Error(selected?.locked ?? 'This response has changed. Choose a current response.');
     if (selected) draft = { ...draft, topic: selected.topic };
@@ -202,11 +206,12 @@ export function validateDesk(value: unknown, save: Save): DeskLife {
     const list = (v: unknown, max: number) => Array.isArray(v) && v.length <= max;
     const unique = (v: unknown[], max: number) => list(v, max) && new Set(v).size === v.length;
     const positive = (v: number) => Number.isSafeInteger(v) && v > 0;
-    if (!d || d.version !== 3 || !list(d.notes, 36) || !positive(d.nextNote) || !list(d.pins, 24) || !list(d.strings, 96) || !unique(d.collected, 24) || !unique(d.identified, 24) || ![...d.collected, ...d.identified].every(id => ARTIFACTS.some(a => a.id === id)) || !unique(d.rewards, 6) || !d.rewards.every(n => REWARDS.some(r => r.at === n) && d.collected.length >= n) || !list(d.mail, 1100) || !list(d.drafts, 1) || !positive(d.nextMail) || !unique(d.resolved, 6) || !d.resolved.every(id => CASES.some(c => c.id === id)))
+    if (!d || d.version !== 3 || !list(d.notes, 36) || !positive(d.nextNote) || !list(d.pins, 24) || !list(d.strings, 96) || !unique(d.collected, 24) || !unique(d.identified, 24) || ![...d.collected, ...d.identified].every(id => ARTIFACTS.some(a => a.id === id)) || !unique(d.rewards, 6) || !d.rewards.every(n => REWARDS.some(r => r.at === n) && d.collected.length >= n) || !list(d.mail, 1100) || !list(d.drafts, 1) || !positive(d.nextMail) || !unique(d.resolved, 9) || !d.resolved.every(id => CASES.some(c => c.id === id)||save.recordPack===1&&THREADS.some(t=>t.id===id)))
         fail();
     if (!list(d.responses, 550) || !Number.isSafeInteger(d.snakeBest) || d.snakeBest < 0 || d.snakeBest > 3970 || d.snakeBest % 10 !== 0 || d.responses.some(r => !r || !text(r.choice, 200) || !Number.isFinite(r.at) || r.at < 0 || r.at > save.playSeconds || !d.mail.some(m => m.id === r.mail && m.direction === 'out' && m.choice === r.choice)) || new Set(d.responses.map(r => r.mail)).size !== d.responses.length) fail();
     if (!d.counters || !Number.isFinite(d.counters.issuedAt) || d.counters.issuedAt < 0 || d.counters.issuedAt > save.playSeconds || ![d.counters.notesWritten, d.counters.mailSent].every(n => Number.isSafeInteger(n) && n >= 0))
         fail();
+    if(d.unlockedFiles!==undefined&&(!unique(d.unlockedFiles,3)||d.unlockedFiles.some(id=>save.recordPack!==1||!EXPLORATION_FILES.some(f=>f.id===id&&!!f.password))))fail();
     let totalPoints = 0;
     for (const n of d.notes) {
         if (!positive(n.id) || n.id >= d.nextNote || !text(n.title, 100) || !text(n.text, 8000) || !['cream', 'rose', 'blue', 'sage'].includes(n.paper) || !list(n.strokes, 160))
@@ -229,11 +234,11 @@ export function validateDesk(value: unknown, save: Save): DeskLife {
     if(d.pins.some(p=>![p.x,p.y].every(n=>Number.isFinite(n)&&n>=0&&n<=1)))fail();
     if(d.strings.some(s=>noteKey(s.fromKind,s.from)===noteKey(s.toKind,s.to)||!['black','blue','red','green'].includes(s.color)||!text(s.label,80)))fail();
     validateStationery(d,save);
-    const draftValid = (m: MailDraft) => m && (m.choice === undefined || text(m.choice, 200) && /^(fridge|betting|ghost|long-47|long-57|short-27|martin):(enquiry|discussion|resolved):(inquiry|lead|location):(clarify|evidence|levity)$/.test(m.choice)) && Object.hasOwn(CONTACTS, m.recipient) && ['inquiry', 'evidence', 'lead', 'location', 'martin'].includes(m.topic) && (m.caseId === 'martin' || CASES.some(c => c.id === m.caseId)) && text(m.artifact, 80) && text(m.body, 4000) && unique(m.attachments, 2) && m.attachments.every(validId);
+    const draftValid = (m: MailDraft) => m && (m.choice === undefined || text(m.choice, 200) && /^(fridge|betting|ghost|long-47|long-57|short-27|martin|duplicate|department|friday):(enquiry|discussion|resolved):(inquiry|lead|location):(clarify|evidence|levity)$/.test(m.choice)) && Object.hasOwn(CONTACTS, m.recipient) && ['inquiry', 'evidence', 'lead', 'location', 'martin'].includes(m.topic) && (m.caseId === 'martin' || CASES.some(c => c.id === m.caseId)||save.recordPack===1&&THREADS.some(t=>t.id===m.caseId)) && text(m.artifact, 80) && text(m.body, 4000) && unique(m.attachments, 2) && m.attachments.every(validId);
     if (!d.drafts.every(draftValid) || new Set(d.mail.map(m => m.id)).size !== d.mail.length)
         fail();
     for (const m of d.mail)
-        if (!draftValid(m) || !positive(m.id) || m.id >= d.nextMail || !['in', 'out'].includes(m.direction) || !text(m.subject, 200) || !text(m.text, 6000) || !text(m.signature, 1000) || !Number.isFinite(m.sentAt) || m.sentAt < 0 || !Number.isFinite(m.due) || m.due < m.sentAt || typeof m.read !== 'boolean' || (m.hint !== undefined && (![1, 2, 3].includes(m.hint) || m.recipient !== 'martin' || m.topic !== 'martin')) || (m.resolves !== undefined && !CASES.some(c => c.id === m.resolves)))
+        if (!draftValid(m) || !positive(m.id) || m.id >= d.nextMail || !['in', 'out'].includes(m.direction) || !text(m.subject, 200) || !text(m.text, 6000) || !text(m.signature, 1000) || !Number.isFinite(m.sentAt) || m.sentAt < 0 || !Number.isFinite(m.due) || m.due < m.sentAt || typeof m.read !== 'boolean' || (m.hint !== undefined && (![1, 2, 3].includes(m.hint) || m.recipient !== 'martin' || m.topic !== 'martin')) || (m.resolves !== undefined && !(CASES.some(c => c.id === m.resolves)||save.recordPack===1&&THREADS.some(t=>t.id===m.resolves))))
             fail();
     const stamps = ['', ...REWARDS.filter(r => r.kind === 'stamp' && d.rewards.includes(r.at)).map(r => r.name)];
     if (!stamps.includes(d.stamp) || !d.fileStamps || typeof d.fileStamps !== 'object' || Array.isArray(d.fileStamps) || Object.keys(d.fileStamps).length > 10000 || Object.entries(d.fileStamps).some(([id, stamp]) => !validId(Number(id)) || !stamps.includes(stamp)))

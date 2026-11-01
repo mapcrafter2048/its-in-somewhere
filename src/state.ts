@@ -32,7 +32,7 @@ export const UPGRADES:{id:UpgradeId;name:string;cost:number;description:string}[
  {id:'tabs',name:'Coloured cabinet tabs',cost:28,description:'Mark up to 64 cabinets with a colour and a short note, visible in the room and map. Future you may send a thank-you memo.'}
 ];
 export const DEFAULT_SETTINGS:Settings={sensitivity:1,volume:0.3,textSize:18,quality:'medium',reducedMotion:false};
-export function freshSave(seed=7391):Save{const a=createArchive(seed);return {deskLife:freshDesk(),inventoryVersion:1,environmentVersion:ENVIRONMENT_VERSION,zone:'archive',physical:freshPhysical(),office:freshOffice(),whiteboards:[[],[],[],[]],version:3,contentVersion:3,placementVersion:3,seed,target:a.target,wing:NOOK.wing,started:false,completed:false,position:[...NOOK_SPAWN],rotation:[0,0],inspected:[],searched:[],bookmarks:[],clues:[],claimedStories:[],claimedMilestones:[],credits:12,upgrades:[],hintLevel:0,selectedFile:null,selectedPhrase:'',messages:[],settings:{...DEFAULT_SETTINGS},playSeconds:0,collectedVouchers:[],redeemedVouchers:[],markers:[],earlyVouchers:[...a.earlyVouchers]};}
+export function freshSave(seed=7391):Save{const a=createArchive(seed,undefined,undefined,3,1);return {recordPack:1,deskLife:freshDesk(),inventoryVersion:1,environmentVersion:ENVIRONMENT_VERSION,zone:'archive',physical:freshPhysical(),office:freshOffice(),whiteboards:[[],[],[],[]],version:3,contentVersion:3,placementVersion:3,seed,target:a.target,wing:NOOK.wing,started:false,completed:false,position:[...NOOK_SPAWN],rotation:[0,0],inspected:[],searched:[],bookmarks:[],clues:[],claimedStories:[],claimedMilestones:[],credits:12,upgrades:[],hintLevel:0,selectedFile:null,selectedPhrase:'',messages:[],settings:{...DEFAULT_SETTINGS},playSeconds:0,collectedVouchers:[],redeemedVouchers:[],markers:[],earlyVouchers:[...a.earlyVouchers]};}
 export function migrateLegacy(input:unknown):Save{
  const old:OldSave=validateLegacy(input),legacy=makeLegacyBindings(old.seed,old.inspected);
  const early:number[]=[];const occupied=new Set([legacy.target,...Object.values(legacy.storyLocations).flat(),...legacy.inspected]);
@@ -43,7 +43,8 @@ export function migrateLegacy(input:unknown):Save{
 }
 export function inspect(save:Save,archive:Archive,id:number,revealCell=false){
  const notes:string[]=[];if(!save.inspected.includes(id))save.inspected.push(id);
- const d=archive.get(id);if((d.fragment||(d.story&&(!d.sheets||revealCell)))&&!save.clues.includes(id)){
+ const d=archive.get(id);if(d.thread&&!save.clues.includes(id)){save.clues.push(id);notes.push('Optional correspondence retained in your notebook.');}
+ if((d.fragment||(d.story&&(!d.sheets||revealCell)))&&!save.clues.includes(id)){
   save.clues.push(id);save.credits+=d.fragment?3:2;notes.push(d.fragment?'Index fragment retained · +3 credits':'Evidence retained · +2 credits');
   if(d.fragment)save.hintLevel=Math.max(save.hintLevel,1);if(d.story==='martin')notes.push('Evidence retained for your next email to Martin. Visit the desk computer.');
  }
@@ -67,7 +68,7 @@ function idList(v:unknown,name:string):asserts v is number[]{if(!Array.isArray(v
 export function validateSave(input:unknown):Save{
  if(!input||typeof input!=='object')throw new Error('This is not an archive save.');
  if((input as {version?:number}).version===1)return validateSave(migrateLegacy(input));
- const s=input as Save;if(s.inventoryVersion!==undefined&&s.inventoryVersion!==1)throw new Error('Unsupported inventory version.');if(s.environmentVersion!==undefined&&s.environmentVersion!==1&&s.environmentVersion!==ENVIRONMENT_VERSION)throw new Error('Unsupported environment version.');if(s.zone!==undefined&&!['hub','archive'].includes(s.zone))throw new Error('Invalid room.');if(!((s.version===2&&s.contentVersion===2)||(s.version===3&&s.contentVersion===3)))throw new Error('Unsupported archive or content version.');
+ const s=input as Save;if(s.recordPack!==undefined&&s.recordPack!==1)throw new Error('Unsupported record pack.');if(s.recordPack&& (s.version!==3||s.placementVersion!==3||s.legacy))throw new Error('Record pack requires a new shift.');if(s.inventoryVersion!==undefined&&s.inventoryVersion!==1)throw new Error('Unsupported inventory version.');if(s.environmentVersion!==undefined&&s.environmentVersion!==1&&s.environmentVersion!==ENVIRONMENT_VERSION)throw new Error('Unsupported environment version.');if(s.zone!==undefined&&!['hub','archive'].includes(s.zone))throw new Error('Invalid room.');if(!((s.version===2&&s.contentVersion===2)||(s.version===3&&s.contentVersion===3)))throw new Error('Unsupported archive or content version.');
  if(!Number.isInteger(s.seed)||s.seed<0||s.seed>4294967295)throw new Error('Invalid seed.');
  if(!Number.isInteger(s.wing)||s.wing<0||s.wing>3)throw new Error('Invalid wing.');
  for(const k of ['inspected','searched','bookmarks','clues','collectedVouchers','redeemedVouchers','earlyVouchers']as const){idList(s[k],k);if(s.version===2&&s[k].some(id=>id>=BASE_TOTAL))throw new Error('Invalid version-2 file reference.');}
@@ -79,7 +80,7 @@ export function validateSave(input:unknown):Save{
   if(l.target!==expected.target||JSON.stringify(l.storyLocations)!==JSON.stringify(expected.storyLocations)||JSON.stringify(l.fragments)!==JSON.stringify(expected.fragments))throw new Error('Legacy placement history is invalid.');
  }
  const placement=s.version===2?2:s.placementVersion;if(placement!==2&&placement!==3)throw new Error('Invalid placement version.');
- const a=createArchive(s.seed,s.legacy,s.earlyVouchers,placement);if(s.target!==a.target)throw new Error('Archive target does not match its seed.');
+ const a=createArchive(s.seed,s.legacy,s.earlyVouchers,placement,s.recordPack);if(s.target!==a.target)throw new Error('Archive target does not match its seed.');
  for(const flag of ['started','completed']as const)if(typeof s[flag]!=='boolean')throw new Error('Invalid game state.');
  if(!Array.isArray(s.position)||s.position.length!==3||!s.position.every(Number.isFinite)||Math.abs(s.position[0])>22||s.position[1]!==1.7||s.position[2]<(s.environmentVersion===undefined?-49:-49.6)||s.position[2]>(s.environmentVersion===undefined?(s.zone==='hub'?22:14):4.8))throw new Error('Invalid player position.');
  if(!Array.isArray(s.rotation)||s.rotation.length!==2||!s.rotation.every(Number.isFinite)||Math.abs(s.rotation[0])>Math.PI/2||Math.abs(s.rotation[1])>Math.PI*2)throw new Error('Invalid camera rotation.');

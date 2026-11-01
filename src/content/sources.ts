@@ -15,7 +15,7 @@ export async function ensureSource(id:string):Promise<void>{
  if(packs.has(id))return;if(pending.has(id))return pending.get(id)!;
  const source=SOURCE_MANIFEST.find(s=>s.id===id);if(!source)throw new Error('Unknown reference source.');
  const task=(async()=>{
-  const response=await fetch(`${import.meta.env.BASE_URL}${source.file}`);if(!response.ok)throw new Error(`Reference pack unavailable (${response.status}).`);
+  const response=await fetch(`/${source.file}`);if(!response.ok)throw new Error(`Reference pack unavailable (${response.status}).`);
   const input=await response.json() as ContentPack;
   if(input.id!==id||!Array.isArray(input.excerpts)||input.excerpts.length!==source.excerpts||!input.excerpts.every(e=>typeof e.section==='string'&&typeof e.text==='string'&&e.text.length>0))throw new Error('Reference pack is incomplete.');
   packs.set(id,input);

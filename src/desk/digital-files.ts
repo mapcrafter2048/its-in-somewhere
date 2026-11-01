@@ -1,8 +1,9 @@
+import { EXPLORATION_FILES } from './exploration';
 import type { Save } from '../types';
 import type { Archive } from '../content/generator';
 export const DIGITAL_FOLDERS=['Shared','Accounts','Facilities','Personal','Old Backups'] as const;
 export type DigitalFolder=typeof DIGITAL_FOLDERS[number];
-export interface DigitalDocument { id:string; folder:DigitalFolder; name:string; body:string; caseId?:string; restricted?:boolean; table?:string[][] }
+export interface DigitalDocument { id:string; folder:DigitalFolder; name:string; body:string; caseId?:string; restricted?:boolean; pack?:1; password?:string; table?:string[][] }
 export const DIGITAL_FILES: readonly DigitalDocument[] = [
  {id:'fridge-log',folder:'Shared',name:'Lunch incident routing.txt',caseId:'fridge',body:'Clive requested a security incident number before the kitchenette inspection had finished. The original incident register and the witness account were retained separately. Ask Tess which account was written first.'},
  {id:'fridge-draft',folder:'Old Backups',name:'Refrigerator statement DRAFT.txt',caseId:'fridge',restricted:true,body:'Draft: “Contents confirmed missing at inspection.”\nPencil correction transcribed: “Contents not inspected. Door briefly opened.”\nThis electronic draft has no signature. Compare the original witness statement before using it.'},
@@ -30,7 +31,11 @@ export const DIGITAL_FILES: readonly DigitalDocument[] = [
  {id:'backup-policy',folder:'Old Backups',name:'FINAL final really final.txt',body:'This is the final backup naming policy. Supersedes FINAL final.txt, which superseded FINAL.txt. Please keep all three until the naming review concludes.'}
 ];
 export function digitalLock(file:DigitalDocument,save:Save,archive:Archive):string|undefined {
+ if(file.pack===1&&save.recordPack!==1)return 'This file belongs to a newer archive collection.';
+ if(file.password&&!save.deskLife?.unlockedFiles?.includes(file.id))return 'Password required';
  if(!file.restricted||!file.caseId)return;
  if(save.deskLife?.resolved.includes(file.caseId)||(archive.storyLocations.get(file.caseId)??[]).some(id=>save.inspected.includes(id)))return;
  return 'Open an original record from this case to cross-reference this draft.';
 }
+
+export function digitalFiles(save:Save){return save.recordPack===1?[...DIGITAL_FILES,...EXPLORATION_FILES]:DIGITAL_FILES;}
