@@ -71,7 +71,7 @@ test('corrupt or blocked storage displays recovery guidance',async({page})=>{
  await page.reload();await expect(page.locator('#storage-alert')).toBeVisible();
 });
 test('bounded objects and GPU resources after visiting many drawers; collision geometry',async({page})=>{
- await boot(page);const initial=await game(page,'window.__GAME__.stats()');
+ await boot(page);await expect.poll(()=>game(page,'window.__GAME__.stats().renderedFrames')).toBeGreaterThan(0);const initial=await game(page,'window.__GAME__.stats()');
  const audit=await game(page,`(()=>{const g=window.__GAME__;for(let c=0;c<128;c++){g.world.openDrawer(c,c%4);g.world.closeDrawer();}return {stats:g.stats(),wall:g.world.isBlocked(43.9,5),cabinet:g.world.isBlocked(-24.4,-30.3),corridor:g.world.isBlocked(-22,-20)};})()`);
  await page.waitForTimeout(300);const after=await game(page,'window.__GAME__.stats()');
  expect(audit.stats.objects).toBe(initial.objects);expect(after.geometries).toBe(initial.geometries);expect(after.textures).toBe(initial.textures);expect(audit.wall).toBe(true);expect(audit.cabinet).toBe(true);expect(audit.corridor).toBe(false);

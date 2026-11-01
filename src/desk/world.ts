@@ -1,3 +1,4 @@
+import { OutcomeWorld } from './outcome-world';
 import {boardNote} from './stationery';
 import { buildVintagePC, keyboardLegendTexture } from './vintage-pc';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -22,6 +23,7 @@ export class PersonalDeskWorld {
     private objects: THREE.InstancedMesh;
     private noticeCanvas = document.createElement('canvas');
     private noticeTexture: THREE.CanvasTexture;
+    private outcomes=new OutcomeWorld();
     private key = 'uninitialised';
     private boardKey='';
     private transform = new THREE.Object3D();
@@ -75,6 +77,7 @@ export class PersonalDeskWorld {
         this.root.add(notice);
         hit('notices', 6.75, 2.5, -1.29, 1.3, 1, .1);
         this.batchFixedParts(unit);
+        this.root.add(this.outcomes.root);
     }
     private batchFixedParts(unit: THREE.BufferGeometry) {
         const parts = this.root.children.filter((o): o is THREE.Mesh => o instanceof THREE.Mesh && o.geometry !== unit && o.position.x !== 4.6);
@@ -100,6 +103,7 @@ export class PersonalDeskWorld {
         this.root.add(batch);
     }
     sync(save: Save) {
+        this.outcomes.sync(save);
         const d = deskFor(save), big = save.upgrades.includes('pinboard');
         this.board.scale.x = big ? 2.8 : 1.7;
         this.boardHit.scale.x = big ? 2.9 : 1.8;
@@ -145,7 +149,7 @@ export class PersonalDeskWorld {
         ctx.font = 'bold 22px monospace';
         ctx.fillText('NOTICES TO ALL CONCERNED', 22, 35);
         ctx.font = '20px Georgia';
-        const notice = NOTICES[(stage + save.seed) % NOTICES.length];
+        const notice = save.recordPack===1?'An odd record is an invitation, not an assignment. Your notebook, the partial Catalogue and desk mail can help if you wish to follow it.':NOTICES[(stage + save.seed) % NOTICES.length];
         const lines = (notice + '\n\nRE: THE BLUE MUG\n' + MUG_DISPUTE[stage]).split('\n').flatMap(p => p.match(/.{1,40}(?:\s|$)|.{1,40}/g) || ['']);
         lines.slice(0, 12).forEach((line, i) => ctx.fillText(line.trim(), 22, 75 + i * 23));
         this.noticeTexture.needsUpdate = true;

@@ -1,3 +1,4 @@
+import { recordParagraphs } from './ui/record-format';
 import { documentClass, documentLetterhead, documentColophon } from './ui/document';
 import { escapeHtml as esc } from './ui/dom';
 import { readableDocument } from './pagination';
@@ -76,7 +77,7 @@ export function openComparison(save: Save, archive: Archive, show: (html: string
         if (s.page < d.pages.length)
             onPage?.(d.pages[s.page]);
         if (s.page < d.pages.length)
-            return `<div class="document-text">${d.pages[s.page].split('\n\n').map(p => `<p>${esc(p)}</p>`).join('')}</div>`;
+            return `<div class="document-text">${recordParagraphs(d,d.pages[s.page])}</div>`;
         const sheet = d.sheets![s.sheet], key = `${d.id}:${s.sheet}`;
         return `<nav class="sheet-tabs">${d.sheets!.map((sh, i) => `<button data-compare-sheet="${index},${i}" class="${i === s.sheet ? 'selected' : ''}">${esc(sh.name)}</button>`).join('')}</nav>${sheet.hiddenRows?.length ? `<button data-compare-reveal="${index}">${s.revealed.has(key) ? 'Hide restored rows' : 'Reveal hidden rows'}</button>` : ''}<div class="table-scroll"><table class="sheet"><thead><tr>${sheet.columns.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${sheet.rows.map((row, r) => !s.revealed.has(key) && sheet.hiddenRows?.includes(r) ? `<tr><td colspan="${sheet.columns.length}" class="hidden-row">··· hidden row ···</td></tr>` : `<tr>${row.map((c, col) => `<td><button class="cell ${c.comment ? 'has-comment' : ''}" data-compare-cell="${index},${r},${col}">${esc(c.value)}</button></td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="cell-comment" role="status">${esc(s.comment || 'Inspect cells to read retained comments.')}</div>`;
     }

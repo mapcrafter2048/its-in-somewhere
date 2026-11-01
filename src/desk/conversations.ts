@@ -1,3 +1,5 @@
+import { threadById } from '../content/packs/records';
+import { threadNode } from './thread-mail';
 import type { Save } from '../types';
 import type { Archive } from '../content/generator';
 import { CASES } from './content';
@@ -24,6 +26,7 @@ const jokes: Record<string,string> = {
  martin:'The font is entirely adequate. I would prefer fewer interpretations of the dates.'
 };
 export function conversationNode(save: Save, archive: Archive, draft: MailDraft): ConversationNode {
+ const thread=threadById(draft.caseId);if(thread&&save.recordPack===1)return threadNode(save,archive,draft,thread);
  const key=draft.caseId, records=archive.storyLocations.get(key)??[];
  const seen=records.filter(id=>save.inspected.includes(id)), evidence=records.filter(id=>save.clues.includes(id)&&save.inspected.includes(id));
  const resolved=key==='martin'?save.messages.includes('3'):!!save.deskLife?.resolved.includes(key);

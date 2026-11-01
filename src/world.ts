@@ -465,6 +465,7 @@ export class OfficeWorld {
             ac.textAlign = 'center';
             ac.font = 'bold 24px monospace';
             ac.fillText(u.label, x + 128, y + 42);
+            if(u.kind==='rear'){ac.font='bold 16px monospace';ac.fillText('↶ REAR / INDEPENDENT',x+128,y+61);}
             ac.font = '18px monospace';
             ac.fillText(`${MONTHS[l.column % 12].slice(0, 3).toUpperCase()} 2023`, x + 128, y + 80);
         });
@@ -689,7 +690,7 @@ export class OfficeWorld {
             glow.visible = false;
         }
         for (const facing of [-1, 1]) {
-            const plaque = new THREE.Mesh(new THREE.PlaneGeometry(3.2, .4), new THREE.MeshStandardMaterial({ map: labelTexture([`W${connection.a + 1} / W${connection.b + 1} — RECORDS`], '#bdb99c', '#343b2d', 1024, 128) }));
+            const plaque = new THREE.Mesh(new THREE.PlaneGeometry(3.2, .4), new THREE.MeshStandardMaterial({ map: labelTexture([`W${connection.a + 1} ↔ W${connection.b + 1} / CONNECTED ARCHIVES`], '#bdb99c', '#343b2d', 1024, 128) }));
             plaque.position.set(0, 3.35, facing * .14);
             plaque.rotation.y = facing === 1 ? 0 : Math.PI;
             root.add(plaque);

@@ -44,7 +44,7 @@ export interface BoardString {
 }
 export type Contact = 'martin' | 'tess' | 'facilities' | 'accounts';
 export type MailTopic = 'inquiry' | 'evidence' | 'lead' | 'location' | 'martin';
-export type DesktopApp = 'mail' | 'files' | 'directory' | 'print' | 'snake';
+export type DesktopApp = 'mail' | 'files' | 'directory' | 'print' | 'snake' | 'catalogue';
 export interface ResponseHistory { choice: string; mail: number; at: number }
 export interface MailDraft {
     choice?: string;
@@ -68,6 +68,7 @@ export interface DeskMail extends MailDraft {
     resolves?: string;
 }
 export interface DeskLife {
+    unlockedFiles?:string[];
     version: 3;
     sheetPapers?: Record<number,Paper>;
     stickies: StickyNote[];

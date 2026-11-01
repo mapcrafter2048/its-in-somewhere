@@ -23,3 +23,5 @@ import './vintage-pc.test';
 import './desktop.test';
 
 import './physical-life.test';
+
+import './records-pack.test';

@@ -1,3 +1,4 @@
+import { expandRecords } from './packs/records';
 import {BASE_TOTAL,TOTAL,DRAWER_BANKS,FILES,PHRASE,DEPARTMENTS,location,reference,random,fileId} from '../archive';
 import {createArchive as createV2,voucherFor,makeLegacyBindings,TUTORIAL_ID,getHint as oldHint,searchableText,TARGET_PHRASE,JOKES} from './generator-v2';
 import {sourceReference,sourceText} from './sources';
@@ -7,7 +8,7 @@ import type {ArchiveDocument,LegacyBindings} from '../types';
 import type {Archive as V2Archive} from './generator-v2';
 export {voucherFor,makeLegacyBindings,TUTORIAL_ID,searchableText,TARGET_PHRASE,JOKES};
 export {ALL_STORIES} from './expanded-stories';
-export interface Archive extends V2Archive {placementVersion:2|3}
+export interface Archive extends V2Archive {placementVersion:2|3;recordPack?:1;threadLocations?:Map<string,number[]>}
 function expandedOrdinary(id:number,ordinal:number,seed:number):ArchiveDocument{
  const doc=ordinaryDocument(id,ordinal,seed),variant=(ordinal*37+(seed%OFFICE_BODIES.length))%OFFICE_BODIES.length,topic=TOPICS[Math.floor(variant/12)];
  const record=reference(id);
@@ -17,7 +18,7 @@ function expandedOrdinary(id:number,ordinal:number,seed:number):ArchiveDocument{
  `FOLLOW-UP\n\n${topic[4]} Retain the outcome beside this file so the next review can distinguish an agreed exception from an unresolved omission. The handover should state what was checked, what remains uncertain, and who will obtain the missing information. A closed request without that explanation is returned for clarification; it does not establish that the underlying work was complete.`];
  return {...doc,pages:[sections.join('\n\n')],bodyKey:`expanded-${doc.bodyKey}`};
 }
-export function createArchive(seed:number,legacy?:LegacyBindings,earlyOverride?:number[],placementVersion:2|3=3):Archive{
+export function createArchive(seed:number,legacy?:LegacyBindings,earlyOverride?:number[],placementVersion:2|3=3,recordPack?:1):Archive{
  const base=createV2(seed,legacy,earlyOverride),special=new Map(base.special),rng=random(seed^0x714bc529);
  let target=base.target;
  if(placementVersion===3&&!legacy){do{target=Math.floor(rng()*TOTAL);}while((special.has(target)&&target!==base.target)||base.earlyVouchers.includes(target));}
@@ -38,7 +39,8 @@ export function createArchive(seed:number,legacy?:LegacyBindings,earlyOverride?:
   if((id+seed)%257===0){doc.fragment=true;doc.annotation=(doc.annotation?doc.annotation+'\n\n':'')+'Retained index fragment: '+hintArea(target)+'.';}
   const voucher=voucherFor(id,seed,base.earlyVouchers);if(voucher)doc.voucher=voucher;return doc;
  }
- return {...base,placementVersion,target,special,get};
+ const archive:Archive={...base,placementVersion,target,special,get};
+ return recordPack===1?expandRecords(archive):archive;
 }
 function hintArea(id:number){const l=location(id);return `assessment records use wing ${l.wing+1}, ${DEPARTMENTS[l.department]}, ${l.kind==='front'?'front drawers':l.kind==='rear'?'rear drawers':l.kind==='wall'?'wall cabinets':'file boxes'}`;}
 export function getHint(archive:Archive,level:number){

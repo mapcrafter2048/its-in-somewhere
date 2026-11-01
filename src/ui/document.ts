@@ -1,3 +1,4 @@
+import { recordFormat } from './record-format';
 import { DEPARTMENTS, location, reference } from '../archive';
 import type { ArchiveDocument } from '../types';
 import { escapeHtml as esc } from './dom';
@@ -16,10 +17,10 @@ export function documentTreatment(doc: ArchiveDocument): DocumentTreatment {
 export function documentClass(doc: ArchiveDocument) {
     return `archive-paper treatment-${documentTreatment(doc)} wear-${doc.id % 3}`;
 }
-/** Decorative metadata only. The body and evidence remain the original document text. */
+/** Shared letterhead and accessible record structures for originals and copies. */
 export function documentLetterhead(doc: ArchiveDocument) {
     const department = DEPARTMENTS[location(doc.id).department];
-    return `<div class="document-letterhead"><span>${esc(department)}<small>RECORDS & RETENTION</small></span><span class="document-register">${esc(doc.kind.toUpperCase())}<small>${esc(reference(doc.id))}</small></span></div>`;
+    return `<div class="document-letterhead"><span>${esc(department)}<small>RECORDS & RETENTION</small></span><span class="document-register">${esc((doc.presentation?.family??doc.kind).toUpperCase())}<small>${esc(reference(doc.id))}</small></span></div>${recordFormat(doc)}`;
 }
 export function documentColophon(doc: ArchiveDocument) {
     return `<div class="document-colophon" aria-hidden="true"><span>RETAINED AS RECEIVED</span><span>${String(doc.id + 1).padStart(6, '0')}</span></div>`;
