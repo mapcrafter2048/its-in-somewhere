@@ -1,3 +1,4 @@
+import { selectControl } from './ui-controls';
 import {test,expect} from '@playwright/test';
 
 test('paper files and ceiling fixtures can be inspected separately from every side',async({page})=>{
@@ -9,7 +10,7 @@ test('paper files and ceiling fixtures can be inspected separately from every si
    await page.locator(`[data-view="${angle}"]`).click();await page.screenshot({path:`test-results/refinement/models/${name}-${angle}.png`});
   }
  }
- await page.selectOption('#model-select','pendant-light');await page.selectOption('#model-light','game');await page.locator('[data-view="underneath"]').click();await page.screenshot({path:'test-results/refinement/models/pendant-game-underneath.png'});
+ await page.selectOption('#model-select','pendant-light');await selectControl(page,'#model-light','game');await page.locator('[data-view="underneath"]').click();await page.screenshot({path:'test-results/refinement/models/pendant-game-underneath.png'});
  expect(errors).toEqual([]);
 });
 

@@ -1,11 +1,12 @@
+import { launchApp } from './ui-controls';
 import { test, expect, type Page } from '@playwright/test';
-const boot=async(page:Page)=>{await page.goto('/?test=1');await expect(page.locator('#start')).toBeVisible();await page.evaluate(()=>{const g=(window as any).__GAME__;g.save.started=true;g.save.settings.quality='low';g.save.settings.reducedMotion=true;g.world.setSettings(g.save.settings);g.resume();g.deskScreens.computer();});};
+const boot=async(page:Page)=>{await page.goto('/?test=1');await expect(page.locator('#start')).toBeVisible();await page.evaluate(()=>{const g=(window as any).__GAME__;g.save.started=true;g.save.settings.quality='low';g.save.settings.reducedMotion=true;g.world.setSettings(g.save.settings);g.resume();g.deskScreens.computer('inbox');});};
 
 test('partial catalogue, password retry, digital clipping and unlock persistence',async({page})=>{
  test.setTimeout(180000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await boot(page);
- await page.locator('[data-pc-command="catalogue"]').click();await expect(page.locator('.pc-catalogue-entry')).toHaveCount(64);
+ await launchApp(page,'catalogue');await expect(page.locator('.pc-catalogue-entry')).toHaveCount(64);
  await page.locator('#catalogue-query').fill('Mara retirement');await page.locator('#catalogue-search button').click();await expect(page.locator('.pc-catalogue-entry')).toHaveCount(2);await expect(page.locator('.pc-catalogue')).toContainText('incomplete coverage');await expect(page.locator('.pc-catalogue button')).toHaveCount(1);
- await page.locator('[data-pc-command="files"]').click();await page.locator('[data-digital-folder="Old Backups"]').click();await page.locator('[data-digital-file="duplicate-amendment"]').click();await expect(page.locator('.digital-body')).toHaveCount(0);await expect(page.locator('#clip-digital')).toHaveCount(0);
+ await launchApp(page,'files');await page.locator('[data-digital-folder="Old Backups"]').click();await page.locator('[data-digital-file="duplicate-amendment"]').click();await expect(page.locator('.digital-body')).toHaveCount(0);await expect(page.locator('#clip-digital')).toHaveCount(0);
  await page.locator('#digital-password-input').fill('bad');await page.locator('#digital-password button').click();await expect(page.locator('#digital-password-status')).toContainText('try again');
  await page.locator('#digital-password-input').fill('  fax-1842  ');await page.locator('#digital-password button').click();await expect(page.locator('.digital-body')).toContainText('never supplied');await page.locator('#clip-digital').click();await expect(page.locator('.book-clipping')).toContainText('DO-41 amendment');
  await page.reload();await expect(page.locator('#start')).toBeVisible();expect(await page.evaluate(()=>{const s=(window as any).__GAME__.save;return {unlocked:s.deskLife.unlockedFiles,inspected:s.inspected,clues:s.clues};})).toEqual({unlocked:['duplicate-amendment'],inspected:[],clues:[]});expect(errors).toEqual([]);
@@ -38,8 +39,8 @@ test('optional correction needs the correct attached pair and changes the office
 });
 
 test('old shifts retain the old collection, and replacement can export its backup first',async({page})=>{
- test.setTimeout(180000);await boot(page);await page.evaluate(()=>{const g=(window as any).__GAME__;delete g.save.recordPack;g.save.inspected=[0];g.write();});await page.reload();await expect(page.locator('#start')).toBeVisible();await page.evaluate(()=>(window as any).__GAME__.deskScreens.computer());
- await page.locator('[data-pc-command="catalogue"]').click();await expect(page.locator('.pc-catalogue-entry')).toHaveCount(58);await page.locator('[data-pc-command="files"]').click();await page.locator('[data-digital-folder="Old Backups"]').click();await expect(page.locator('[data-digital-file="duplicate-amendment"]')).toHaveCount(0);
- await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.locator('#new-game').click();await expect(page.locator('[data-screen="reset"]')).toContainText('expanded record collection');
+ test.setTimeout(180000);await boot(page);await page.evaluate(()=>{const g=(window as any).__GAME__;delete g.save.recordPack;g.save.inspected=[0];g.write();});await page.reload();await expect(page.locator('#start')).toBeVisible();await page.evaluate(()=>(window as any).__GAME__.deskScreens.computer('inbox'));
+ await launchApp(page,'catalogue');await expect(page.locator('.pc-catalogue-entry')).toHaveCount(58);await launchApp(page,'files');await page.locator('[data-digital-folder="Old Backups"]').click();await expect(page.locator('[data-digital-file="duplicate-amendment"]')).toHaveCount(0);
+ await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.locator('#new-game').click();await expect(page.locator('[data-screen="reset"]')).toContainText('expanded record collection');
  const downloadPromise=page.waitForEvent('download');await page.locator('#export-reset').click();const download=await downloadPromise;expect(download.suggestedFilename()).toMatch(/archive-shift/);await expect(page.locator('#start')).toBeVisible();expect(await page.evaluate(()=>(window as any).__GAME__.save.recordPack)).toBe(1);
 });

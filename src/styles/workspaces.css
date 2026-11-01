@@ -1,0 +1,205 @@
+/* The open object is the workspace. Supplies occupy a quiet strip beside it. */
+.modal-overlay .panel.notebook-book{--case-space:114px;--desk-space:72px}
+.book-volume{--page-edge:110px;padding-right:var(--page-edge);padding-bottom:38px;isolation:auto}
+.book-spread{z-index:2;border-radius:2px 2px 5px 2px}
+.book-leaf[data-side=right]{border-top-right-radius:2px}
+.notebook-book .book-tabs{right:8px;top:98px;width:104px;gap:10px;z-index:3}
+.modal-overlay .notebook-book .book-tabs button,.modal-overlay .notebook-book .book-bookmark{width:104px;height:42px;min-height:42px!important;padding:8px 10px!important;font-size:10px!important;border:0;border-radius:0 2px 2px 0;box-shadow:1px 2px 0 #172f3744;transform:none;text-align:left}
+.modal-overlay .notebook-book .book-bookmark{right:8px;top:46px;z-index:3}
+.modal-overlay .notebook-book .book-bookmark:before,.notebook-book .book-tabs button:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#fff2;pointer-events:none}
+.notebook-book .book-tabs button{position:relative}
+.modal-overlay .notebook-book .book-bookmark[aria-expanded=true],.notebook-book .book-tabs button.selected{border-right:3px solid #fff1ce;font-weight:bold}
+.notebook-book .book-close{right:116px!important;top:2px}
+.modal-overlay .notebook-book .book-navigation button{top:auto!important;bottom:0;right:auto;width:38px;height:74px;min-height:74px;padding:12px 8px 8px;writing-mode:vertical-rl;text-align:center;align-items:center;justify-content:center;border-radius:0 0 3px 3px;z-index:3;box-shadow:1px 2px 0 #172f3744}
+.modal-overlay .notebook-book .book-navigation #book-prev{left:42px}
+.modal-overlay .notebook-book .book-navigation #book-next{right:calc(var(--page-edge) + 28px)}
+.book-navigation .turn-caption{font-size:10px}
+.book-palette{position:absolute;right:0;top:76px;width:86px;max-height:calc(100% - 145px);overflow:auto;scrollbar-width:thin;border-left:1px solid #d1c5a65c;padding:12px 8px 12px 17px;color:#e8dfbf}
+.book-palette .book-case-supplies{padding:0;gap:40px}
+.book-palette .physical-choices{color:#e8dfbf}
+.book-palette .physical-choices legend{color:#d0d1b6;font-size:9px;margin-bottom:12px}
+.book-palette .physical-choice-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
+.book-palette .material-samples label.physical-choice{padding:3px;min-width:0}
+.book-palette .material-samples .choice-object{width:20px;height:20px;background:var(--sample);border:1px solid #ffffff55;border-radius:2px;box-shadow:none;transform:none;margin:0}
+.book-palette .choice-object:before,.book-palette .choice-object:after{display:none}
+.book-palette .choice-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.book-palette .physical-choice:has(input:checked) .choice-object{outline:2px solid #dfcc93;outline-offset:4px}
+.notebook-book:not(.book-editing) .book-palette{visibility:hidden}
+.book-held-tools{bottom:51px;z-index:5}
+.book-front-spread,.book-animation-layer{inset:38px var(--page-edge) 38px 18px}
+.book-front-spread{z-index:4}
+/* One room occupies exactly one two-page opening. */
+.book-room-spread .book-spread{grid-template-columns:repeat(2,minmax(0,1fr))}
+.book-room-spread .book-content{overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding-top:14px}
+.book-room-spread .book-leaf{padding-inline:18px;background-image:none}
+.room-plan-page,.room-register-page{min-width:0;display:flex;flex-direction:column;gap:15px}
+.room-plan-page h3,.room-detail h3{font:24px/1.2 Georgia,serif;margin:0;color:#344b5b}
+.room-caption,.room-legend{font:10px/1.6 'Courier New',monospace;margin:0;color:#6b7568}
+.room-bank h4{font:italic 15px/1.4 Georgia,serif;margin:0 0 8px;border-bottom:1px solid #b4ac9066;padding-bottom:5px}
+.room-cabinet-grid{display:grid;gap:4px}
+.room-bank-row{display:grid;grid-template-columns:14px repeat(16,minmax(0,1fr));gap:2px;align-items:center}
+.room-bank-row>span{font:10px 'Courier New',monospace}
+.modal-overlay .notebook-book .room-bank button{padding:3px 0;min-height:25px;font:9px/1.3 'Courier New',monospace;background:#e8e0c9;border:1px solid #c3b99a;box-shadow:none;border-radius:1px}
+.room-small-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.modal-overlay .notebook-book .room-small-grid button{font-size:9px;padding:5px 2px;min-height:29px;overflow-wrap:anywhere}
+.modal-overlay .notebook-book .room-bank button.visited{background:#cdd9d6;border-color:#9aafa5}
+.modal-overlay .notebook-book .room-bank button.fully-searched{background:#aeba94;color:#2f4937;border-color:#7e9170}
+.modal-overlay .notebook-book .room-bank button.selected{outline:2px solid #805c36;outline-offset:1px}
+.room-bank .tab-gold{box-shadow:inset 0 -3px #b89d4e!important}.room-bank .tab-blue{box-shadow:inset 0 -3px #6c96ac!important}.room-bank .tab-rose{box-shadow:inset 0 -3px #bc8982!important}.room-bank .tab-green{box-shadow:inset 0 -3px #849c77!important}
+.room-index{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.modal-overlay .notebook-book .room-index button{background:transparent;border:0;border-bottom:2px solid #b9af91;padding:6px 2px;min-height:37px;font-size:11px}
+.room-index button span{display:block;font:8px/1.5 'Courier New',monospace;margin-top:4px}
+.modal-overlay .notebook-book .room-index button.selected{border-bottom-color:#476470;font-weight:bold}
+.room-detail{border-top:1px solid #b8a985;padding-top:13px;font:13px/1.6 Georgia,serif}
+.room-detail p{margin:0 0 12px}.room-detail form{display:grid;gap:8px}.room-detail label{display:flex;gap:8px;align-items:center;font:11px 'Courier New',monospace}.room-detail input{width:100%;background:#fff5df;border:1px solid #b5a98c;padding:7px;min-width:0}
+.room-detail .physical-choice-options{gap:4px 10px}
+/* A continuous folder silhouette replaces stacked, mismatched corner pieces. */
+.modal-overlay .reader.physical-folder.surface-folder{width:min(1260px,100%);display:grid;grid-template-columns:minmax(0,1fr) 174px;gap:0;padding-top:22px;position:relative;isolation:isolate;border:0;background:transparent;box-shadow:none}
+.physical-folder.surface-folder:before{content:'';position:absolute;inset:22px 0 0;background:#d4bf8d;border:1px solid #a4946c;border-radius:0 6px 5px 2px;box-shadow:3px 4px 0 #8a7e59,0 15px 45px #0006;z-index:-1}
+.physical-folder.surface-folder .reader-main{background:transparent;border:0;border-radius:0;padding:45px 17px 12px 20px;box-shadow:none;display:flex;flex-direction:column;min-width:0;position:relative;overflow:visible}
+.physical-folder .reader-main:before{top:-20px;left:0;height:21px;width:42%;border:1px solid #a4946c;border-bottom:0;border-radius:7px 9px 0 0;background:#d4bf8d;z-index:-1}
+.physical-folder .folder-jacket-label{left:24px;right:24px;top:10px;font-size:9px;align-items:center;flex-direction:row}
+.physical-folder .folder-paper-stack{margin:0 5px 12px 0;min-width:0}
+.physical-folder .folder-workspace{border-left:1px solid #aa976b66;margin:17px 0 15px;padding:8px 16px;min-height:0;overflow:auto;scrollbar-width:thin}
+.physical-folder .folder-workspace .drawer-context{display:flex;flex-direction:column;align-items:stretch;border:0;background:transparent;padding:0;color:#6e6447;gap:12px}
+.modal-overlay .physical-folder .drawer-context>button{color:#4e583f;border:0;border-bottom:1px solid #aa976b88;font-size:10px;padding:8px 0;text-align:left;background:transparent}
+.physical-folder .drawer-context>span{font:9px/1.7 'Courier New',monospace;overflow-wrap:anywhere;padding:0 0 14px}
+.physical-folder.surface-folder .folder-workspace .reader-actions{display:flex;flex-direction:column;align-items:stretch;border:0;padding:0;gap:18px;width:100%}
+.modal-overlay .physical-folder .folder-instruments button:not(.folder-grip){font-size:10px;justify-content:start;padding:7px 0;min-height:40px}
+.modal-overlay .physical-folder .folder-instruments .folder-grip{width:100%;margin:16px 0 0;padding:12px 9px;border-radius:2px;box-shadow:0 2px 0 #394b36;font-size:11px}
+.physical-folder.surface-folder .reader-footer{padding:4px 0 0;gap:0}
+.physical-folder .page-navigation span{font-size:10px}
+/* Cork and enamel retain a clear working area and a slender supply strip. */
+.object-workspace{display:grid;grid-template-columns:minmax(0,1fr) 192px;gap:20px;min-height:0;min-width:0}
+.object-rail{min-width:0;min-height:0;overflow:auto;scrollbar-width:thin;overscroll-behavior:contain;border-left:1px solid #6b71593d;padding:8px 0 8px 18px;font:11px/1.6 'Courier New',monospace}
+.modal-overlay .object-rail button{font-size:11px;min-height:36px}
+.panel[data-screen=pinboard]{overflow:hidden}
+.panel[data-screen=pinboard]>.panel-head{padding:16px 22px;margin:10px 14px 0;box-shadow:none}
+.panel[data-screen=pinboard]>.panel-head h2{font:27px Georgia,serif}
+.panel[data-screen=pinboard]>.board-register{margin:10px 18px 4px;padding:6px 0;font-size:10px;gap:14px;line-height:1.5}
+.pinboard-workspace{flex:1;margin:10px 18px 18px}
+.panel[data-screen=pinboard] .personal-board{min-height:0;margin:0;height:100%;border:1px solid #80694366}
+.pinboard-workspace .object-rail{border-color:#73583e66}
+.modal-overlay .pinboard-workspace .board-toolbar{display:flex;flex-direction:column;align-items:stretch;gap:18px;background:transparent;box-shadow:none;border:0;padding:0;margin:0}
+.modal-overlay .board-toolbar>button,.modal-overlay .board-toolbar>.board-sheet-pocket>summary{flex-direction:row;text-align:left;padding:7px 0;gap:12px;font-size:10px;min-width:0;justify-content:flex-start}
+.board-frame-actions{flex-direction:column;align-items:stretch;align-self:stretch;margin:8px 0;gap:8px}
+.modal-overlay .board-frame-actions button{text-align:left;justify-content:start}
+.board-sheet-picker{left:auto;right:0;top:calc(100% + 8px);bottom:auto;width:166px;padding:14px 10px;box-shadow:1px 3px 0 #ac9c7a;border-left-width:4px}
+.board-sheet-pocket[open]{padding-bottom:12px}.board-sheet-pocket[open] .board-sheet-picker{position:static;margin-top:10px;width:auto}
+.object-rail #pin-actions{margin:20px 0 0;padding:14px 0 0;border:0;border-top:1px solid #7c694d66;background:transparent;display:flex;flex-direction:column;align-items:stretch;gap:9px}
+.pinned-sticky-detail{font:15px/1.5 Georgia,serif;white-space:pre-wrap;overflow-wrap:anywhere;max-height:200px;overflow:auto}
+.object-rail .board-connection-tools,.object-rail .board-connections{padding-top:12px;margin-top:12px;border-top:1px solid #7c694d66;background:transparent;box-shadow:none;font-size:10px}
+.object-rail .board-connection-tools .board-tools{display:flex;flex-direction:column;align-items:stretch;padding:8px 0;gap:10px}.object-rail label{min-width:0}
+.panel[data-screen=whiteboard]{height:min(850px,calc(100dvh - 40px));display:flex;flex-direction:column;overflow:hidden}
+.panel[data-screen=whiteboard]>.panel-head{padding:18px 22px;flex:none}.panel[data-screen=whiteboard]>.panel-head h2{font:27px Georgia,serif}
+.whiteboard-workspace{flex:1;margin:14px 18px 18px}
+.whiteboard-drawing{display:flex;min-width:0;min-height:0;background:#eef0df;border:1px solid #9fa68f;box-shadow:inset 0 0 7px #6b786522}
+.whiteboard-drawing #board-editor{width:100%;height:100%;object-fit:contain;aspect-ratio:2/1;margin:0;touch-action:none;border:0;min-height:0}
+.whiteboard-workspace .wing-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:0;margin:0 0 20px;background:transparent;gap:5px}
+.whiteboard-workspace .wing-tabs button{font-size:9px!important;padding:7px 3px!important;border:0;border-bottom:1px solid #a2ac93;background:transparent}
+.whiteboard-workspace .board-tools{display:flex;flex-direction:column;align-items:stretch;gap:9px;background:transparent;margin:0;padding:0;border:0}
+.whiteboard-workspace .board-tools button{background:transparent;border:0;border-bottom:1px solid #a2ac934d;text-align:left;box-shadow:none}
+.whiteboard-workspace .board-tools [data-ink]:before{content:'';display:inline-block;width:13px;height:13px;border-radius:50%;margin-right:12px;background:#28382f;vertical-align:middle}.whiteboard-workspace [data-ink=blue]:before{background:#285e99}.whiteboard-workspace [data-ink=red]:before{background:#ae3e38}
+.whiteboard-workspace .board-tools button[aria-pressed=true]{font-weight:bold;border-bottom-color:#697b5f}
+.object-rail .panel-foot{display:flex;flex-direction:column;align-items:stretch;background:transparent;border:0;margin:20px 0 0;padding:12px 0;gap:10px}
+.object-rail .panel-foot>span{display:none}
+.object-rail .board-status{font:9px/1.6 'Courier New',monospace;margin-top:18px;color:#66765c}
+/* The desk has three main objects and a readable register, without miniature columns. */
+.panel[data-screen=desk] .desk-grid{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(0,1.35fr);gap:26px}
+.panel[data-screen=desk] .desk-grid>.prose{padding:20px;background:#e5dfc6;box-shadow:none}
+.panel[data-screen=desk] .desk-grid>.prose>p:first-of-type{font:13px/1.6 Georgia,serif;color:#67715b;max-width:35ch}
+.panel[data-screen=desk] .desk-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-content:start}
+.modal-overlay .panel[data-screen=desk] .desk-options>button{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;text-align:center;min-height:115px;padding:16px 6px;background:transparent;border:0;box-shadow:none;font-size:11px;line-height:1.6;overflow-wrap:normal}
+.panel[data-screen=desk] .desk-record-index{grid-column:1/-1;margin:0;padding:20px 22px;background:#e8dec1;border:0;box-shadow:none}
+.desk-record-index details+details{margin-top:15px}.desk-record-index summary{font:italic 16px Georgia,serif;cursor:pointer;padding:5px 0;border-bottom:1px solid #b9af9266}
+.desk-record-index [data-desk-group]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 18px;padding-top:8px}
+.modal-overlay .panel[data-screen=desk] .desk-record-index button{background:transparent;border:0;border-bottom:1px dotted #b9af9277;box-shadow:none;text-align:left;min-height:36px;padding:8px 0;font:11px/1.6 'Courier New',monospace;overflow-wrap:normal}
+.panel[data-screen=desk] .voucher-desk{border:0;border-top:1px solid #9eac8d;padding:14px 0 0;margin-top:18px;background:transparent}
+/* File pockets and stationery are separate compartments in the same satchel. */
+.panel[data-screen=inventory]{display:flex;flex-direction:column;height:min(820px,calc(100dvh - 40px));padding:18px;overflow:hidden}
+.panel[data-screen=inventory]>.panel-head{margin:0;padding:14px 18px;box-shadow:none}.panel[data-screen=inventory]>.panel-head h2{font:27px Georgia,serif}
+.panel[data-screen=inventory]>.prose{margin:0;padding:10px 18px;background:transparent;color:#e8dec4;border:0}.panel[data-screen=inventory]>.prose p{font:11px/1.6 'Courier New',monospace;margin:0}
+.inventory-tabs{display:flex;gap:16px;margin:0 16px 12px;border-bottom:1px solid #d1bb9555}
+.modal-overlay .inventory-tabs button{border:0;border-bottom:3px solid transparent;background:transparent;box-shadow:none;color:#e9ddbf;padding:8px 0;min-width:72px}
+.modal-overlay .inventory-tabs button[aria-pressed=true]{border-bottom-color:#e3d6b1;font-weight:bold}
+.inventory-workspace{flex:1;grid-template-columns:minmax(0,1fr) 200px;gap:20px;margin:0 16px 8px}
+.inventory-main{overflow:auto;min-height:0;scrollbar-width:thin;min-width:0}
+.panel[data-screen=inventory] .inventory-files{padding:0!important;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-content:start}
+.panel[data-screen=inventory] .inventory-files>article{display:block;min-width:0;padding:14px;background:#c8ae87;border:1px solid #dfc59c;box-shadow:0 2px 0 #473d2d44;border-radius:1px}
+.panel[data-screen=inventory] .inventory-files>article:before{display:none}.panel[data-screen=inventory] .inventory-files>article.selected{outline:2px solid #e9ddbf;outline-offset:2px}
+.modal-overlay .panel[data-screen=inventory] .inventory-file-select{display:block;width:100%;min-height:90px;text-align:left;border:0;background:transparent;padding:0;font:16px/1.5 Georgia,serif;color:#3d4b39}
+.panel[data-screen=inventory] .inventory-files .empty-file-pocket{display:none}
+.panel[data-screen=inventory] .empty-state{grid-column:1/-1;min-height:180px;display:grid;place-items:center;padding:20px;text-align:center;font:italic 20px/1.6 Georgia,serif;color:#e6d7b8;max-width:32ch}
+.inventory-workspace .object-rail{color:#e8dcbf;border-color:#d1bb9555}
+.inventory-workspace .physical-choices{color:#e8dcbf}.inventory-workspace .physical-choices legend{color:#cabd9d}
+.inventory-workspace .physical-choice:has(input:checked) .choice-label{color:#fff1cf}
+.inventory-selection{display:flex;flex-direction:column;gap:10px;margin-top:22px}.inventory-selection>p{font:14px/1.6 Georgia,serif;overflow-wrap:anywhere}
+.modal-overlay .inventory-selection button{border:0;border-bottom:1px solid #b7aa8877;background:transparent;text-align:left;box-shadow:none;color:#eee3c5;padding:8px 0}
+.panel[data-screen=inventory] .stationery-inventory{margin:0;background:transparent;border:0;box-shadow:none;padding:4px;color:#e8dcbf}
+.stationery-inventory>h3,.stationery-inventory>.stationery-caption{display:none}
+.panel[data-screen=inventory] .pocket-instruments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.modal-overlay .panel[data-screen=inventory] .pocket-instruments button{color:#e8dcbf;line-height:1.7;border-color:#cfba8b66;font-size:11px}
+.panel[data-screen=inventory] .sticky-pocket-grid{margin-top:20px}.panel[data-screen=inventory] .inventory-sticky{padding:18px;box-shadow:1px 3px 0 #433e2d44;border-radius:1px 1px 5px 1px}
+/* Loose sticky stock keeps a single, clean paper edge. */
+.sticky-compose .loose-sticky{border:1px solid #b5a36e88;border-radius:1px 1px 5px 1px;transform:none;padding:24px 26px;box-shadow:1px 3px 0 #baa773,0 10px 25px #0003}
+.sticky-compose .loose-sticky>label{line-height:1.6;margin-bottom:14px;display:block}.sticky-compose .loose-sticky textarea{padding:0 2px;line-height:1.65;border-radius:0;outline-offset:6px}
+@media(max-width:1050px){
+ .modal-overlay .panel.notebook-book{--case-space:90px}.book-palette{width:70px;padding-left:10px}.book-palette .physical-choice-options{gap:12px 7px}
+ .object-workspace{grid-template-columns:minmax(0,1fr) 162px;gap:14px}.object-rail{padding-left:12px}
+ .modal-overlay .reader.physical-folder.surface-folder{grid-template-columns:minmax(0,1fr) 148px}
+ .physical-folder .folder-workspace{padding-inline:12px}
+ .book-room-spread .book-leaf{padding-inline:12px}.room-bank-row{gap:1px;grid-template-columns:12px repeat(16,minmax(0,1fr))}
+ .modal-overlay .notebook-book .room-bank-row button{font-size:8px}
+}
+@media(max-width:899px){
+ .book-volume{padding:37px var(--page-edge) 38px 10px;--page-edge:94px}.notebook-book .book-tabs{width:88px;top:98px;gap:10px}
+ .modal-overlay .notebook-book .book-bookmark,.modal-overlay .notebook-book .book-tabs button{width:88px;font-size:9px!important;padding-inline:8px!important}
+ .notebook-book .book-close{right:100px!important}.book-front-spread,.book-animation-layer{inset:37px var(--page-edge) 38px 10px}
+ .book-room-spread .book-spread{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .book-room-spread .book-leaf{display:grid!important;padding-inline:10px}.book-room-spread .book-binding{display:flex;left:calc(50% - 8px)}
+ .room-bank-row{grid-template-columns:12px repeat(8,minmax(0,1fr));gap:2px}.room-bank-row>span{grid-row:span 2}.room-cabinet-grid{gap:8px}.room-small-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.room-index{grid-template-columns:repeat(2,minmax(0,1fr))}.room-index button span{display:none}
+ .room-plan-page h3{font-size:19px}.room-caption{font-size:9px}.room-detail{font-size:12px}
+ .panel[data-screen=desk] .desk-grid{grid-template-columns:1fr}.panel[data-screen=desk] .desk-options>button{min-height:90px}.panel[data-screen=desk] .desk-options{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .panel[data-screen=inventory] .inventory-files{grid-template-columns:1fr}
+}
+@media(max-width:550px){
+ .modal-overlay .panel.notebook-book{--case-space:62px}.book-volume{--page-edge:72px}.book-palette{width:56px;padding:8px 3px 8px 8px;top:65px}.book-palette .choice-object{width:16px!important;height:16px!important}.book-palette .physical-choice-options{gap:10px 4px}.book-palette .physical-choices legend{font-size:8px}
+ .modal-overlay .notebook-book .book-bookmark,.modal-overlay .notebook-book .book-tabs button{width:66px;font-size:8px!important;padding-inline:5px!important}.notebook-book .book-tabs{width:66px}.notebook-book .book-close{right:77px!important}
+ .book-room-spread .book-leaf{padding-inline:6px}.room-plan-page h3{font-size:16px}.room-bank-row{grid-template-columns:10px repeat(4,minmax(0,1fr))}.room-bank-row>span{grid-row:span 4}.room-small-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .object-workspace{grid-template-columns:minmax(0,1fr) 126px;gap:10px}.object-rail{padding-left:9px}.modal-overlay .object-rail button{font-size:10px!important;padding:7px 2px}
+ .modal-overlay .reader.physical-folder.surface-folder{grid-template-columns:minmax(0,1fr) 112px}.physical-folder.surface-folder .reader-main{padding-inline:8px}.physical-folder .folder-workspace{padding-inline:8px}.physical-folder .folder-jacket-label{left:10px;right:10px}.physical-folder .folder-jacket-label small{display:none}.physical-folder.surface-folder .document-paper{padding:24px 16px}
+ .modal-overlay .physical-folder .folder-instruments button:not(.folder-grip){font-size:9px;gap:7px}.folder-workspace .drawer-context>span{font-size:8px}.folder-workspace .drawer-context>button{font-size:9px!important}
+ .panel[data-screen=pinboard]>.board-register>span:last-child{font-size:9px}.panel[data-screen=pinboard]>.panel-head h2{font-size:23px}.pinboard-workspace{margin-inline:12px}.board-sheet-picker{padding:10px 7px}
+ .modal-overlay .board-toolbar>button,.modal-overlay .board-toolbar>.board-sheet-pocket>summary{font-size:9px;gap:8px}.board-toolbar .supply-notebook,.board-toolbar .supply-pad>span{width:25px;height:24px}
+ .inventory-workspace{margin-inline:2px}.inventory-workspace .physical-choice{font-size:9px}.panel[data-screen=inventory] .pocket-instruments{grid-template-columns:1fr}.whiteboard-workspace{margin-inline:10px}.whiteboard-workspace .wing-tabs{grid-template-columns:1fr}
+}
+/* Override generic panel controls for small marks printed on the room plan. */
+.modal-overlay .panel.notebook-book .room-bank button{min-height:23px!important;min-width:0!important;padding:3px 0!important;font:9px/1.3 'Courier New',monospace!important;white-space:nowrap!important;overflow-wrap:normal}
+.modal-overlay .panel.notebook-book .room-small-grid button{min-height:25px!important;padding:4px 1px!important}
+.modal-overlay .panel.notebook-book .room-index button{padding:6px 2px!important;min-width:0!important;color:#344b5b!important;background:transparent!important}
+.modal-overlay .panel.notebook-book .book-navigation button{width:38px!important;min-width:38px!important;max-width:38px;padding:10px 7px!important;bottom:-30px;height:68px!important;min-height:68px!important}
+.modal-overlay .panel.notebook-book .book-navigation #book-prev{left:40px}
+.modal-overlay .panel.notebook-book .book-navigation #book-next{right:calc(var(--page-edge) + 26px)}
+@media(max-width:899px){.modal-overlay .panel.notebook-book .room-bank button{font-size:8px!important}}
+.panel[data-screen=pinboard] .personal-board{width:100%;min-width:0;aspect-ratio:auto;position:relative}
+.personal-board #pinboard-art{position:absolute;inset:0;width:100%;height:100%}
+.modal-overlay .panel[data-screen=sticky-draft]{width:min(540px,100%);padding:0;background:transparent;border:0;box-shadow:none}
+.modal-overlay .panel[data-screen=sticky-draft]>.panel-head{padding:16px 12px;background:transparent;border:0;box-shadow:none;color:#e9e1c5}
+.modal-overlay .panel[data-screen=sticky-draft] .sticky-compose{width:100%;max-width:none;padding:4px 12px 12px}
+.whiteboard-drawing #board-editor{object-fit:fill}
+.panel[data-screen=desk] .desk-options>button{color:#e9e1c5!important}
+.room-bank-box .room-small-grid{grid-template-columns:repeat(10,minmax(0,1fr))}
+.modal-overlay .panel.notebook-book .room-bank-box button{font-size:8px!important;min-height:23px!important}
+@media(max-width:1050px){.room-bank-box .room-small-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:899px){.room-bank-box .room-small-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:550px){.room-bank-box .room-small-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.room-bank-box .room-small-grid{grid-template-columns:repeat(16,minmax(0,1fr));gap:2px;max-height:230px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:2px}
+.modal-overlay .panel.notebook-book .room-bank-box button{font-size:8px!important;min-height:18px!important;padding:2px 0!important;border:0;border-bottom:1px solid #b9ad8c55;background:transparent}
+.room-register-page .room-detail{flex:none}.room-legend{padding-bottom:8px}
+@media(max-width:1050px){.room-bank-box .room-small-grid{grid-template-columns:repeat(10,minmax(0,1fr));max-height:190px}}
+@media(max-width:899px){.room-bank-box .room-small-grid{grid-template-columns:repeat(6,minmax(0,1fr));max-height:210px}}
+@media(max-width:550px){.room-bank-box .room-small-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.physical-folder.surface-folder .folder-workspace .highlight-bar{display:flex;flex-direction:column;align-items:stretch;padding:18px 0 0;margin-top:18px;border-top:1px solid #aa976b66;gap:8px}
+.physical-folder .folder-workspace .highlight-bar input{width:100%;min-width:0;padding:7px;background:#f5e9c8;border:1px solid #ac9c74;font-size:10px}
+.notebook-book .book-tabs button[data-desk-tab=rooms]{background:#c4d5d2}
+.modal-overlay .panel.notebook-book .room-bank button.selected{color:#344b5b!important;background:#eadbc0!important}

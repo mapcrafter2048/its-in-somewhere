@@ -28,6 +28,7 @@ interface Options {
     visit: (id: number) => void;
     discoveryEntries: () => NotebookEntry[];
     board:()=>void;
+    map:()=>void;
     printing: () => boolean;
     printer: () => void;
 }
@@ -58,7 +59,7 @@ export class DeskScreens {
         this.desktopRequest++;
         this.o.show(mode, panel(title, eyebrow, body, true));
     }
-    private displayComputer(title: string, body: string, compose = title === 'New message', app: DesktopApp = 'mail') {
+    private displayComputer(title: string, body: string, compose = title === 'New message', app: DesktopApp | null = 'mail') {
         const pending = this.d.mail.filter(m => m.direction === 'in' && m.due > this.save.playSeconds).length;
         this.o.show('computer', computerWindow(title, body, pending, compose, app));
     }
@@ -66,9 +67,10 @@ export class DeskScreens {
     }) {
         document.querySelectorAll<HTMLButtonElement>('[data-pc-command]').forEach(b => b.onclick = () => {
             beforeNavigate();
+            if (b.dataset.pcCommand === 'desktop') { this.computerHome(); return; }
             if (['files', 'directory', 'print', 'snake', 'catalogue'].includes(b.dataset.pcCommand!)) { void this.desktop(b.dataset.pcCommand as DesktopApp); return; }
             if (b.dataset.pcCommand === 'inbox')
-                this.computer();
+                this.computer('inbox');
             else {
                 this.compose();
                 if (b.dataset.pcCommand === 'attachments') {
@@ -99,7 +101,7 @@ export class DeskScreens {
             });
             this.desktopApps.open(app, file);
         } catch {
-            if (request === this.desktopRequest) { this.displayComputer('Application unavailable', '<p class="pc-compose-hint">Could not load the application. Select it in the taskbar to retry.</p>'); this.bindComputerMenu(); }
+            if (request === this.desktopRequest) { this.displayComputer('Application unavailable', '<p class="pc-compose-hint">Could not load the application. Return to the desktop and open it again.</p>', false, app); this.bindComputerMenu(); }
         }
     }
     private commit() {
@@ -108,14 +110,16 @@ export class DeskScreens {
     }
     private newNote() {this.book.flushPending();const used=new Set(this.d.notes.map((n,i)=>n.sheet??i));const slot=Array.from({length:noteCapacity(this.save)},(_,i)=>i).find(i=>!used.has(i));if(slot===undefined)this.o.notify('The notebook is full. Recycle a sheet or order stationery.');else this.sheet(slot);}
     sheet(index:number){this.book.flushPending();this.lastSheet=Math.max(0,Math.min(noteCapacity(this.save)-1,index));const n=this.d.notes.find((n,i)=>(n.sheet??i)===this.lastSheet);this.note(n?.id??0,false,this.lastSheet);}
-    private openSection(section:NotebookSection) {this.notebook(section);}
+    private openSection(section:NotebookSection) {if(section==='rooms'){this.o.map();return;}this.notebook(section);}
     notebook(tab?: string) {
         if(!tab && this.book.section==='notes' && this.lastNote && this.d.notes.some(n=>n.id===this.lastNote)) { if(this.lastBookMode==='read'){this.readNote(this.lastNote,true);return;}if(this.lastBookMode==='edit'){this.note(this.lastNote);return;} }
-        const section = (['notes','discoveries','collection','log'].includes(tab ?? '') ? tab : this.book.section) as NotebookSection;
+        const section = (['notes','discoveries','collection','log','rooms'].includes(tab ?? '') ? tab : this.book.section) as NotebookSection;
+        if(section==='rooms'){this.o.map();return;}
         if(section==='notes'){this.sheet(this.lastSheet);return;}
         const entries = section === 'collection' ? this.collectionEntries() : section === 'log' ? this.logEntries() : section === 'discoveries' ? this.o.discoveryEntries() : [];
         this.book.show(section, entries, () => this.bindBookActions());
     }
+    roomSpread(left:string,right:string,room:number,turn:(direction:number)=>void,contents:{label:string;select:()=>void}[]){this.book.roomSpread(left,right,room,4,turn,contents);}
     private noteContents() {
         this.book.setContents(()=>Array.from({length:noteCapacity(this.save)},(_,i)=>{const n=this.d.notes.find((n,j)=>(n.sheet??j)===i);return {label:`Sheet ${String(i+1).padStart(2,'0')} / ${n?(n.title||'Untitled sheet'):'Unwritten'}`,select:()=>this.sheet(i)};}));
     }
@@ -156,14 +160,17 @@ export class DeskScreens {
         this.lastSheet=sheet;
         const retain=()=>{if(committed)return;if(!n!.text&&!n!.title&&!n!.strokes.length&&!n!.excerpt&&!n!.digitalExcerpt)return;const saved=createNote(this.save);if(!saved)return;Object.assign(saved,n,{id:saved.id,sheet});n=saved;committed=true;this.lastNote=n.id;};
         const pinned = this.d.pins.some(p => p.kind!=='sticky'&&p.note === id), locked = pinned && !(atBoard && this.o.atDesk());
-        const left = `<div class="book-writing note-editor"><nav class="book-editor-nav" aria-label="Notebook sheets"><button id="previous-note" ${sheet === 0 ? 'disabled' : ''}>← Sheet</button><span>Sheet ${sheet + 1} / ${totalSheets}</span><button id="next-note" ${sheet === totalSheets - 1 ? 'disabled' : ''}>Sheet →</button></nav><label>Sheet title <input id="note-title" maxlength="100" value="${esc(n.title)}" ${locked ? 'disabled' : ''}></label><label>Your notes <textarea id="note-text" maxlength="8000" rows="6" ${locked ? 'disabled' : ''}>${esc(n.text)}</textarea></label><div class="book-actions"><button id="back-notes">${atBoard ? 'Back to board' : 'Contents'}</button><button id="read-note">Read pages</button><button id="delete-note" ${locked ? 'disabled' : ''}>Recycle sheet</button></div><div id="delete-confirm" hidden>Recycle this sheet and its connections?<br><button id="confirm-delete">Recycle</button> <button id="cancel-delete">Keep sheet</button></div></div>`;
-        const right = `<div class="book-art-tools"><label>Paper <select id="note-paper" ${locked ? 'disabled' : ''}>${Object.keys(PAPERS).map(p => `<option ${p === n.paper ? 'selected' : ''}>${p}</option>`).join('')}</select></label><label>Ink <select id="note-ink" ${locked ? 'disabled' : ''}>${Object.keys(INKS).map(p => `<option>${p}</option>`).join('')}</select></label><label>Pen <select id="note-tool" ${locked ? 'disabled' : ''}><option value="marker">Fine</option><option value="broad">Broad</option><option value="eraser">Eraser</option></select></label><button id="sketch-undo" ${locked ? 'disabled' : ''}>Undo stroke</button></div><canvas id="note-sketch" width="720" height="360" tabindex="0" aria-label="Sketch sheet. Draw with a mouse or pen."></canvas><p id="note-status" role="status">${locked ? 'Pinned sheets can be edited at the desk board.' : 'Changes are retained automatically. Storage errors appear above the archive.'}</p><div class="book-editor-clippings">${n.digitalExcerpt ? `<blockquote class="book-clipping"><span class="book-caption">${esc(n.digitalExcerpt.label)}</span><p>${esc(n.digitalExcerpt.text)}</p><button id="digital-source">Open digital source ↗</button></blockquote>` : ''}${n.excerpt ? `<blockquote class="book-clipping"><span class="book-caption">PAPERCLIPPED / ${esc(n.excerpt.label)}</span><p>${esc(n.excerpt.text)}</p><button id="clip-source">Read retained source ↗</button></blockquote>` : ''}</div>`;
+        const left = `<div class="book-writing note-editor"><label>Sheet title <input id="note-title" placeholder="Untitled sheet" maxlength="100" value="${esc(n.title)}" ${locked ? 'disabled' : ''}></label><label>Your notes <textarea id="note-text" maxlength="8000" rows="6" ${locked ? 'disabled' : ''}>${esc(n.text)}</textarea></label><div class="book-actions book-marginalia"><button id="back-notes">${atBoard ? 'Back to board' : 'Index'}</button><button id="read-note">Read this sheet</button><button id="delete-note" class="tear-sheet" aria-label="Tear out and recycle this sheet" title="Tear out sheet" ${locked ? 'disabled' : ''}>Tear out</button></div><div id="delete-confirm" hidden>Recycle this sheet and its connections?<br><button id="confirm-delete">Recycle</button> <button id="cancel-delete">Keep sheet</button></div></div>`;
+        const right = `<div class="book-art-tools stationery-roll" aria-label="Drawing materials"><label>Paper <select id="note-paper" ${locked ? 'disabled' : ''}>${Object.keys(PAPERS).map(p => `<option ${p === n.paper ? 'selected' : ''}>${p}</option>`).join('')}</select></label><label>Ink <select id="note-ink" ${locked ? 'disabled' : ''}>${Object.keys(INKS).map(p => `<option>${p}</option>`).join('')}</select></label><label>Pen <select id="note-tool" ${locked ? 'disabled' : ''}><option value="marker">Pencil</option><option value="broad">Pen</option><option value="eraser">Eraser</option></select></label><button id="sketch-undo" ${locked ? 'disabled' : ''}>Undo</button></div><canvas id="note-sketch" width="720" height="360" tabindex="0" aria-label="Sketch sheet. Draw with a mouse or pen."></canvas><p id="note-status" role="status">${locked ? 'Pinned sheets can be edited at the desk board.' : 'Your writing is saved automatically.'}</p><div class="book-editor-clippings">${n.digitalExcerpt ? `<blockquote class="book-clipping"><span class="book-caption">${esc(n.digitalExcerpt.label)}</span><p>${esc(n.digitalExcerpt.text)}</p><button id="digital-source">Open digital source ↗</button></blockquote>` : ''}${n.excerpt ? `<blockquote class="book-clipping"><span class="book-caption">PAPERCLIPPED / ${esc(n.excerpt.label)}</span><p>${esc(n.excerpt.text)}</p><button id="clip-source">Read retained source ↗</button></blockquote>` : ''}</div>`;
         this.book.editor(left, right, () => {},{index:sheet,total:totalSheets,turn:direction=>this.sheet(sheet+direction)});
         this.noteContents();
         const q = <T extends HTMLElement>(s: string) => document.querySelector<T>(s)!;
         const canvas = q<HTMLCanvasElement>('#note-sketch');
         let active: SketchStroke | null = null, timer: ReturnType<typeof setTimeout> | undefined;
-        const draw = () => paintNote(canvas, active ? { ...n!, strokes: [...n!.strokes, active] } : n!);
+        const draw = () => {
+            canvas.closest<HTMLElement>('.notebook-book')!.style.setProperty('--book-paper', PAPERS[n.paper]);
+            paintNote(canvas, active ? { ...n!, strokes: [...n!.strokes, active] } : n!);
+        };
         const flush = () => {
             clearTimeout(timer);
             if (active) {
@@ -236,8 +243,6 @@ export class DeskScreens {
             flush();
             draw();
         };
-        q<HTMLButtonElement>('#previous-note').onclick = () => { if (sheet > 0) this.sheet(sheet-1); };
-        q<HTMLButtonElement>('#next-note').onclick = () => { if (sheet < totalSheets - 1) this.sheet(sheet+1); };
         q<HTMLButtonElement>('#digital-source')?.addEventListener('click', () => { if (!this.o.atDesk()) this.o.notify('Visit the desk computer to open this digital source.'); else void this.desktop('files', n.digitalExcerpt!.id); });
         q<HTMLButtonElement>('#back-notes').onclick = () => {if(atBoard)this.board();else document.querySelector<HTMLButtonElement>('#book-contents')!.click();};
         q<HTMLButtonElement>('#read-note').onclick = () => {flush();if(committed)this.readNote(n!.id);else this.o.notify('This sheet is unwritten.');};
@@ -305,7 +310,19 @@ export class DeskScreens {
         if (status)
             status.textContent = `${this.d.mail.filter(m => m.direction === 'in' && m.due > this.save.playSeconds).length} replies queued`;
     }
-    computer(tab = 'inbox', selected?: number) {
+    computerHome() {
+        if (!this.o.atDesk()) { this.o.notify('Visit the computer at your W4 desk.'); return; }
+        this.desktopRequest++;
+        this.displayComputer('Records Desktop', '', false, null);
+        this.bindComputerMenu();
+    }
+    closeComputerApp() {
+        if (!document.querySelector('.pc-app')) return false;
+        document.querySelector<HTMLButtonElement>('[data-pc-command="desktop"]')?.click();
+        return true;
+    }
+    computer(tab = 'desktop', selected?: number) {
+        if (tab === 'desktop') { this.computerHome(); return; }
         if (!this.o.atDesk()) {
             this.o.notify('Visit the computer at your W4 desk.');
             return;
@@ -324,8 +341,10 @@ export class DeskScreens {
         if (m) {
             const draft = { ...defaultDraft(), recipient: m.recipient, caseId: m.caseId, topic: m.topic, artifact: m.artifact };
             const node = conversationNode(this.save, this.o.archive(), draft);
-            const sheet = document.querySelector<HTMLElement>('.pc-response-panel')!;
-            sheet.innerHTML = `<span class="eyebrow">YOUR REPLY / ${node.stage.toUpperCase()}</span><h3>What will you say?</h3><p>Choose a response to prepare your reply. Add a personal note or enclosures before sending.</p><div class="pc-response-options">${node.options.map((option, i) => `<button type="button" data-prepare-response="${esc(option.id)}" ${option.locked ? 'disabled' : ''}><small>0${i + 1} / ${option.intent.toUpperCase()}</small><strong>${esc(option.label)}</strong><span>${esc(option.locked ?? 'Prepare this reply ↗')}</span></button>`).join('')}</div>`;
+            const sheet = document.createElement('details');
+            sheet.className = 'pc-reply-choices';
+            document.querySelector('.mail-paper')!.append(sheet);
+            sheet.innerHTML = `<summary>Response options</summary><span class="eyebrow">YOUR REPLY / ${node.stage.toUpperCase()}</span><h3>What will you say?</h3><p>Choose a response to prepare your reply. Add a personal note or enclosures before sending.</p><div class="pc-response-options">${node.options.map((option, i) => `<button type="button" data-prepare-response="${esc(option.id)}" ${option.locked ? 'disabled' : ''}><small>0${i + 1} / ${option.intent.toUpperCase()}</small><strong>${esc(option.label)}</strong><span>${esc(option.locked ?? 'Prepare this reply ↗')}</span></button>`).join('')}</div>`;
             sheet.querySelectorAll<HTMLButtonElement>('[data-prepare-response]').forEach(b => b.onclick = () => this.compose({ ...draft, choice: b.dataset.prepareResponse }));
         }
     }

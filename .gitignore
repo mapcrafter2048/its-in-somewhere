@@ -13,3 +13,4 @@ Thumbs.db
 .next/
 out/
 *.tsbuildinfo
+artifacts/

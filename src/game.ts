@@ -1,3 +1,6 @@
+import { arrangeWhiteboard } from './ui/workspaces';
+import { integratePhysicalChoices, observePhysicalChoices } from './ui/physical-controls';
+import { dismissDisclosure, installContextMenus } from './ui/context-menu';
 import { recordParagraphs } from './ui/record-format';
 import { THREADS } from './content/packs/records';
 import {StationeryScreens} from './desk/stationery-ui';
@@ -12,6 +15,8 @@ import { ARTIFACTS } from './desk/content';
 import { artifactPlacements, collectArtifact, deliveredMail, updateCorrespondence, deskFor, DESK_BACKUP_KEY, DESKTOP_BACKUP_KEY } from './desk/state';
 import './styles/desk.css';
 import './styles/physical-life.css';
+import './styles/material-controls.css';
+import './styles/workspaces.css';
 import { titleScreen, assignmentScreen, tutorialScreen } from './ui/screens';
 import { ShiftSession, shiftDuration } from './runtime/shift-session';
 import { escapeHtml as esc, panel as shell, setText, setHtml } from './ui/dom';
@@ -34,7 +39,7 @@ import { ALL_STORIES as STORIES } from './content/expanded-stories';
 import { ensureSource, SOURCE_MANIFEST } from './content/sources';
 import { openComparison } from './comparison';
 import { UPGRADES, buy, readPage, freshSave, inspect, loadSave, persist, validateSave, collectVoucher, pendingVoucherValue, redeemVouchers, setMarker, backupExpansion, backupLegacy, backupEnvironment, backupInventory, ProgressIndex } from './state';
-import { DEPARTMENTS, MONTHS, PHRASE, WINGS, COLUMNS, ROWS, TOTAL, FIRST_ROW_Z, fileId, location, reference } from './archive';
+import { DEPARTMENTS, MONTHS, PHRASE, WINGS, COLUMNS, ROWS, FIRST_ROW_Z, fileId, location, reference } from './archive';
 import type { Save, UpgradeId, CabinetMarker, ArchiveDocument } from './types';
 export async function mountGame() {
 const $ = <T extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
@@ -64,6 +69,8 @@ app.innerHTML = `<canvas id="world" aria-label="First-person archive. Use WASD t
  </div>
  <aside id="performance-meter" hidden aria-label="Performance meter" aria-live="off"></aside><aside id="mouse-help" hidden role="status"><span id="mouse-status">Mouse capture was denied. You can retry without reloading.</span> <button id="retry-mouse">Retry mouse capture</button> Hold and drag; keep dragging at an edge to turn, or use Q / R. <a id="external-browser" target="_blank" rel="noopener">Open in browser ↗</a><button id="dismiss-mouse-help" aria-label="Dismiss mouse help">×</button></aside><div id="overlay"></div><div id="toasts" role="status" aria-live="polite"></div><div id="storage-alert" role="alert" hidden></div>
  <input id="import-file" type="file" accept="application/json,.json" hidden>`;
+installContextMenus($('#overlay'));
+observePhysicalChoices($('#overlay'));
 $('#external-browser').setAttribute('href', window.location.href);
 $('#dismiss-mouse-help').onclick = () => {
     $('#mouse-help').hidden = true;
@@ -135,6 +142,7 @@ const deskScreens = new DeskScreens({
     save: () => save, archive: () => archive, atDesk: () => world.atWorkNook(),
     show, write, notify, sound: name => audio.sound(name),
     board:()=>stationery.board(),
+    map:()=>showMap(),
     printing: () => world.stats().printing,
     printer: () => showPrinter(),
     cleanup: callback => {
@@ -195,8 +203,6 @@ function updateHUD() {
     if (save.completed)
         $('#assignment .assignment-foot').textContent = 'Phrase found. The archive is still yours.';
 }
-const toolHelpShown=new Set<string>();
-const toolHelp:Record<string,string>={inventory:'Retain carries an original. F reads it; G places it in aimed storage. Originals and printed copies share your bag.',notebook:'Write notes, sketch or clip a passage from an open record. The pinboard at your desk connects your notes; discoveries stay optional.',map:'Select a filing location for its reference. R marks rear drawers; WC wall cabinets; BX file boxes. Map selection never moves you.',supplies:'Equipment is optional. Collect vouchers in files and redeem them at your W4 desk.',computer:'The computer holds existing digital files, mail and a partial batch catalogue. Reading paper does not digitize it.'};
 function show(next: string, html: string) {
     if (!['reader','reader-loading','reader-error'].includes(next)) readerRequest++;
     accrueShift();
@@ -221,12 +227,12 @@ function show(next: string, html: string) {
     $('#overlay').className = next === 'title' ? 'title-overlay' : 'modal-overlay';
     $('#overlay').querySelector<HTMLElement>('.panel')?.setAttribute('data-screen', next);
     decorateInterface($('#overlay'), next);
+    integratePhysicalChoices($('#overlay'));
     document.querySelectorAll<HTMLButtonElement>('[data-drawer-back]').forEach(b=>b.onclick=()=>readerContainer?openStorage(readerContainer):resume());
     requestAnimationFrame(() => {const overlay=$('#overlay');if(!overlay.contains(document.activeElement))overlay.querySelector<HTMLElement>('button:not([disabled]),input,[tabindex="0"]')?.focus();});
     updateHUD();
-    if(toolHelp[next]&&!toolHelpShown.has(next)){toolHelpShown.add(next);notify(toolHelp[next],false);}
 }
-function resume() {
+function resume(capture = true) {
     accrueShift();
     if (mode === 'notebook')
         audio.sound('notebook-close');
@@ -247,7 +253,7 @@ function resume() {
     $('#hud').hidden = false;
     world.closeDrawer();
     currentId = null;
-    world.lock();
+    world.lock(capture);
     updateHUD();
     write();
 }
@@ -301,21 +307,11 @@ async function visit(id: number, container: Container | null = null) {
     write();
     renderReader();
 }
-function readerIndex(doc: ArchiveDocument) {
-    const loc=location(doc.id), physical=physicalFor(save), ids=readerContainer?containerFiles(physical,readerContainer):[doc.id];
-    const index = ids.map((id, i) => {
-        const d = archive.get(id);
-        return `<button class="folder-tab ${id === currentId ? 'active' : ''} ${progress.searched.has(id) ? 'searched' : ''}" data-file="${id}"><span class="folder-number">${String(i + 1).padStart(2, '0')}</span><span>${esc(d.title)}</span><small>${progress.searched.has(id) ? 'CHECKED' : progress.inspected.has(id) ? 'OPENED' : 'FILE'}</small></button>`;
-    }).join('') + (readerContainer ? movedNotes(physical, readerContainer).map(n => `<p class="moved-note">Moved: ${esc(n.text)}</p>`).join('') : '');
-    return {
-        indexHeader: `<span class="eyebrow">${esc(DEPARTMENTS[loc.department])} / FILING INDEX</span><h2>${readerContainer ? esc(containerLabel(readerContainer).toUpperCase()) : esc(loc.label)}<small>${readerContainer ? 'CURRENT STORAGE' : 'ORIGINAL FILING REFERENCE'}</small></h2><span class="retention">${MONTHS[loc.column % 12]} 2023</span>`,
-        index,
-        indexFooter: readerContainer ? `${containerLoad(physical,readerContainer)} / ${capacity(readerContainer)} spaces · ${esc(containerLabel(readerContainer))}` : (['inventory','held'].includes(currentContainer(physical,doc.id)) ? 'Carried original · I opens your inventory' : 'Reference copy · '+esc(containerLabel(currentContainer(physical,doc.id)))),
-        location: readerContainer ? containerLabel(readerContainer) : containerLabel(currentContainer(physical,doc.id))
-    };
+function readerLocation(doc: ArchiveDocument) {
+    return {location:readerContainer?containerLabel(readerContainer):containerLabel(currentContainer(physicalFor(save),doc.id))};
 }
 function readerPlaceholder(doc: ArchiveDocument, phase: 'loading'|'error', message: string) {
-    show(phase === 'loading' ? 'reader-loading' : 'reader-error', folderFrame({ ...readerIndex(doc), reference: reference(doc.id), phase,
+    show(phase === 'loading' ? 'reader-loading' : 'reader-error', folderFrame({ ...readerLocation(doc), reference: reference(doc.id), phase,
         paper: `<article class="document-paper folder-placeholder"><span class="eyebrow">${phase === 'loading' ? 'RETAINED ATTACHMENT' : 'ATTACHMENT UNAVAILABLE'}</span><h2>${esc(doc.title)}</h2><p role="status">${esc(message)}</p>${phase === 'error' ? '<button id="retry-source">Retry reference load ↗</button>' : ''}</article>`
     }));
     document.querySelectorAll<HTMLButtonElement>('[data-file]').forEach(b => b.onclick = () => switchFile(Number(b.dataset.file)));
@@ -335,8 +331,13 @@ function renderReader() {
         body = `<div class="sheet-tabs">${doc.sheets!.map((s, i) => `<button data-sheet="${i}" class="${i === sheetIndex ? 'selected' : ''}">${esc(s.name)}</button>`).join('')}</div><div class="sheet-tools"><span>${esc(s.name)} / ${s.rows.length} rows</span>${s.hiddenRows?.length ? `<button id="reveal-rows">${isRevealed ? 'Hide restored rows' : 'Reveal hidden rows'} ${icon('↕')}</button>` : '<span>Inspect cells for comments</span>'}</div><div class="table-scroll"><table class="sheet"><thead><tr><th scope="col">#</th>${s.columns.map(c => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${s.rows.map((row, ri) => !isRevealed && s.hiddenRows?.includes(ri) ? `<tr><td colspan="${s.columns.length + 1}" class="hidden-row">··· hidden row ···</td></tr>` : `<tr class="${s.hiddenRows?.includes(ri) ? 'restored' : ''}"><th scope="row">${ri + 1}</th>${row.map((c, ci) => `<td><button data-cell="${ri},${ci}" class="cell ${c.comment ? 'has-comment' : ''}" title="${c.comment ? 'Has a comment. Click to inspect.' : 'Inspect cell'}">${mark(esc(c.value))}</button></td>`).join('')}</tr>`).join('')}</tbody></table></div><div id="cell-comment" class="cell-comment" role="status">${esc(cellComment || 'Click a cell to inspect its contents. A folded corner indicates a retained comment.')}</div>`;
     }
     const max = doc.pages.length + (hasSheets ? 1 : 0);
-    show('reader', folderFrame({ ...readerIndex(doc), reference: reference(doc.id), paper: `<article class="document-paper ${documentClass(doc)}">${documentLetterhead(doc)}<div class="doc-header"><span>RECORDS & RETENTION</span><span>${esc((doc.presentation?.family??doc.kind).toUpperCase())}</span></div><div class="doc-meta"><span>FILED ${esc(doc.date)}</span><span>${esc(doc.author)}</span></div><h2>${esc(doc.title)}</h2><p class="doc-subject">${esc(doc.subject)}</p>${body}${doc.source ? `<div class="source-credit"><span>REFERENCE EXTRACT · ${esc(doc.source.title)}</span><button data-tool="sources" class="text-button">Source & reuse credits ↗</button></div>` : ''}${doc.voucher ? `<aside class="voucher"><span class="eyebrow">SUPPLY ALLOWANCE / ${doc.voucher.value} CREDITS</span><p>${esc(doc.voucher.note)}</p><button id="collect-voucher" ${save.collectedVouchers.includes(doc.id) ? 'disabled' : ''}>${save.collectedVouchers.includes(doc.id) ? 'Voucher collected' : 'Collect voucher ↗'}</button></aside>` : ''}${doc.annotation ? `<aside class="annotation">${esc(doc.annotation)}</aside>` : ''}${doc.story||doc.thread ? `<div class="evidence-status">${save.clues.includes(doc.id) ? '✓ Evidence retained in your notebook' : hasSheets ? 'Inspect the workbook for evidence.' : 'Correspondence retained.'}</div>` : ''}${documentColophon(doc)}</article>`, navigation: `<div class="page-navigation"><button id="prev-page" ${pageIndex === 0 ? 'disabled' : ''} aria-label="Previous page">←</button><span>${pageIndex >= doc.pages.length ? 'WORKBOOK' : `PAGE ${pageIndex + 1}`} / ${max}</span><button id="next-page" ${pageIndex >= max - 1 ? 'disabled' : ''} aria-label="Next page">→</button></div>`, tools: `<button id="bookmark" title="Carry this original" ${!readerContainer || ['inventory','held'].includes(currentContainer(physical,doc.id)) ? 'disabled' : ''}>${['inventory','held'].includes(currentContainer(physical,doc.id)) ? '★ Retained · inventory' : '☆ Retain original'}</button><button id="mark-searched" class="${save.searched.includes(doc.id) ? 'is-checked' : ''}">${save.searched.includes(doc.id) ? '✓ Searched' : 'Mark searched'}</button><button id="take-file" class="primary" ${!readerContainer || !!physical.held || currentContainer(physical, doc.id) !== readerContainer ? 'disabled' : ''}>Pick up original ↗</button>`, extra: `${save.upgrades.includes('highlighter') ? `<form id="highlight-form" class="highlight-bar"><label for="keyword">Keyword lens</label><input id="keyword" maxlength="32" placeholder="One word on this page" value="${esc(highlight)}"><button>Highlight</button></form>` : ''}` }));
-    $('.reader-actions').insertAdjacentHTML('afterbegin', '<button id="clip-page">Clip to notebook</button><button id="apply-file-stamp">Stamp file</button>');
+    show('reader', folderFrame({ ...readerLocation(doc), reference: reference(doc.id), paper: `<article class="document-paper ${documentClass(doc)}">${documentLetterhead(doc)}<div class="doc-header"><span>RECORDS & RETENTION</span><span>${esc((doc.presentation?.family??doc.kind).toUpperCase())}</span></div><div class="doc-meta"><span>FILED ${esc(doc.date)}</span><span>${esc(doc.author)}</span></div><h2>${esc(doc.title)}</h2><p class="doc-subject">${esc(doc.subject)}</p>${body}${doc.source ? `<div class="source-credit"><span>REFERENCE EXTRACT · ${esc(doc.source.title)}</span><button data-tool="sources" class="text-button">Source & reuse credits ↗</button></div>` : ''}${doc.voucher ? `<aside class="voucher"><span class="eyebrow">SUPPLY ALLOWANCE / ${doc.voucher.value} CREDITS</span><p>${esc(doc.voucher.note)}</p><button id="collect-voucher" ${save.collectedVouchers.includes(doc.id) ? 'disabled' : ''}>${save.collectedVouchers.includes(doc.id) ? 'Voucher collected' : 'Collect voucher ↗'}</button></aside>` : ''}${doc.annotation ? `<aside class="annotation">${esc(doc.annotation)}</aside>` : ''}${doc.story||doc.thread ? `<div class="evidence-status">${save.clues.includes(doc.id) ? '✓ Evidence retained in your notebook' : hasSheets ? 'Inspect the workbook for evidence.' : 'Correspondence retained.'}</div>` : ''}${documentColophon(doc)}</article>`, navigation: `<div class="page-navigation"><button id="prev-page" ${pageIndex === 0 ? 'disabled' : ''} aria-label="Previous page">←</button><span>${pageIndex >= doc.pages.length ? 'WORKBOOK' : `PAGE ${pageIndex + 1}`} / ${max}</span><button id="next-page" ${pageIndex >= max - 1 ? 'disabled' : ''} aria-label="Next page">→</button></div>`, tools: `<button id="bookmark" title="Carry this original" ${!readerContainer || ['inventory','held'].includes(currentContainer(physical,doc.id)) ? 'disabled' : ''}>${['inventory','held'].includes(currentContainer(physical,doc.id)) ? '★ Retained · inventory' : '☆ Retain original'}</button><button id="mark-searched" class="${save.searched.includes(doc.id) ? 'is-checked' : ''}">${save.searched.includes(doc.id) ? '✓ Searched' : 'Mark searched'}</button><button id="take-file" class="primary" ${!readerContainer || !!physical.held || currentContainer(physical, doc.id) !== readerContainer ? 'disabled' : ''}>Pick up original ↗</button>`, extra: `${save.upgrades.includes('highlighter') ? `<form id="highlight-form" class="highlight-bar"><label for="keyword">Keyword lens</label><input id="keyword" maxlength="32" placeholder="One word on this page" value="${esc(highlight)}"><button>Highlight</button></form>` : ''}` }));
+    const actions = $('.reader-actions');
+    actions.classList.add('folder-instruments');
+    actions.insertAdjacentHTML('afterbegin', '<button id="clip-page" class="paperclip-action">Clip passage</button><button id="apply-file-stamp" class="stamp-action">Stamp</button>');
+    $('#bookmark').classList.add('ribbon-action');
+    $('#mark-searched').classList.add('check-stamp');
+    $('#take-file').classList.add('folder-grip');
     const stamp = deskFor(save).fileStamps[String(doc.id)];
     if (stamp)
         $('.document-paper').insertAdjacentHTML('beforeend', `<div class="cosmetic-file-stamp">${esc(stamp)}</div>`);
@@ -424,12 +425,6 @@ function renderReader() {
         resume();
         notify('Holding the original. I opens your inventory; F reads it and G places it in filing storage.');
     };
-    if (readerContainer) {
-        $('.folder-list').insertAdjacentHTML('beforeend', storedCopyButtons(readerContainer));
-        $('.folder-list').insertAdjacentHTML('beforeend', artifactButton(readerContainer));
-        bindArtifactButton(readerContainer);
-        bindCopyButtons();
-    }
     document.querySelectorAll<HTMLButtonElement>('[data-file]').forEach(b => b.onclick = () => switchFile(Number(b.dataset.file)));
     document.querySelectorAll<HTMLButtonElement>('[data-sheet]').forEach(b => b.onclick = () => {
         sheetIndex = Number(b.dataset.sheet);
@@ -637,7 +632,7 @@ function useHeld() {
         return;
     const held = physicalFor(save).held;
     if(held?.kind==='tool'){if(held.id==='pad')stationery.draft();else if(held.id==='thread')stationery.board();else showWhiteboard();return;}
-    if(held?.kind==='sticky'){stationery.board();return;}
+    if(held?.kind==='sticky'){stationery.draft();return;}
     if(held?.kind==='can'){notify(drinkCan(save));audio.sound('water');world.syncPhysical();write();return;}
     if (held?.kind === 'file') {
         void visit(held.id);
@@ -755,6 +750,9 @@ function showPrinter() {
         write();
         showPrinter();
     };
+    const printerTrays = document.querySelectorAll('.printer-tray');
+    printerTrays[0]?.append($('#collect-original'));
+    printerTrays[1]?.append($('#collect-copy'));
     $('#insert-original').onclick = () => {
         if (!busy)
             finish(insertOriginal(p, Number($<HTMLSelectElement>('#print-file').value)));
@@ -821,6 +819,8 @@ function showWhiteboard(board = 0) {
         world.setWhiteboards(save.whiteboards!);
         write();
     }, () => notify('Board full. Undo strokes or clear the board to make space.'),hasMarker);
+    arrangeWhiteboard($('#whiteboard-host'));
+    integratePhysicalChoices($('#whiteboard-host'));
     $('#take-board-marker')?.addEventListener('click',()=>{if(physicalFor(save).held){notify('Stow the held object first.');return;}deskFor(save).tools.marker='held';physicalFor(save).held={kind:'tool',id:'marker'};write();world.syncPhysical();showWhiteboard(board);});
     document.querySelectorAll<HTMLButtonElement>('[data-board-page]').forEach(button => button.onclick = () => showWhiteboard(Number(button.dataset.boardPage)));
     $('#leave-board').onclick = leaveWhiteboard;
@@ -830,6 +830,9 @@ function leaveWhiteboard() {
 }
 function showDesk() {
     show('desk', shell('Your desk', 'W4 WORK NOOK / PERSONAL RECORDS', `<div class="desk-grid"><div class="prose"><h3>Your file storage</h3><p>Opening the page with Martin's phrase completes the task. Keep interesting originals here for your own investigations.</p>${(['personal:0', 'personal:1', 'desk-tray'] as Container[]).map(c => `<p><button data-storage="${c}">${esc(containerLabel(c))} · ${containerLoad(physicalFor(save), c)}/${capacity(c)}</button></p>`).join('')}<div class="voucher-desk"><p><strong>${pendingVoucherValue(save, archive)} credits</strong> in collected vouchers.</p><button id="redeem-vouchers" ${!world.atDesk() || !pendingVoucherValue(save, archive) ? 'disabled' : ''}>Redeem vouchers ↗</button></div></div><div class="desk-options"><button id="desk-computer">Records Desktop ↗</button><button id="desk-pinboard">Personal pinboard ↗</button><button id="desk-collection">Collection compartment ↗</button><button id="desk-notices">Public notices ↗</button><button id="desk-receipt">Shift receipt ↗</button><button data-tool="inventory">Carried files / store documents ↗</button><button id="desk-legacy-binder">Older retained copies ↗</button><button data-tool="supplies">Equipment requisitions ↗</button><button data-tool="notebook">Your notebook ↗</button><button id="read-letter">Martin’s request ↗</button><button data-tool="hints">Filing notes ↗</button><button data-tool="comparison">Comparison stand ↗</button></div></div>`));
+    const deskOptions=$('.desk-options');
+    deskOptions.insertAdjacentHTML('beforeend','<aside class="desk-record-index" aria-label="Desk register"><h3>Desk register</h3><details open><summary>Personal records</summary><div data-desk-group="records"></div></details><details><summary>Office &amp; equipment</summary><div data-desk-group="office"></div></details></aside>');
+    [...deskOptions.children].filter(el=>el.matches('button:not(#desk-computer):not(#desk-pinboard):not([data-tool="notebook"])')).forEach(el=>deskOptions.querySelector(el.matches('#desk-collection,#desk-receipt,#desk-legacy-binder,#read-letter,[data-tool="inventory"]')?'[data-desk-group="records"]':'[data-desk-group="office"]')!.append(el));
     $('#desk-computer').onclick = () => deskScreens.computer();
     $('#desk-pinboard').onclick = () => deskScreens.board();
     $('#desk-collection').onclick = () => deskScreens.collection();
@@ -920,17 +923,20 @@ function showMap(wing = world.wing, kind: 'front' | 'rear' | 'wall' | 'box' = 'f
                 currentSearched[dest.unit]++;
         }
     }
-    const units = UNITS_BY_WING[wing].filter(u => u.kind === kind);
     const button = (cabinet: number) => {
-        const u = STORAGE[cabinet], count = currentSearched[cabinet], total = currentTotals[cabinet], marker = save.markers.find(m => m.cabinet === cabinet);
-        return `<button data-mapcab="${cabinet}" class="${count === total ? 'fully-searched' : progress.visited[cabinet] ? 'visited' : ''} ${marker ? 'tab-' + marker.color : ''}" title="${esc(u.label + (marker ? ' · ' + marker.label : ''))}" aria-label="${esc(u.label)}">${kind === 'front' || kind === 'rear' ? String(u.index % 16 + 1).padStart(2, '0') : esc(location(fileId(cabinet)).shortLabel)}${save.upgrades.includes('summaries') ? `<small>${count}/${total}</small>` : ''}</button>`;
+        const u=STORAGE[cabinet],count=currentSearched[cabinet],total=currentTotals[cabinet],marker=save.markers.find(m=>m.cabinet===cabinet);
+        return `<button data-mapcab="${cabinet}" class="${count===total?'fully-searched':progress.visited[cabinet]?'visited':''} ${marker?'tab-'+marker.color:''}" title="${esc(u.label+(marker?' · '+marker.label:''))}" aria-label="${esc(u.label)}">${u.kind==='front'||u.kind==='rear'?String(u.index%16+1).padStart(2,'0'):u.kind==='box'?String(u.index+1).padStart(3,'0'):esc(location(fileId(cabinet)).shortLabel)}</button>`;
     };
-    const grid = kind === 'front' || kind === 'rear' ? `<div class="floor-map">${Array.from({ length: ROWS }, (_, r) => `<div class="map-row"><div><strong>${String.fromCharCode(65 + r)}</strong><span>${DEPARTMENTS[r]}</span></div><div class="map-cabinets">${units.slice(r * COLUMNS, (r + 1) * COLUMNS).map(u => button(u.id)).join('')}</div></div>`).join('')}</div>` : `<div class="storage-map-grid">${units.map(u => button(u.id)).join('')}</div>`;
-    show('map', shell('The floor plan', `${TOTAL.toLocaleString()} FILES / FOUR WINGS`, `<div class="warehouse-plan" aria-label="Four connected rooms in a 2 by 2 warehouse"><span>W1 · Administration<small>↔ W2 · ↕ W4</small></span><span>W2 · Commercial<small>↔ W1 · ↕ W3</small></span><span>W4 · Executive<small>YOUR WORK NOOK · ↕ W1 · ↔ W3</small></span><span>W3 · Technical<small>↕ W2 · ↔ W4</small></span></div><nav class="wing-tabs">${WINGS.map((w, i) => `<button data-mapwing="${i}" class="${wing === i ? 'selected' : ''}">W${i + 1} · ${w}</button>`).join('')}</nav><nav class="wing-tabs" aria-label="Storage types">${(['front', 'rear', 'wall', 'box'] as const).map(k => `<button data-mapkind="${k}" class="${k === kind ? 'selected' : ''}">${({ front: 'Front drawers', rear: 'Rear drawers', wall: 'Wall cabinets', box: 'File boxes' })[k]}</button>`).join('')}</nav><p class="panel-intro">You are in W${world.wing + 1}, ${WINGS[world.wing]}. Shared doors connect W1 ↔ W2 ↔ W3 ↔ W4 ↔ W1. Your desk is in W4. Map selection does not move you or remotely open storage.</p>${grid}<div id="map-detail" class="map-detail" role="status">Select a filing location to see its reference${save.upgrades.includes('tabs') ? ' or place a coloured tab' : ''}.</div>`, true));
+    const bank=(face:'front'|'rear')=>{const units=UNITS_BY_WING[wing].filter(u=>u.kind===face);return `<section class="room-bank"><h4>${face==='front'?'Front drawers':'Rear drawers'}</h4><div class="room-cabinet-grid">${Array.from({length:ROWS},(_,r)=>`<div class="room-bank-row"><span title="${esc(DEPARTMENTS[r])}">${String.fromCharCode(65+r)}</span>${units.slice(r*COLUMNS,(r+1)*COLUMNS).map(u=>button(u.id)).join('')}</div>`).join('')}</div></section>`;};
+    const smallBank=(face:'wall'|'box')=>`<section class="room-bank room-bank-${face}"><h4>${face==='wall'?'Wall cabinets':'File boxes'}</h4><div class="room-small-grid">${UNITS_BY_WING[wing].filter(u=>u.kind===face).map(u=>button(u.id)).join('')}</div></section>`;
+    const connections=[['W2 · east','W4 · south'],['W1 · west','W3 · south'],['W2 · north','W4 · west'],['W1 · north','W3 · east']][wing];
+    const left=`<div class="room-plan-page"><h3>W${wing+1} · ${esc(WINGS[wing])}</h3><p class="room-caption">${world.wing===wing?'YOU ARE HERE · ':''}${wing===3?'WORK NOOK · ':''}Doors: ${connections.join(' / ')}</p>${bank('front')}${bank('rear')}<p class="room-legend">Unopened · <span class="visited">Opened</span> · <span class="fully-searched">Searched</span></p></div>`;
+    const right=`<div class="room-register-page"><nav class="room-index" aria-label="Archive rooms">${WINGS.map((w,i)=>`<button data-mapwing="${i}" class="${wing===i?'selected':''}">W${i+1}<span>${esc(w)}</span></button>`).join('')}</nav>${smallBank('wall')}${smallBank('box')}<div id="map-detail" class="room-detail" role="region" aria-label="Selected filing location"><h3>Room register</h3><p>Select a cabinet on either page for its reference${save.upgrades.includes('tabs')?' and filing tab':''}.</p><p>Front and rear drawers are independent. Your desk is in W4.</p></div></div>`;
+    deskScreens.roomSpread(left,right,wing,direction=>showMap(wing+direction),WINGS.map((w,i)=>({label:`W${i+1} / ${w}`,select:()=>showMap(i)})));
     document.querySelectorAll<HTMLButtonElement>('[data-mapwing]').forEach(b => b.onclick = () => showMap(Number(b.dataset.mapwing), kind));
-    document.querySelectorAll<HTMLButtonElement>('[data-mapkind]').forEach(b => b.onclick = () => showMap(wing, b.dataset.mapkind as typeof kind));
     document.querySelectorAll<HTMLButtonElement>('[data-mapcab]').forEach(b => b.onclick = () => {
-        const c = Number(b.dataset.mapcab), u = STORAGE[c], l = location(fileId(c)), marker = save.markers.find(m => m.cabinet === c);
+        const c = Number(b.dataset.mapcab), u = STORAGE[c], l = location(fileId(c)), kind=u.kind, marker = save.markers.find(m => m.cabinet === c);
+        document.querySelectorAll('[data-mapcab]').forEach(el=>el.classList.toggle('selected',el===b));
         $('#map-detail').innerHTML = `<p>${esc(u.label)} · ${DEPARTMENTS[l.department]} · ${kind === 'rear' ? 'Independent rear bank' : kind === 'wall' ? 'Along the side wall' : kind === 'box' ? 'Front-access archive box' : 'Front bank'}.</p>${save.upgrades.includes('summaries') ? `<p>${Array.from({ length: u.drawers }, (_, d) => {
             const ids = containerFiles(physical, containerFor(c, d));
             return `${u.kind === 'box' ? 'Box' : 'Drawer ' + (d + 1)}: ${ids.filter(id => progress.searched.has(id)).length}/${ids.length} searched · ${ids.length}/${u.capacity} spaces`;
@@ -1141,7 +1147,16 @@ document.addEventListener('click', e => {
 });
 $('#credits-button').onclick = showSupplies;
 $('#hint-button').onclick = showHints;
+let captureEscape = false;
+let captureEscapeTimer: ReturnType<typeof setTimeout> | undefined;
+document.addEventListener('keyup', e => { if (e.key === 'Escape') captureEscape = false; });
 document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        e.preventDefault();
+        if (e.repeat || captureEscape) return;
+        if (dismissDisclosure($('#overlay'))) return;
+        if (mode === 'computer' && deskScreens.closeComputerApp()) return;
+    }
     const input = ['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName);
     if (e.code === 'F9' && !e.repeat) { e.preventDefault(); togglePerformanceMeter(); return; }
     if (e.key === 'Tab' && mode !== 'play') {
@@ -1189,7 +1204,7 @@ document.addEventListener('keydown', e => {
         else if (!save.started)
             showTitle();
         else
-            resume();
+            resume(false);
         return;
     }
     if (mode === 'play') {
@@ -1286,9 +1301,15 @@ world.onWingUnload = () => {
     printerRequest++;
 };
 world.onInteract = interact;
-world.onPause = () => {
-    if (mode === 'play')
+world.onPause = reason => {
+    if (mode === 'play') {
+        if (reason === 'capture') {
+            captureEscape = true;
+            clearTimeout(captureEscapeTimer);
+            captureEscapeTimer = setTimeout(() => { captureEscape = false; }, 100);
+        }
         showPause();
+    }
     audio.setSceneState(false, false);
 };
 world.onStep = running => audio.footstep(running);
@@ -1393,7 +1414,7 @@ world.run(dt => {
         const held = physicalFor(save).held, heldEl = $('#held-status');
         heldEl.hidden = mode !== 'play' || !held;
         if (held) {
-            const label = held.kind === 'file' ? `Original ${reference(held.id)} · F read` : held.kind === 'copy' ? `Printed copy · F read / I store` : held.kind==='tool'?`${TOOL_NAMES[held.id]} · F use / I stow`:held.kind==='sticky'?'Sticky note · E board / I store or recycle':held.kind==='can'?`${DRINKS[deskFor(save).vending.drink!]} · click drink / I stow`:itemName(physicalFor(save).items.find(i => i.id === held.id)!) + ' · click drink';
+            const label = held.kind === 'file' ? `Original ${reference(held.id)} · F read` : held.kind === 'copy' ? `Printed copy · F read / I store` : held.kind==='tool'?`${TOOL_NAMES[held.id]} · F use / I stow`:held.kind==='sticky'?'Sticky note · F write / E board / I store':held.kind==='can'?`${DRINKS[deskFor(save).vending.drink!]} · click drink / I stow`:itemName(physicalFor(save).items.find(i => i.id === held.id)!) + ' · click drink';
             const destination = world.placement();
             let placement = ['tool','sticky','can'].includes(held.kind)?'I opens inventory':'Aim at a suitable surface';
             if (destination && destination !== 'held'&&!['tool','sticky','can'].includes(held.kind)) {

@@ -153,7 +153,7 @@ export class OfficeWorld {
     target: Target | null = null;
     onInteract?: (target: Target) => void;
     onUseHeld?: () => void;
-    onPause?: () => void;
+    onPause?: (reason?: 'capture') => void;
     onStep?: (running: boolean) => void;
     onLightSwitch?: () => void;
     onPosition?: () => void;
@@ -309,7 +309,7 @@ export class OfficeWorld {
                 this.captureState = 'idle';
                 this.keys.clear();
                 if (this.enabled)
-                    this.onPause?.();
+                    this.onPause?.('capture');
             }
         });
         document.addEventListener('pointerlockerror', () => {
@@ -328,6 +328,7 @@ export class OfficeWorld {
                 return;
             }
             if (this.enabled) {
+                if (this.captureState === 'idle') { this.lock(); return; }
                 if (this.physical.held?.kind === 'item'||this.physical.held?.kind==='can')
                     this.onUseHeld?.();
                 else if (this.target)
@@ -888,7 +889,7 @@ export class OfficeWorld {
         this.captureState = 'fallback';
         this.onPointerError?.('denied');
     }
-    lock() {
+    lock(capture = true) {
         this.enabled = true;
         this.keys.clear();
         this.dragging = false;
@@ -897,6 +898,7 @@ export class OfficeWorld {
             this.captureState = 'locked';
             return;
         }
+        if (!capture) { this.captureState = 'idle'; return; }
         const attempt = ++this.lockAttempt;
         if (document.hidden || !document.hasFocus()) {
             this.suspendCapture();

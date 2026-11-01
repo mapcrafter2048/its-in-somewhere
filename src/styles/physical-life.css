@@ -14,3 +14,63 @@
 @media(max-width:899px){.stationery-box,.stationery-inventory,.sticky-compose,.vending-console{padding:18px 14px}.stationery-compartments{grid-template-columns:1fr;padding:12px}.stationery-compartments article{display:grid;grid-template-columns:100px minmax(0,1fr);gap:10px 18px}.tool-illustration{grid-row:1/5}.stationery-compartments h3{font-size:19px}.stationery-compartments button{justify-self:start}.vending-window{padding:18px 10px;gap:9px;border-width:7px}.vending-window h3{font-size:16px}.can-illustration{width:52px;height:96px}.board-register{margin-inline:14px;padding:12px}.panel[data-screen=pinboard]>.board-tools,.panel[data-screen=pinboard]>.board-connections,.panel[data-screen=pinboard]>.board-connection-tools{margin:15px 14px}.board-tools select{max-width:180px}}
 
 .pinned-sticky-detail{flex-basis:100%;white-space:pre-wrap;font:var(--document-size,18px)/1.6 Georgia,serif;overflow-wrap:anywhere;margin:5px 0}
+
+/* Finishing: shared mechanics, while each object keeps its own stock and ink. */
+:root{--control-height:34px;--control-gap:8px;--surface-space:16px;--control-radius:2px}
+.modal-overlay :is(button,input,select,textarea){border-radius:var(--control-radius)}
+.modal-overlay :is(button,summary){touch-action:manipulation}
+.modal-overlay :is(input,select,textarea):focus-visible,.modal-overlay summary:focus-visible{outline:2px solid #a06c36;outline-offset:3px}
+.modal-overlay .panel-head{gap:16px}.modal-overlay .close{display:grid;place-items:center;min-width:34px;min-height:34px;flex:none}
+.modal-overlay .panel-foot{gap:12px}.modal-overlay .panel-foot>span{min-width:0;line-height:1.6}
+.context-menu{position:relative;display:inline-block;flex:none;font:12px/1.5 'Courier New',monospace;color:inherit;z-index:12}
+.context-menu>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:var(--control-height);padding:7px 12px;border:1px solid #a69c7d;border-radius:2px;background:#ece1c4;box-shadow:0 1px 0 #fff5}
+.context-menu>summary::-webkit-details-marker{display:none}.context-menu>summary:after{content:'▾';font-size:10px}.context-menu[open]>summary{background:#d8cfb0;box-shadow:inset 0 1px 2px #56462b22}
+.context-menu-body{position:absolute;z-index:20;top:calc(100% + 6px);left:0;min-width:210px;max-width:min(360px,calc(100vw - 64px));max-height:45dvh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid #a59a7b;background:#f5ecd5;color:#344b3d;box-shadow:3px 5px 0 #26392f33,0 8px 20px #15271b33}
+.context-menu:not([open])>.context-menu-body{display:none}.context-menu-body>button{text-align:left;width:100%;flex:none}.context-menu-body label{display:flex;flex-direction:column;gap:6px;line-height:1.5}.context-menu-body select{width:100%;padding:6px}
+.reader-menu>.context-menu-body{top:auto;bottom:calc(100% + 6px)}
+/* The inner list is the only drawer scroll owner. The footer never covers files. */
+.panel[data-screen=storage]{height:min(800px,calc(100dvh - 60px));min-height:0;overflow:hidden}
+.panel[data-screen=storage]>.panel-head,.panel[data-screen=storage]>.drawer-register,.panel[data-screen=storage]>.panel-foot{flex:none}
+.drawer-browser{display:flex;flex-direction:column;flex:1;min-height:0;margin-top:16px}
+.drawer-folders.folder-list{flex:1;min-height:0;max-height:none;height:100%;overflow:auto;overscroll-behavior:contain;scroll-padding-block:28px;padding-bottom:40px}
+.drawer-folders>:not(.drawer-folder){flex:none}.drawer-folder{border-radius:2px;transform:none}.drawer-folder:hover,.drawer-folder:focus-visible{transform:translateY(-3px)}
+/* A folder has one return control and unclipped, independently scrolling paper. */
+.physical-folder.surface-folder .reader-main{display:flex;flex-direction:column;min-height:0;border-radius:2px 6px 3px 2px}
+.physical-folder.surface-folder .paper-scroll{min-height:0;overflow:auto;scroll-padding:24px}
+.physical-folder.surface-folder .document-paper{display:flow-root;position:relative;height:auto;overflow:visible;margin:0;padding-top:34px}
+.physical-folder.surface-folder .reader-actions{justify-content:space-between}.physical-folder.surface-folder .reader-actions .primary{margin-left:auto}
+/* Divider stock tucks beneath the paper edge, as tabs pasted onto real pages. */
+.panel.notebook-book{padding-right:112px;border-radius:5px 9px 9px 5px}
+.notebook-book .book-spread{z-index:2}
+.notebook-book .book-tabs{top:90px;right:8px;bottom:auto;width:112px;gap:12px;z-index:1}
+.notebook-book .book-tabs button,.notebook-book .book-tabs button:nth-child(2n){writing-mode:horizontal-tb;height:48px;min-height:48px!important;padding:8px 7px 8px 18px!important;white-space:nowrap!important;overflow-wrap:normal;transform:none;border-radius:0 2px 2px 0;border-left:0;font-size:11px!important;box-shadow:1px 2px 0 #172f3744}
+.notebook-book .book-tabs button.selected{transform:none;border-right:3px solid #f4eccd;border-left-color:#344b5b;font-weight:bold}
+.book-bookmark{right:124px}.book-navigation{right:118px}#book-index{right:113px}
+.book-sheet-menu>.context-menu-body{top:auto;bottom:calc(100% + 6px)}
+.book-drawing-menu{align-self:flex-start}.book-drawing-menu>.context-menu-body{min-width:240px}.book-drawing-menu .book-art-tools{align-items:stretch}
+.notebook-book .book-writing .book-actions{margin-top:0}.book-writing{gap:12px}.book-writing label:last-of-type{min-height:64px}
+/* The board's cork is the workspace; tools live on a slim ledge. */
+.panel[data-screen=pinboard]{height:min(900px,calc(100dvh - 60px));display:flex;flex-direction:column;overflow:auto}
+.panel[data-screen=pinboard]>.panel-head{padding:20px 24px;flex:none}
+.panel[data-screen=pinboard]>.board-register{margin:12px 20px;padding:8px 12px;flex:none;background:#e2d5b399}
+.panel[data-screen=pinboard] .personal-board{flex:1;min-height:260px;height:auto;margin:0 20px}
+.panel[data-screen=pinboard]>.board-toolbar{margin:12px 20px;padding:8px 12px;flex:none;display:flex}
+.board-toolbar .context-menu-body{top:auto;bottom:calc(100% + 6px)}
+.panel[data-screen=pinboard]>.board-connection-tools,.panel[data-screen=pinboard]>.board-connections{margin:0 20px 12px;padding:10px 12px;flex:none}
+.board-connections summary{cursor:pointer;font:12px/1.5 monospace}.board-connections p:last-child{margin-bottom:0}
+.panel[data-screen=sticky-draft]{width:min(540px,100%)}.panel[data-screen=sticky-draft]>.panel-head{padding:20px 24px}.panel[data-screen=sticky-draft] h2{font-size:26px;line-height:1.25}
+.sticky-compose{padding:20px 24px}.sticky-compose .stationery-actions{justify-content:space-between}.sticky-compose .loose-sticky{padding:20px}.sticky-compose textarea{min-height:180px;resize:none}.sticky-compose>.stationery-caption{font-size:10px}
+@media(max-width:899px){
+ .panel[data-screen=storage],.panel[data-screen=pinboard]{height:calc(100dvh - 26px);max-height:calc(100dvh - 26px)}
+ .panel.notebook-book{padding-right:103px}.notebook-book .book-tabs{width:105px;right:6px;top:78px;gap:12px}.notebook-book .book-tabs button{font-size:10px!important;padding:6px 6px 6px 18px!important}
+ .book-navigation{right:109px}.book-bookmark{right:115px}#book-index{right:104px}.book-cover-label{display:none}
+ .panel[data-screen=storage]>.panel-foot{padding:12px}.panel[data-screen=storage]>.panel-foot>span{font-size:9px}
+ .panel[data-screen=pinboard]>.board-register{font-size:10px;margin-inline:12px}.panel[data-screen=pinboard] .personal-board{margin-inline:12px;min-height:240px}.panel[data-screen=pinboard]>.board-toolbar{margin-inline:12px}
+ .drawer-folders.folder-list{max-height:none;padding-bottom:36px}.context-menu-body{max-width:calc(100vw - 90px);min-width:180px}
+}
+@media(max-height:650px){.notebook-book .book-tabs{top:70px;gap:8px}.notebook-book .book-tabs button{height:40px;min-height:40px!important}.panel[data-screen=pinboard] .personal-board{min-height:180px}.panel[data-screen=storage]>.panel-head{padding-block:12px}}
+.desk-options>.context-menu{width:100%}.desk-tools-menu>.context-menu-body{position:static;margin-top:8px;max-width:none;max-height:320px;box-shadow:1px 2px 0 #26392f22}
+.stationery-pocket-tools>.context-menu-body{position:static;margin-top:8px;max-width:100%;max-height:320px;box-shadow:1px 2px 0 #26392f22}.stationery-pocket-tools{display:block;max-width:100%}
+
+.modal-overlay .reader button:not(.cell):not(.text-button){min-height:var(--control-height);padding:7px 12px;font:12px/1.35 'Courier New',monospace;border-radius:var(--control-radius)}
+.folder-contents>summary{min-height:var(--control-height)}

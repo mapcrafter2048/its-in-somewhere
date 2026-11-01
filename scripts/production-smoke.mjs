@@ -57,7 +57,7 @@ try {
   assert.ok(responses.some(url => url.endsWith('/models/Textures/colormap.png')), 'The actual application must load its palette.');
 
   await page.getByRole('button', {name:'Settings & saved progress'}).click();
-  await page.locator('#quality').selectOption('low');
+  await page.locator('[data-choice-for="quality"] label').filter({has:page.locator('input[value="low"]')}).click();
   await page.locator('#reducedMotion').check();
   await page.locator('#pause-resume').click();
   await page.locator('#start').click();
@@ -68,7 +68,7 @@ try {
   await page.keyboard.press('KeyN');
   await expect(page.locator('#note-text')).toBeVisible();
   await page.locator('#note-text').fill('Production smoke check.');
-  await page.locator('#next-note').click();
+  await page.locator('#book-next').click();
   await expect(page.locator('#book-position')).toContainText('Sheet 2');
   await page.keyboard.press('Escape');
   await page.keyboard.press('KeyU');
@@ -95,6 +95,7 @@ try {
   await expect(page.locator('.pc-terminal')).toBeVisible();
   await page.locator('[data-pc-command="files"]').click();
   await expect(page.locator('.pc-titlebar')).toContainText('Files');
+  await page.locator('.pc-window-close').click();
   await page.locator('[data-pc-command="snake"]').click();
   await expect(page.locator('#snake-host canvas')).toBeVisible();
   assert.ok(responses.some(url => url.includes('/_next/static/') && url.includes('.js')), 'Next.js must serve the bundled game.');

@@ -1,13 +1,14 @@
+import { integratePhysicalChoices } from './physical-controls';
 import { escapeHtml as esc } from './dom';
 import '../styles/notebook.css';
-export type NotebookSection = 'notes' | 'discoveries' | 'collection' | 'log';
+export type NotebookSection = 'notes' | 'discoveries' | 'collection' | 'log' | 'rooms';
 export interface NotebookEntry { id: string; title?: string; contentsLabel?: string; text?: string; html?: string; className?: string }
 export interface NotebookPart { entry: NotebookEntry; text?: string; offset: number; continued: boolean; last: boolean }
 export interface NotebookPage { parts: NotebookPart[] }
 export interface NotebookSpread { left: NotebookPage; right?: NotebookPage }
 export interface NotebookViewState { section: NotebookSection; page: number; anchor?: { id: string; offset: number } }
-const sections: NotebookSection[] = ['notes','discoveries','collection','log'];
-const names: Record<NotebookSection,string> = {notes:'Notes',discoveries:'Discoveries',collection:'Collection',log:'Shift log'};
+const sections: NotebookSection[] = ['notes','discoveries','collection','log','rooms'];
+const names: Record<NotebookSection,string> = {notes:'Notes',discoveries:'Discoveries',collection:'Collection',log:'Shift log',rooms:'Floor plan'};
 interface Options { show:(html:string)=>void; cleanup:(fn:()=>void)=>void; sound:()=>void; select:(section:NotebookSection)=>void; write:()=>void; canWrite:()=>boolean }
 export function notebookPart(part:NotebookPart) {
  const {entry}=part;
@@ -26,7 +27,7 @@ export function notebookCut(text:string,limit:number) {
 }
 export function paginateNotebook(entries:NotebookEntry[],probe:HTMLElement,height:number):NotebookPage[] {
  const pages:NotebookPage[]=[];let parts:NotebookPart[]=[];
- const fits=(part:NotebookPart)=>{probe.innerHTML=[...parts,part].map(notebookPart).join('');return probe.scrollHeight<=height+1;};
+ const fits=(part:NotebookPart)=>{probe.innerHTML=[...parts,part].map(notebookPart).join('');integratePhysicalChoices(probe);return probe.scrollHeight<=height+1;};
  const finish=()=>{if(parts.length){pages.push({parts});parts=[];}};
  for(const entry of entries){
   if(entry.text===undefined){const part={entry,offset:0,continued:false,last:true};if(!fits(part))finish();parts.push(part);continue;}
@@ -49,38 +50,91 @@ export class NotebookController {
  private view:NotebookViewState={section:'notes',page:0}; private memory=new Map<NotebookSection,NotebookViewState>();
  private resize?:ResizeObserver; private mutation?:MutationObserver; private frame=0; private leave?:()=>void;
  private sheetNavigation?:{index:number;total:number;turn:(direction:number)=>void};
- private rendered=()=>{}; private customContents?: {label:string;select:()=>void}[]|(()=>{label:string;select:()=>void}[]); private editing=false; private narrow=false;
+ private roomNavigation?:{index:number;total:number;turn:(direction:number)=>void};
+ private rendered=()=>{}; private customContents?: {label:string;select:()=>void}[]|(()=>{label:string;select:()=>void}[]); private editing=false; private narrow=false;  private frontOpen=false; private turnAnimation?:Animation;
  constructor(private o:Options){}
  get section(){return this.view.section;}
  get active(){return !!this.root?.isConnected;}
  reset(){this.dispose();this.memory.clear();this.view={section:'notes',page:0};}
  private mount(){
   if(this.active)return;
-  this.o.show(`<section class="panel notebook-book" data-surface="notebook" role="dialog" aria-modal="true" aria-label="Your notebook"><button id="new-note" class="book-write" aria-label="Write a new notebook sheet">✎ Write</button><div class="book-cover-label" aria-hidden="true">PERSONAL FIELD BOOK / RECORDS & RETENTION</div><button id="book-contents" class="book-bookmark" aria-expanded="false" aria-controls="book-index">Contents</button><button class="close book-close" data-action="resume" aria-label="Close notebook">×</button><nav class="book-tabs" aria-label="Notebook sections">${sections.map(s=>`<button data-desk-tab="${s}">${names[s]}</button>`).join('')}</nav><div class="book-spread">${['left','right'].map(side=>`<article class="book-leaf" data-side="${side}"><header class="book-running-head"></header><div class="book-content"></div><footer class="book-folio"></footer></article>`).join('')}<div class="book-binding" aria-hidden="true">${'<i></i>'.repeat(6)}</div></div><div class="book-navigation"><button id="book-prev" aria-label="Previous notebook pages">← Previous</button><span id="book-position" role="status"></span><button id="book-next" aria-label="Next notebook pages">Next →</button></div><aside id="book-index" aria-label="Notebook contents" hidden></aside><div class="book-content book-probe" aria-hidden="true" inert></div></section>`);
+  this.o.show(`<section class="panel notebook-book" data-surface="notebook" role="dialog" aria-modal="true" aria-label="Your notebook"><div class="book-volume"><button id="new-note" class="book-write" aria-label="Write a new notebook sheet"><span class="book-pencil" aria-hidden="true"></span><span>New sheet</span></button><div class="book-cover-label" aria-hidden="true">PERSONAL FIELD BOOK / RECORDS & RETENTION</div><button id="book-contents" class="book-bookmark" aria-expanded="false" aria-controls="book-index">Contents</button><button class="close book-close" data-action="resume" aria-label="Close notebook">×</button><nav class="book-tabs" aria-label="Notebook sections">${sections.map(s=>`<button data-desk-tab="${s}">${names[s]}</button>`).join('')}</nav><div class="book-spread">${['left','right'].map(side=>`<article class="book-leaf" data-side="${side}"><header class="book-running-head"></header><div class="book-content"></div><footer class="book-folio"></footer></article>`).join('')}<div class="book-binding" aria-hidden="true">${'<i></i>'.repeat(6)}</div></div><div class="book-navigation"><button id="book-prev" aria-label="Previous notebook pages"><span aria-hidden="true">↶</span><span class="turn-caption">Previous</span></button><span id="book-position" role="status"></span><button id="book-next" aria-label="Next notebook pages"><span class="turn-caption">Next</span><span aria-hidden="true">↷</span></button></div><div class="book-front-spread" hidden><article class="book-front-cover" aria-label="Inside notebook cover"><div class="front-cover-label"><span>PERSONAL FIELD BOOK</span><h2>My notebook</h2><span class="front-owner-line" aria-hidden="true"></span><small>Records &amp; Retention</small></div></article><aside id="book-index" aria-label="Notebook contents" hidden></aside><div class="book-binding" aria-hidden="true">${'<i></i>'.repeat(6)}</div></div><div class="book-animation-layer" aria-hidden="true" inert></div><div class="book-content book-probe" aria-hidden="true" inert></div></div><aside class="book-palette" aria-label="Ink and paper colours"><div class="book-case-supplies"></div><p class="case-empty">Ink &amp; paper</p></aside><div class="book-held-tools" aria-label="Drawing tools"></div><div class="book-material-status"></div></section>`);
   this.root=document.querySelector<HTMLElement>('.notebook-book')!;
+
   this.root.querySelector<HTMLButtonElement>('#new-note')!.onclick=this.o.write;
   this.root.querySelectorAll<HTMLButtonElement>('[data-desk-tab]').forEach(b=>b.onclick=()=>this.o.select(b.dataset.deskTab as NotebookSection));
   this.root.querySelector<HTMLButtonElement>('#book-prev')!.onclick=()=>this.turn(-1);
   this.root.querySelector<HTMLButtonElement>('#book-next')!.onclick=()=>this.turn(1);
-  this.root.querySelector<HTMLButtonElement>('#book-contents')!.onclick=()=>{
-   this.leave?.();this.renderContents();
-   const index=this.root!.querySelector<HTMLElement>('#book-index')!;index.hidden=!index.hidden;
-   this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded',String(!index.hidden));
-   if(!index.hidden)index.querySelector<HTMLButtonElement>('button')?.focus();
-  };
+  this.root.querySelector<HTMLButtonElement>('#book-contents')!.onclick=()=>this.toggleFront();
   this.root.addEventListener('keydown',e=>{if((e.target as HTMLElement).closest('input,textarea,select,canvas'))return;if(e.key==='PageDown'||e.key==='PageUp'){e.preventDefault();this.turn(e.key==='PageDown'?1:-1);}});
-  const schedule=()=>{cancelAnimationFrame(this.frame);this.frame=requestAnimationFrame(()=>{if(!this.active)return;if(this.editing)this.paintEditor();else this.layout();});};
+  const schedule=()=>{cancelAnimationFrame(this.frame);this.frame=requestAnimationFrame(()=>{if(!this.active)return;if(this.frontOpen)this.paintFront();else if(this.editing)this.paintEditor();else this.layout();});};
   this.resize=new ResizeObserver(schedule);this.resize.observe(this.root.querySelector('.book-spread')!);
   this.mutation=new MutationObserver(schedule);this.mutation.observe(document.documentElement,{attributes:true,attributeFilter:['style']});
   this.o.cleanup(()=>this.dispose());
+ }
+ private closeFrontSilently(){
+  if(!this.active)return;
+  this.frontOpen=false;
+  this.root!.classList.remove('book-front-open');
+  this.root!.querySelector<HTMLElement>('.book-front-spread')!.hidden=true;
+  this.root!.querySelector<HTMLElement>('#book-index')!.hidden=true;
+  this.root!.querySelector<HTMLElement>('.book-spread')!.hidden=false;
+  this.root!.querySelector<HTMLElement>('.book-held-tools')!.hidden=false;
+  this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded','false');
+ }
+ private toggleFront(){
+  const snapshot=this.captureLeaf(this.frontOpen?1:-1);
+  if(this.frontOpen){
+   this.closeFrontSilently();
+   if(this.editing)this.paintEditor();else this.layout();
+   this.o.sound();this.animate(1,snapshot);
+   this.root!.querySelector<HTMLElement>('#book-contents')!.focus({preventScroll:true});
+   return;
+  }
+  this.leave?.();this.frontOpen=true;
+  this.root!.classList.add('book-front-open');
+  this.root!.querySelector<HTMLElement>('.book-spread')!.hidden=true;
+  this.root!.querySelector<HTMLElement>('.book-held-tools')!.hidden=true;
+  this.root!.querySelector<HTMLElement>('.book-front-spread')!.hidden=false;
+  this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded','true');
+  this.renderContents();this.paintFront();this.o.sound();this.animate(-1,snapshot);
+  this.root!.querySelector<HTMLElement>('#book-index button')?.focus({preventScroll:true});
+ }
+ private paintFront(){
+  this.narrow=matchMedia('(max-width:899px)').matches;
+  this.root!.querySelector<HTMLButtonElement>('#book-prev')!.disabled=true;
+  this.root!.querySelector<HTMLButtonElement>('#book-next')!.disabled=false;
+  this.root!.querySelector('#book-position')!.textContent='Front cover / contents';
+ }
+ private clearMaterials(){
+  this.root!.querySelector('.book-case-supplies')!.replaceChildren();
+  this.root!.querySelector('.book-held-tools')!.replaceChildren();
+  this.root!.querySelector('.book-material-status')!.replaceChildren();
+  this.root!.querySelector<HTMLElement>('.case-empty')!.hidden=this.editing;
+ }
+ private arrangeMaterials(){
+  const supplies=this.root!.querySelector('.book-case-supplies')!;
+  const tools=this.root!.querySelector('.book-held-tools')!;
+  for(const id of ['note-paper','note-ink','note-tool']){
+   const select=this.root!.querySelector<HTMLSelectElement>(`#${id}`)!;
+   const sample=this.root!.querySelector<HTMLElement>(`[data-choice-for="${id}"]`)!;
+   const destination=id==='note-tool'?tools:supplies;
+   destination.append(select.closest('label')!,sample);
+  }
+  // Ink and paper samples sit beside the book; tools stay below the pages.
+  supplies.prepend(this.root!.querySelector('[data-choice-for="note-ink"]')!);
+  tools.append(this.root!.querySelector('#sketch-undo')!);
+  this.root!.querySelector('.book-material-status')!.append(this.root!.querySelector('#note-status')!);
+  this.root!.querySelector<HTMLElement>('.case-empty')!.hidden=true;
  }
  flushPending(){this.flush();}
  onLeave(fn:()=>void){this.leave=fn;}
  private flush(){const fn=this.leave;this.leave=undefined;fn?.();}
  show(section:NotebookSection,entries:NotebookEntry[],rendered=()=>{},anchor?:string){
-  this.sheetNavigation=undefined;
+  this.closeFrontSilently();
+  this.sheetNavigation=undefined;this.roomNavigation=undefined;this.root?.classList.remove('book-room-spread');
   const sectionChanged=this.active && this.view.section!==section;
-  this.flush();this.remember();this.mount();this.editing=false;this.root!.classList.remove('book-editing');
+  this.flush();this.remember();this.mount();this.editing=false;this.root!.classList.remove('book-editing');this.root!.style.removeProperty('--book-paper');this.clearMaterials();
   this.view={...(this.memory.get(section)??{section,page:0})};if(anchor)this.view.anchor={id:anchor,offset:0};
   this.customContents=undefined;this.entries=entries;this.rendered=rendered;
   this.root!.querySelector<HTMLElement>('#book-index')!.hidden=true;
@@ -88,13 +142,22 @@ export class NotebookController {
   this.layout();if(sectionChanged){this.o.sound();this.animate(1);}
  }
  editor(left:string,right:string,rendered:()=>void,navigation?:{index:number;total:number;turn:(direction:number)=>void}){
+  this.closeFrontSilently();
+  this.roomNavigation=undefined;this.root?.classList.remove('book-room-spread');
   this.sheetNavigation=navigation;
   this.flush();this.remember();this.mount();this.editing=true;this.view={section:'notes',page:0};this.root!.classList.add('book-editing');
   const contents=this.root!.querySelectorAll<HTMLElement>('.book-leaf>.book-content');contents[0].innerHTML=left;contents[1].innerHTML=right;
   this.root!.querySelector<HTMLElement>('#book-index')!.hidden=true;
-  this.paintEditor();rendered();
+  this.clearMaterials();this.paintEditor();integratePhysicalChoices(this.root!);this.arrangeMaterials();rendered();
   this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded','false');
   if(!this.root!.contains(document.activeElement)) (this.root!.querySelector<HTMLElement>('#note-title:not([disabled])')??this.root!.querySelector<HTMLElement>('#book-contents'))?.focus({preventScroll:true});
+ }
+ roomSpread(left:string,right:string,index:number,total:number,turn:(direction:number)=>void,contents:{label:string;select:()=>void}[]){
+  this.closeFrontSilently();this.flush();this.remember();this.mount();this.clearMaterials();
+  this.editing=true;this.sheetNavigation=undefined;this.roomNavigation={index,total,turn};this.view={section:'rooms',page:0};
+  this.root!.classList.remove('book-editing');this.root!.classList.add('book-room-spread');this.root!.style.removeProperty('--book-paper');
+  const leaves=this.root!.querySelectorAll<HTMLElement>('.book-leaf>.book-content');leaves[0].innerHTML=left;leaves[1].innerHTML=right;
+  this.customContents=contents;this.renderContents();this.paintEditor();integratePhysicalChoices(this.root!);
  }
  private remember(){if(!this.editing)this.memory.set(this.view.section,{...this.view});}
  private layout(){
@@ -150,20 +213,28 @@ export class NotebookController {
   });
   const first=this.pages[this.view.page]?.parts[0];this.view.anchor=first?{id:first.entry.id,offset:first.offset}:undefined;this.remember();
   this.renderContents();
-  this.chrome(this.pages.length);this.rendered();
+  this.chrome(this.pages.length);integratePhysicalChoices(this.root!);this.rendered();
  }
  setContents(items:{label:string;select:()=>void}[]|(()=>{label:string;select:()=>void}[])){this.customContents=items;this.renderContents();}
  private renderContents(){
   const index=this.root!.querySelector<HTMLElement>('#book-index')!;
   const items=(typeof this.customContents==='function'?this.customContents():this.customContents)??this.entries.map(entry=>({label:entry.contentsLabel||entry.title||entry.id,select:()=>{this.view.anchor={id:entry.id,offset:0};this.layout();}}));
-  index.innerHTML=`<h3>${names[this.view.section]} / contents</h3>${items.map((item,i)=>`<button data-book-jump="${i}">${esc(item.label)}</button>`).join('')}`;
-  index.querySelectorAll<HTMLButtonElement>('[data-book-jump]').forEach(b=>b.onclick=()=>{index.hidden=true;this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded','false');items[Number(b.dataset.bookJump)].select();});
+  index.hidden=!this.frontOpen;
+  index.innerHTML=`<h3>Contents</h3><nav class="front-section-index" aria-label="Notebook sections in contents">${sections.map(section=>`<button data-front-section="${section}">${names[section]}</button>`).join('')}</nav><div class="front-entry-index"><p class="front-index-caption">${names[this.view.section]}</p>${items.map((item,i)=>`<button data-book-jump="${i}">${esc(item.label)}</button>`).join('')}</div>`;
+  index.querySelectorAll<HTMLButtonElement>('[data-front-section]').forEach(button=>button.onclick=()=>{const snapshot=this.captureLeaf(1);this.closeFrontSilently();this.o.select(button.dataset.frontSection as NotebookSection);this.o.sound();this.animate(1,snapshot);});
+  index.querySelectorAll<HTMLButtonElement>('[data-book-jump]').forEach(b=>b.onclick=()=>{const snapshot=this.captureLeaf(1);this.closeFrontSilently();items[Number(b.dataset.bookJump)].select();this.o.sound();this.animate(1,snapshot);});
  }
  private paintEditor(){
   this.narrow=matchMedia('(max-width:899px)').matches;
   const leaves=this.root!.querySelectorAll<HTMLElement>('.book-leaf');
   leaves.forEach((leaf,i)=>{leaf.hidden=this.narrow&&i!==this.view.page;leaf.querySelector('.book-running-head')!.textContent=i?'Notes / sketch & clippings':'Notes / writing';leaf.querySelector('.book-folio')!.textContent=i?'02':'01';});
   this.chrome(2);
+  if(this.roomNavigation){const n=this.roomNavigation;
+   this.root!.querySelector<HTMLButtonElement>('#book-prev')!.disabled=n.index===0;
+   this.root!.querySelector<HTMLButtonElement>('#book-next')!.disabled=n.index===n.total-1;
+   this.root!.querySelector('#book-position')!.textContent=`Room W${n.index+1} / ${n.total}`;
+   leaves.forEach((leaf,i)=>{leaf.hidden=false;leaf.querySelector('.book-running-head')!.textContent=`Floor plan / W${n.index+1}${i?' / room register':''}`;leaf.querySelector('.book-folio')!.textContent=String(n.index*2+i+1).padStart(2,'0');});return;
+  }
   if(this.sheetNavigation){const n=this.sheetNavigation;
    this.root!.querySelector<HTMLButtonElement>('#book-prev')!.disabled=n.index===0&&(!this.narrow||this.view.page===0);
    this.root!.querySelector<HTMLButtonElement>('#book-next')!.disabled=n.index===n.total-1&&(!this.narrow||this.view.page===1);
@@ -172,20 +243,58 @@ export class NotebookController {
   }
  }
  private turn(direction:number){
+  if(this.frontOpen){if(direction>0)this.toggleFront();return;}
+  const snapshot=this.captureLeaf(direction);
+  if(this.roomNavigation){const n=this.roomNavigation;if(n.index+direction>=0&&n.index+direction<n.total){n.turn(direction);this.o.sound();this.animate(direction,snapshot);}return;}
   if(this.editing&&this.sheetNavigation){
    if(this.narrow&&((direction>0&&this.view.page===0)||(direction<0&&this.view.page===1))){this.view.page+=direction;this.paintEditor();}
    else if(this.sheetNavigation.index+direction>=0&&this.sheetNavigation.index+direction<this.sheetNavigation.total)this.sheetNavigation.turn(direction);
-   this.o.sound();this.animate(direction);return;
+   this.o.sound();this.animate(direction,snapshot);return;
   }
   const step=this.narrow?1:2,total=this.editing?2:this.pages.length,next=this.view.page+direction*step;
   if(next<0||next>=total)return;
   this.view.page=next;this.view.anchor=undefined;this.o.sound();
   if(this.editing)this.paintEditor();else this.paint();
-  this.animate(direction);
+  this.animate(direction,snapshot);
  }
- private animate(direction:number){
-  this.root!.querySelectorAll<HTMLElement>('.book-leaf').forEach(leaf=>leaf.getAnimations().forEach(a=>a.cancel()));
-  if(!document.body.classList.contains('reduced-motion')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){this.root!.querySelectorAll<HTMLElement>('.book-leaf:not([hidden])').forEach(leaf=>{leaf.getAnimations().forEach(a=>a.cancel());leaf.animate([{opacity:.65,transform:`translateX(${direction*7}px)`},{opacity:1,transform:'none'}],{duration:140,easing:'ease-out'});});}
+ private captureLeaf(direction:number):HTMLElement|undefined {
+  if(!this.active||document.body.classList.contains('reduced-motion')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const source=this.frontOpen?this.root!.querySelector<HTMLElement>(direction>0?'#book-index':'.book-front-cover'):this.root!.querySelector<HTMLElement>(`.book-leaf[data-side="${direction>0?'right':'left'}"]:not([hidden])`)??this.root!.querySelector<HTMLElement>('.book-leaf:not([hidden])');
+  if(!source)return;
+  const clone=source.cloneNode(true) as HTMLElement;
+  const style=getComputedStyle(source);
+  clone.style.cssText=Array.from(style).map(key=>`${key}:${style.getPropertyValue(key)}`).join(';');
+  clone.classList.remove('book-leaf');
+  if(source.id==='book-index')clone.classList.add('book-front-index-copy');
+  [clone,...clone.querySelectorAll<HTMLElement>('*')].forEach(el=>[...el.attributes].forEach(attribute=>{if(attribute.name.startsWith('data-'))el.removeAttribute(attribute.name);}));
+  clone.removeAttribute('id');clone.removeAttribute('hidden');
+  clone.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+  clone.querySelectorAll('[name]').forEach(el=>el.removeAttribute('name'));
+  clone.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('input,textarea').forEach((el,i)=>{const original=source.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('input,textarea')[i];const originalStyle=getComputedStyle(original);el.value=original.value;el.style.font=originalStyle.font;el.style.width=`${original.clientWidth}px`;el.style.height=`${original.clientHeight}px`;el.disabled=true;});
+  clone.querySelectorAll<HTMLButtonElement>('button').forEach((button,i)=>{
+   const originalStyle=getComputedStyle(source.querySelectorAll('button')[i]);
+   for(const key of ['font','color','background','box-shadow','border-top','border-right','border-bottom','border-left','padding','margin','min-height','width','text-align','display','letter-spacing','text-decoration','opacity'])button.style.setProperty(key,originalStyle.getPropertyValue(key));
+  });
+  clone.querySelectorAll('canvas').forEach((canvas,i)=>{const original=source.querySelectorAll('canvas')[i];canvas.style.width=`${original.clientWidth}px`;canvas.style.height=`${original.clientHeight}px`;canvas.getContext('2d')?.drawImage(original,0,0);});
+  return clone;
  }
- dispose(){this.flush();this.remember();cancelAnimationFrame(this.frame);this.resize?.disconnect();this.mutation?.disconnect();this.root=undefined;this.editing=false;}
+ private animate(direction:number,snapshot?:HTMLElement){
+  if(!this.active)return;
+  this.turnAnimation?.cancel();
+  const layer=this.root!.querySelector<HTMLElement>('.book-animation-layer')!;
+  layer.replaceChildren();
+  if(document.body.classList.contains('reduced-motion')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const leaf=document.createElement('div');
+  leaf.className=`book-turn-leaf ${direction>0?'turn-forward':'turn-backward'}`;
+  if(this.narrow)leaf.classList.add('turn-single');
+  if(snapshot){snapshot.classList.add('book-turn-snapshot');leaf.append(snapshot);}
+  layer.append(leaf);
+  this.turnAnimation=leaf.animate([
+   {transform:'rotateY(0deg)',filter:'brightness(1)',offset:0},
+   {transform:`rotateY(${direction>0?-85:85}deg)`,filter:'brightness(.83)',offset:.5},
+   {transform:`rotateY(${direction>0?-174:174}deg)`,filter:'brightness(.95)',offset:1}
+  ],{duration:340,easing:'cubic-bezier(.3,.05,.25,1)',fill:'forwards'});
+  this.turnAnimation.finished.then(()=>leaf.remove(),()=>leaf.remove());
+ }
+ dispose(){this.turnAnimation?.cancel();this.frontOpen=false;this.flush();this.remember();cancelAnimationFrame(this.frame);this.resize?.disconnect();this.mutation?.disconnect();this.root=undefined;this.editing=false;}
 }

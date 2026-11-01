@@ -4,6 +4,8 @@ import '../style.css';
 import '../styles/surfaces.css';
 import '../styles/desk.css';
 import '../styles/physical-life.css';
+import '../styles/material-controls.css';
+import '../styles/workspaces.css';
 
 export const metadata: Metadata = {
  title: 'It’s In Here Somewhere — The Archive',

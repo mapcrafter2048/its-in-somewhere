@@ -1,3 +1,4 @@
+import { clickControl } from './ui-controls';
 import { test, expect } from '@playwright/test';
 const boot=async(page:any)=>{await page.goto('/?test=1');await expect(page.locator('#start')).toBeVisible();await page.waitForFunction(()=>!!(window as any).__GAME__);};
 const game=async(page:any,fn:string)=>page.evaluate(fn);
@@ -18,19 +19,19 @@ test('opening, movement, pause, reader, settings, and responsive layout',async({
  await page.locator('#textSize').fill('22');await page.locator('#textSize').dispatchEvent('input');
  expect(await game(page,'window.__GAME__.save.settings.textSize')).toBe(22);
  await game(page,'window.__GAME__.visit(window.__GAME__.tutorialId,"archive:7:0")');await expect(page.getByRole('heading',{name:'A note for the new archivist'})).toBeVisible();
- await page.locator('#mark-searched').click();await expect(page.locator('#mark-searched')).toContainText('Searched');
- await page.locator('#bookmark').click();await expect(page.locator('#bookmark')).toContainText('Retained');
+ await clickControl(page,'#mark-searched');await expect(page.locator('#mark-searched')).toContainText('Searched');
+ await clickControl(page,'#bookmark');await expect(page.locator('#bookmark')).toContainText('Retained');
  await page.keyboard.press('BracketRight');await expect.poll(()=>game(page,'window.__GAME__.save.inspected.length')).toBeGreaterThan(1);
  await page.screenshot({path:'test-results/reader.png'});
  await page.setViewportSize({width:680,height:800});await expect(page.locator('.reader')).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await page.setViewportSize({width:1440,height:900});
- await game(page,'window.__GAME__.showMap(0)');await expect(page.locator('[data-mapcab]')).toHaveCount(128);await page.locator('[data-mapcab="3"]').click();await expect(page.locator('#map-detail')).toContainText('A04');
+ await game(page,'window.__GAME__.showMap(0)');await expect(page.locator('[data-mapcab]')).toHaveCount(658);await page.locator('[data-mapcab="3"]').click();await expect(page.locator('#map-detail')).toContainText('A04');
  expect(errors).toEqual([]);
 });
 test('physical raycast interaction opens and animates the aimed drawer',async({page})=>{
  await boot(page);await game(page,`(()=>{const g=window.__GAME__;g.save.started=true;g.save.zone='archive';g.save.wing=0;g.save.position=[-2.4,1.7,1.7];g.save.rotation=[-.13,0];g.world.restore(g.save);g.resume();})()`);
- await page.waitForTimeout(500);await expect(page.locator('#interaction')).toBeVisible();await page.keyboard.press('KeyE');await expect(page.locator('.drawer-browser')).toBeVisible();await page.locator('[data-file]').first().click();await expect(page.locator('.reader')).toBeVisible();await expect(page.locator('.folder-jacket-label')).toContainText('A08');await page.locator('#mark-searched').click();await expect(page.locator('#mark-searched')).toContainText('Searched');
+ await page.waitForTimeout(500);await expect(page.locator('#interaction')).toBeVisible();await page.keyboard.press('KeyE');await expect(page.locator('.drawer-browser')).toBeVisible();await page.locator('[data-file]').first().click();await expect(page.locator('.reader')).toBeVisible();await expect(page.locator('.folder-jacket-label')).toContainText('A08');await clickControl(page,'#mark-searched');await expect(page.locator('#mark-searched')).toContainText('Searched');
 });
 test('spreadsheet hidden rows and comments preserve evidence once; chain resolves',async({page})=>{
  await boot(page);await game(page,`(()=>{const g=window.__GAME__;g.save.started=true;g.visit(g.archive.storyLocations.get('ghost')[2]);})()`);
@@ -48,7 +49,7 @@ test('equipment, highlighter, and persistence survive reload',async({page})=>{
  await page.locator('[data-buy="highlighter"]').click();expect(await game(page,"window.__GAME__.save.upgrades.includes('highlighter')")).toBe(true);
  await game(page,'window.__GAME__.visit(window.__GAME__.tutorialId,"archive:7:0")');await page.locator('#keyword').fill('Martin');await page.locator('#highlight-form button').click();await expect(page.locator('mark')).toHaveCount(2);
  await page.locator('#keyword').fill('two words');await page.locator('#highlight-form button').click();await expect(page.locator('#toasts')).toContainText('Choose one word');
- await page.locator('#mark-searched').click();await page.locator('#bookmark').click();const id=await game(page,'window.__GAME__.tutorialId');
+ await clickControl(page,'#mark-searched');await clickControl(page,'#bookmark');const id=await game(page,'window.__GAME__.tutorialId');
  await page.reload();await expect(page.locator('#start')).toHaveText(/Continue/);expect(await game(page,`window.__GAME__.save.searched.includes(${id})`)).toBe(true);expect(await game(page,`window.__GAME__.save.physical.files[${id}]==='inventory'`)).toBe(true);
 });
 test('opening the phrase page wins immediately without submission or completed stories',async({page})=>{

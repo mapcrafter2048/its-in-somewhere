@@ -1,3 +1,4 @@
+import { selectControl } from './ui-controls';
 import {test,expect} from '@playwright/test';
 import {MODEL_NAMES} from '../../src/prop-models';
 test('every filing frontage remains accessible and closed rooms are culled',async({page})=>{
@@ -6,7 +7,7 @@ test('every filing frontage remains accessible and closed rooms are culled',asyn
 test('retained models have isolated angle previews and loaded drawer states',async({page})=>{
  test.setTimeout(300000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/?models=1');await expect(page.locator('#model-select')).toBeVisible();
  for(const name of MODEL_NAMES){await page.selectOption('#model-select',name);if(['file-box','wall-cabinet','double-cabinet'].includes(name))await page.check('#model-open');else await page.uncheck('#model-open');for(const view of ['front','back','left','right','top','perspective']){await page.locator(`[data-view="${view}"]`).click();await page.screenshot({path:`test-results/models/${name}-${view}.png`});}}
- await page.selectOption('#model-select','cabinet');await page.check('#model-open');await page.locator('[data-view="perspective"]').click();await page.screenshot({path:'test-results/models/cabinet-open.png'});await page.selectOption('#model-light','game');await page.check('#model-wire');await page.screenshot({path:'test-results/models/cabinet-wire.png'});await page.selectOption('#model-select','double-cabinet');for(const side of ['front','rear']){await page.selectOption('#model-face',side);await page.locator(`[data-view="${side==='front'?'perspective':'back'}"]`).click();await page.screenshot({path:`test-results/models/double-cabinet-${side}-open.png`});}expect(errors).toEqual([]);
+ await page.selectOption('#model-select','cabinet');await page.check('#model-open');await page.locator('[data-view="perspective"]').click();await page.screenshot({path:'test-results/models/cabinet-open.png'});await selectControl(page,'#model-light','game');await page.check('#model-wire');await page.screenshot({path:'test-results/models/cabinet-wire.png'});await page.selectOption('#model-select','double-cabinet');for(const side of ['front','rear']){await selectControl(page,'#model-face',side);await page.locator(`[data-view="${side==='front'?'perspective':'back'}"]`).click();await page.screenshot({path:`test-results/models/double-cabinet-${side}-open.png`});}expect(errors).toEqual([]);
 });
 test('warehouse lighting quality views and rendering audit',async({page})=>{
  test.setTimeout(90000);await page.goto('/?test=1');await expect(page.locator('#start')).toBeVisible();const audit=[];

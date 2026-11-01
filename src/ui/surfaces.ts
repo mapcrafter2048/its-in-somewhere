@@ -1,3 +1,4 @@
+import { arrangeWorkspace } from './workspaces';
 /** Physical UI objects share navigation contracts, not a single paper-panel appearance. */
 const kinds: Record<string, string> = { notebook: 'notebook', note: 'notebook', inventory: 'wallet', supplies: 'requisition', map: 'plan', desk: 'blotter', printer: 'printer', shredder: 'shredder', whiteboard: 'whiteboard', 'board-finished': 'whiteboard', pinboard: 'pinboard', notices: 'notices', comparison: 'comparison', 'printed-copy': 'printout', 'legacy-binder': 'binder', letter: 'letter', tutorial: 'memo', hints: 'index', sources: 'catalogue', pause: 'shift-card', reset: 'routing', import: 'routing', ending: 'completion', storage: 'drawer', 'reader-loading': 'drawer', 'reader-error': 'drawer' };
 export function decorateInterface(host: HTMLElement, mode: string) {
@@ -44,4 +45,5 @@ export function decorateInterface(host: HTMLElement, mode: string) {
             pocket.dataset.pocket = String(i + 1).padStart(2, '0');
         });
     }
+    arrangeWorkspace(panel, mode);
 }

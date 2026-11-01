@@ -60,6 +60,6 @@ export class DesktopApps {
   const host=document.querySelector<HTMLElement>('#snake-host')!;let cancelled=false,dispose=()=>{};
   this.o.cleanup(()=>{cancelled=true;dispose();});
   try{const {mountSnake}=await import('./snake');if(cancelled||!host.isConnected)return;dispose=mountSnake(host,deskFor(this.o.save()).snakeBest,score=>{deskFor(this.o.save()).snakeBest=score;this.o.write();});}
-  catch{if(!cancelled)host.innerHTML='<p>Snake could not load. Reopen it from the taskbar to retry.</p>';}
+  catch{if(!cancelled)host.innerHTML='<p>Snake could not load. Reopen it from the desktop to retry.</p>';}
  }
 }
