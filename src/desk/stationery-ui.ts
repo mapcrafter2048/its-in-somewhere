@@ -20,7 +20,7 @@ export class StationeryScreens{
  inventory(){this.show('stationery-inventory','Stationery and loose notes',this.inventoryMarkup());this.bindInventory(()=>this.inventory());}
  bindInventory(refresh:()=>void){this.bindNotes(refresh);q('#stow-stationery')?.addEventListener('click',()=>this.result(stowStationery(this.s),'Stored.',refresh));q('#inventory-open-board')?.addEventListener('click',()=>this.board());q('#inventory-equip-can')?.addEventListener('click',()=>this.result(takeCan(this.s),'Can equipped.',this.o.resume));}
  private bindNotes(refresh:()=>void){document.querySelectorAll<HTMLButtonElement>('[data-sticky-equip]').forEach(b=>b.onclick=()=>{this.board();if(document.querySelector('.pinboard-workspace'))this.pinSaved('sticky',Number(b.dataset.stickyEquip));});document.querySelectorAll<HTMLButtonElement>('[data-sticky-recycle]').forEach(b=>b.onclick=()=>{q(`[data-recycle-confirm="${b.dataset.stickyRecycle}"]`).hidden=false;});document.querySelectorAll<HTMLButtonElement>('[data-sticky-keep]').forEach(b=>b.onclick=()=>q(`[data-recycle-confirm="${b.dataset.stickyKeep}"]`).hidden=true);document.querySelectorAll<HTMLButtonElement>('[data-sticky-confirm]').forEach(b=>b.onclick=()=>{recycleSticky(this.s,Number(b.dataset.stickyConfirm));this.o.commit();refresh();});}
- cancelThread(){const editor=document.querySelector('.board-inline-editor');if(editor){editor.remove();q('#new-board-note').focus();return true;}if(!this.firstEndpoint&&!this.threadMode)return false;this.firstEndpoint=undefined;this.threadMode=false;this.board();return true;}
+ cancelThread(){const editor=document.querySelector('.board-editor-backdrop');if(editor){editor.remove();q('#new-board-note').focus();return true;}if(!this.firstEndpoint&&!this.threadMode)return false;this.firstEndpoint=undefined;this.threadMode=false;this.board();return true;}
  private threadMode=false;
  private boardResize?:ResizeObserver;
  private freePosition(){
@@ -49,19 +49,21 @@ export class StationeryScreens{
  }
  private composeSticky(id?:number){
   const existing=id===undefined?undefined:this.d.stickies.find(n=>n.id===id);
-  const draft=existing??this.d.stickyDraft,original=draft.text;
-  const rail=q('.pinboard-workspace .object-rail');rail.querySelector('.board-inline-editor')?.remove();
-  rail.insertAdjacentHTML('afterbegin',`<form class="board-inline-editor" id="board-sticky-form"><textarea id="board-sticky-text" maxlength="280" rows="6" aria-label="Sticky note" placeholder="Write a note…" style="--sticky-stock:${STICKY_COLORS[draft.color]}">${esc(draft.text)}</textarea><div class="inline-note-actions"><button type="button" id="board-sticky-undo" aria-label="Undo writing" title="Undo">↶</button><button type="submit" id="board-sticky-done" aria-label="Done" title="Done">✓</button></div>${this.s.upgrades.includes('sticky-colours')?`<label class="board-sticky-palette">Colour <select id="board-sticky-colour">${Object.keys(STICKY_COLORS).map(c=>`<option ${c===draft.color?'selected':''}>${c}</option>`).join('')}</select></label>`:''}</form>`);
-  q<HTMLTextAreaElement>('#board-sticky-text').oninput=e=>{draft.text=(e.target as HTMLTextAreaElement).value;this.o.commit();};
-  q('#board-sticky-undo').onclick=()=>{draft.text=original;q<HTMLTextAreaElement>('#board-sticky-text').value=original;this.o.commit();};
-  q<HTMLSelectElement>('#board-sticky-colour')?.addEventListener('change',e=>{draft.color=(e.target as HTMLSelectElement).value as typeof draft.color;q('#board-sticky-text').style.setProperty('--sticky-stock',STICKY_COLORS[draft.color]);this.o.commit();});
+  const draft={...(existing??this.d.stickyDraft)},original=draft.text;
+  const rail=q('.panel[data-screen="pinboard"]');rail.querySelector('.board-editor-backdrop')?.remove();
+  rail.insertAdjacentHTML('beforeend',`<div class="board-editor-backdrop"><form role="dialog" aria-modal="true" aria-label="Write sticky note" class="board-inline-editor" id="board-sticky-form"><textarea id="board-sticky-text" maxlength="280" rows="6" aria-label="Sticky note" placeholder="Write a note…" style="--sticky-stock:${STICKY_COLORS[draft.color]}">${esc(draft.text)}</textarea><div class="inline-note-actions"><button type="button" id="board-sticky-undo" aria-label="Undo writing" title="Undo">↶</button><button type="submit" id="board-sticky-done" aria-label="Done" title="Done">✓</button></div>${this.s.upgrades.includes('sticky-colours')?`<label class="board-sticky-palette">Colour <select id="board-sticky-colour">${Object.keys(STICKY_COLORS).map(c=>`<option ${c===draft.color?'selected':''}>${c}</option>`).join('')}</select></label>`:''}</form></div>`);
+  q<HTMLTextAreaElement>('#board-sticky-text').oninput=e=>{draft.text=(e.target as HTMLTextAreaElement).value;};
+  q('#board-sticky-undo').onclick=()=>{draft.text=original;q<HTMLTextAreaElement>('#board-sticky-text').value=original;};
+  q<HTMLSelectElement>('#board-sticky-colour')?.addEventListener('change',e=>{draft.color=(e.target as HTMLSelectElement).value as typeof draft.color;q('#board-sticky-text').style.setProperty('--sticky-stock',STICKY_COLORS[draft.color]);q('#board-sticky-form').style.setProperty('--sticky-stock',STICKY_COLORS[draft.color]);});
   q<HTMLFormElement>('#board-sticky-form').onsubmit=e=>{e.preventDefault();if(!draft.text.trim())return;
    if(!existing&&this.d.stickies.length>=stickyCapacity(this.s)){this.o.notify('Sticky stack full. Recycle a saved note.');return;}
    if(!existing||existing.place!=='board'){if(this.d.pins.length>=pinCapacity(this.s)){this.o.notify('Board full.');return;}}
-   if(existing){if(existing.place!=='board'){this.history=[];existing.place='board';this.d.pins.push({kind:'sticky',note:existing.id,...this.freePosition()});}if(this.p.held?.kind==='sticky'&&this.p.held.id===existing.id)this.p.held=null;}
+   if(existing){existing.text=draft.text;existing.color=draft.color;if(existing.place!=='board'){this.history=[];existing.place='board';this.d.pins.push({kind:'sticky',note:existing.id,...this.freePosition()});}if(this.p.held?.kind==='sticky'&&this.p.held.id===existing.id)this.p.held=null;}
    else{this.history=[];const note={id:this.d.nextSticky++,text:draft.text,color:draft.color,place:'board' as const};this.d.stickies.push(note);this.d.pins.push({kind:'sticky',note:note.id,...this.freePosition()});this.d.stickyDraft={text:'',color:draft.color};}
    this.o.commit();this.o.sound();this.board();
   };
+  q('#board-sticky-form').style.setProperty('--sticky-stock',STICKY_COLORS[draft.color]);
+  q('#board-sticky-form').onkeydown=e=>{if(e.key!=='Tab')return;const items=Array.from(q('#board-sticky-form').querySelectorAll<HTMLElement>('textarea,button,select'));const first=items[0],last=items.at(-1)!;if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}};
   q('#board-sticky-text').focus();
  }
  board(){
