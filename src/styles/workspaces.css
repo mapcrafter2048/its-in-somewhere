@@ -203,3 +203,74 @@
 .physical-folder .folder-workspace .highlight-bar input{width:100%;min-width:0;padding:7px;background:#f5e9c8;border:1px solid #ac9c74;font-size:10px}
 .notebook-book .book-tabs button[data-desk-tab=rooms]{background:#c4d5d2}
 .modal-overlay .panel.notebook-book .room-bank button.selected{color:#344b5b!important;background:#eadbc0!important}
+/* Minimal reading surfaces. Keep labels and the actual object in one orientation. */
+.modal-overlay .panel.notebook-book .book-tabs button,.modal-overlay .panel.notebook-book .book-tabs button:nth-child(n),.modal-overlay .panel.notebook-book .book-bookmark{writing-mode:horizontal-tb!important;text-orientation:mixed!important;white-space:nowrap!important;transform:none!important}
+.book-volume{padding-top:20px}
+.book-front-spread,.book-animation-layer{top:20px}
+.book-turn-leaf,.book-animation-layer{display:none!important}
+.notebook-book .book-palette{top:40px}
+.notebook-book :is(.book-content,.front-entry-index,.book-editor-clippings,.room-small-grid),.object-rail{scrollbar-width:none}
+.notebook-book ::-webkit-scrollbar,.object-rail::-webkit-scrollbar{display:none}
+.book-room-spread .room-plan-page{gap:10px}.book-room-spread .room-bank h4{margin-bottom:5px;padding-bottom:3px}.book-room-spread .room-cabinet-grid{gap:2px}
+.modal-overlay .panel.notebook-book .room-bank-row button{min-height:19px!important;padding:2px 0!important}
+@media(min-width:900px){.book-room-spread .book-leaf[data-side=left]>.book-content{overflow:hidden}.book-room-spread .room-plan-page h3{font-size:22px}.book-room-spread .room-caption{font-size:9px}.book-room-spread .room-legend{font-size:9px}}
+@media(max-width:550px){.book-front-spread{grid-template-columns:1fr!important}.book-front-cover,.book-front-spread>.book-binding{display:none!important}.notebook-book #book-index{border-radius:2px;padding:20px 14px}}
+/* One silhouette owns the entire folder edge, including its tab. */
+.modal-overlay .reader.physical-folder.surface-folder{padding-top:0;margin-top:14px;background:#d4bf8d;border:0;border-radius:0;box-shadow:2px 3px 0 #8a7e59}
+.physical-folder.surface-folder:before{inset:-18px 0 0;clip-path:polygon(0 0,40% 0,40% 18px,100% 18px,100% 100%,0 100%);border:0;border-radius:0;background:#d4bf8d;box-shadow:none}
+.physical-folder .reader-main:before{display:none!important}
+.physical-folder.surface-folder .reader-main{border:0!important;border-radius:0!important;box-shadow:none!important;background:none!important;padding-left:20px}
+.physical-folder .folder-paper-stack:before,.physical-folder .folder-paper-stack:after{transform:none;inset:4px -3px -4px 3px;border:0}
+.physical-folder .folder-paper-stack:after{display:none}
+.physical-folder .document-paper{animation:none!important}.physical-folder .document-paper.turning{opacity:1;transform:none}
+/* A clipped passage uses the leaf rather than a large card inside it. */
+.notebook-book .book-editor-clippings{flex:1;min-height:0;overflow:auto;margin:0;padding:0}
+.notebook-book .book-leaf:has(.book-clipping) #note-sketch{max-height:95px;flex-shrink:0}
+.notebook-book .book-clipping{position:relative;display:flex;flex-direction:column;margin:0;padding:12px 2px 22px;background:transparent;box-shadow:none;border:0;border-top:1px solid #b7a98a}
+.notebook-book .book-clipping:before{display:none}.notebook-book .book-clipping .book-caption{font:9px/1.5 'Courier New',monospace;color:#77725f;letter-spacing:.02em;padding-right:28px}
+.notebook-book .book-clipping p{font:clamp(14px,var(--document-size,18px),20px)/1.65 Georgia,serif;white-space:pre-wrap;overflow-wrap:anywhere;margin:14px 0 0}
+.modal-overlay .notebook-book .book-clipping button{position:absolute;right:0;top:6px;min-height:28px;padding:3px 7px;border:0;background:transparent;box-shadow:none;font-size:17px}
+/* Local whiteboard: colour dots, tools, and the drawing. */
+.whiteboard-workspace{grid-template-columns:minmax(0,1fr) 130px;gap:14px}
+.surface-whiteboard #whiteboard-host{padding:0}
+.whiteboard-workspace .object-rail{padding-left:12px;overflow:auto}
+.whiteboard-workspace .board-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 6px;align-content:start}
+.modal-overlay .whiteboard-workspace .board-tools [data-ink]{padding:0!important;width:28px;min-width:28px;min-height:28px;height:28px;border:0!important;background:transparent!important;border-radius:50%;box-shadow:none}
+.whiteboard-workspace .board-tools [data-ink]:before{margin:0;width:20px;height:20px;background:var(--ink)!important;border:1px solid #53634e44}
+.whiteboard-workspace [data-ink=black]{--ink:#28382f}.whiteboard-workspace [data-ink=blue]{--ink:#285e99}.whiteboard-workspace [data-ink=red]{--ink:#ae3e38}
+.whiteboard-workspace .board-tools [data-ink][aria-pressed=true]{outline:1px solid #8c977c;outline-offset:3px}
+.whiteboard-workspace .board-tools>:not([data-ink]){grid-column:1/-1}.whiteboard-workspace .board-status{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+.whiteboard-drawing #board-editor{cursor:crosshair;user-select:none;touch-action:none}
+@media(max-width:550px){.whiteboard-workspace{grid-template-columns:minmax(0,1fr) 96px;gap:8px}.whiteboard-workspace .object-rail{padding-left:8px}.modal-overlay .whiteboard-workspace .board-tools [data-ink]{width:22px;min-width:22px}.whiteboard-workspace .board-tools{gap:10px 2px}}
+/* Saved pads sit beside the cork. Adding a note never involves equipment. */
+.board-stack>header{display:flex;align-items:center;justify-content:space-between;gap:8px;font:12px Georgia,serif;padding:8px 0;border-bottom:1px solid #816b4a66}
+.modal-overlay .board-stack #new-board-note{min-width:26px;width:26px;height:26px;min-height:26px;padding:0;border:0;background:transparent;box-shadow:none;font:22px Georgia,serif}
+.modal-overlay .board-stack>summary{display:flex;align-items:center;justify-content:space-between;font:12px Georgia,serif;padding:8px 0;cursor:pointer;list-style:none}.board-stack>summary>span{font-size:20px}
+.board-stack .board-sheet-picker{padding:8px 0;border:0;background:transparent;box-shadow:none;margin:0;width:auto}
+.modal-overlay .board-sheet-picker [data-pin-sheet],.modal-overlay .saved-sticky-stack [data-repin-sticky]{display:block;width:100%;text-align:left;font:12px/1.5 Georgia,serif;padding:9px 0;background:transparent;border:0;border-bottom:1px dotted #8d795b66;box-shadow:none}
+.saved-sticky-stack>div{display:grid;grid-template-columns:minmax(0,1fr) 22px;align-items:center}.modal-overlay .saved-sticky-stack [data-discard-sticky]{padding:0;min-height:24px;border:0;background:transparent;box-shadow:none;font:17px Georgia,serif}
+.empty-stack{font:italic 11px Georgia,serif;color:#71664e}.board-frame-actions{flex-direction:row;justify-content:space-between;gap:12px}.modal-overlay .board-frame-actions button{font-size:11px!important}
+.board-inline-editor{margin:0 0 18px;background:#eee4a2;box-shadow:1px 2px 0 #8c7954;padding:12px}
+.board-inline-editor textarea{width:100%;resize:none;min-height:130px;background:var(--sticky-stock,#eee4a2);border:0;padding:0;font:16px/1.55 Georgia,serif;color:#354a3e}
+.inline-note-actions{display:flex;justify-content:space-between;gap:14px;padding-top:8px}.modal-overlay .inline-note-actions button{border:0;background:transparent;box-shadow:none;font:21px Georgia,serif;padding:3px 6px;min-width:28px;min-height:28px}
+.board-sticky-palette{font-size:0}.board-sticky-palette .physical-choices legend{position:absolute;clip-path:inset(50%)}
+.board-note-hit{position:absolute;width:13%;height:19%}
+.personal-board .board-note-hit [data-pin]{inset:0;width:100%;height:100%}
+.modal-overlay .panel .personal-board .unpin-note{position:absolute;z-index:3;top:-7px;right:-7px;width:22px;height:22px;min-width:22px;min-height:22px;padding:0;border:0;background:#eee5cc;border-radius:50%;box-shadow:0 1px 2px #423b2c44;color:#42533b;font:18px/1 Georgia,serif;cursor:pointer}
+.object-rail .board-connection-tools{display:grid;gap:10px}.board-connection-tools>label{font-size:0}.board-connection-tools .physical-choices .choice-label,.board-connection-tools .physical-choices legend{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+.object-rail .board-connections p{display:flex;align-items:start;gap:8px;font:11px/1.6 Georgia,serif;overflow-wrap:anywhere}.board-connections p>span{flex:1;min-width:0}.modal-overlay .board-connections [data-remove-string]{width:20px;height:22px;min-height:22px;min-width:20px;padding:0;border:0;background:transparent;box-shadow:none;font:18px Georgia,serif}
+.personal-board .board-note-hit{width:19%;min-width:80px;max-width:145px;height:13%;min-height:55px;max-height:110px}
+.modal-overlay .panel .personal-board .board-note-hit [data-pin]{display:block;padding:12px 10px 8px;background:var(--note-stock,#eee5cc);color:#354a3e;border:0;border-top:7px solid #0000000a;border-radius:0;box-shadow:2px 3px 0 #302c2238;text-align:left;overflow:hidden;font:12px/1.5 Georgia,serif;white-space:pre-wrap}
+.pin-note-copy{display:block;height:100%;overflow:hidden;overflow-wrap:anywhere;pointer-events:none}
+@media(max-width:550px){.modal-overlay .panel .personal-board .board-note-hit [data-pin]{padding:7px 6px;font-size:11px}.board-note-hit .unpin-note{width:20px;height:20px}}
+.board-inline-editor .material-samples .choice-label,.board-inline-editor .material-samples legend{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+.stack-recycle-confirm{grid-column:1/-1;display:flex;justify-content:end;gap:16px}.modal-overlay .stack-recycle-confirm button{min-width:26px;min-height:26px;padding:0;border:0;box-shadow:none;background:transparent;font:18px Georgia,serif}
+/* Keep cropped tools under the paper, clear of both bottom navigation tags. */
+.book-held-tools{right:calc(var(--case-space) + 110px)}
+@media(max-width:899px){.book-held-tools{right:calc(var(--case-space) + 94px)}}
+@media(max-width:550px){.book-held-tools{right:calc(var(--case-space) + 72px)}}
+.modal-overlay .panel.notebook-book .book-navigation button{z-index:8}
+@media(max-width:550px){.book-held-tools .drawing-instruments .physical-choice-options{gap:10px}.book-held-tools .drawing-instruments label.physical-choice{width:28px}}
+.modal-overlay .panel .personal-board .unpin-note{width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;padding:0!important;font:14px/18px Georgia,serif!important;border-radius:50%;top:-5px;right:-5px}
+.modal-overlay .board-connections [data-remove-string]{width:20px!important;height:22px!important;min-width:20px!important;min-height:22px!important;padding:0!important;font:18px/22px Georgia,serif!important}
+.modal-overlay .inline-note-actions button{min-height:28px!important;padding:3px 6px!important;font:21px/1 Georgia,serif!important}

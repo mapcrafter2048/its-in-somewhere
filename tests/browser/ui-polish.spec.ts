@@ -54,31 +54,10 @@ test('Escape toggles once per press, closes disclosures first and resumes withou
     await expect.poll(() => mode(page)).toBe('play');
 });
 
-test('held sticky edits in place, pastes, detaches and survives reload', async ({ page }) => {
-    await boot(page);
-    await page.evaluate(() => { const g = (window as any).__GAME__; g.save.deskLife.tools.pad = 'held'; g.save.physical.held = { kind: 'tool', id: 'pad' }; });
-    await page.keyboard.press('KeyF');
-    await page.fill('#sticky-text', 'The first theory');
-    await page.locator('#detach-sticky').click();
-    await page.keyboard.press('KeyF');
-    await expect(page.locator('#sticky-text')).toHaveValue('The first theory');
-    await page.fill('#sticky-text', 'The revised theory');
-    await page.keyboard.press('Escape');
-    await page.evaluate(() => (window as any).__GAME__.deskScreens.board());
-    await page.locator('#pinboard-surface').click({ position: { x: 100, y: 100 } });
-    await expect(page.locator('[data-pin-kind="sticky"]')).toHaveCount(1);
-    await page.locator('[data-pin-kind="sticky"]').click();
-    await page.locator('#return-sheet').click();
-    await page.keyboard.press('Escape');
-    await page.keyboard.press('KeyF');
-    await expect(page.locator('#sticky-text')).toHaveValue('The revised theory');
-    await page.fill('#sticky-text', 'A final handwritten correction');
-    await page.locator('#detach-sticky').click();
-    await page.reload();
-    await expect(page.locator('#start')).toBeVisible();
-    expect(await page.evaluate(() => { const g = (window as any).__GAME__; return { notes: g.save.deskLife.stickies, pins: g.save.deskLife.pins, held: g.save.physical.held }; })).toMatchObject({ notes: [{ id: 1, text: 'A final handwritten correction', place: 'held' }], pins: [], held: { kind: 'sticky', id: 1 } });
+test('pinboard notes edit, return to their stack, repin and survive reload',async({page})=>{
+ await boot(page);await page.evaluate(()=>(window as any).__GAME__.stationery.board());await page.click('#new-board-note');await page.fill('#board-sticky-text','The first theory');await page.click('#board-sticky-done');
+ await page.locator('[data-pin-kind="sticky"]').click();await page.fill('#board-sticky-text','The revised theory');await page.click('#board-sticky-done');await page.click('[data-unpin]');await expect(page.locator('[data-pin]')).toHaveCount(0);await expect(page.locator('[data-repin-sticky]')).toContainText('The revised theory');await page.click('[data-repin-sticky]');await expect(page.locator('[data-pin]')).toHaveCount(1);await page.reload();await expect(page.locator('#start')).toBeVisible();expect(await page.evaluate(()=>(window as any).__GAME__.save.deskLife.stickies[0])).toMatchObject({text:'The revised theory',place:'board'});
 });
-
 test('desktop icons launch all apps, closing returns home, mail drafts survive and Snake releases controls', async ({ page }) => {
     const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
     await boot(page);

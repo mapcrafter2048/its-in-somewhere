@@ -237,10 +237,7 @@ function resume(capture = true) {
     if (mode === 'notebook')
         audio.sound('notebook-close');
     audio.start();
-    if (mode === 'whiteboard') {
-        leaveWhiteboard();
-        return;
-    }
+
     {
         const finish = finishBoard;
         finishBoard = undefined;
@@ -808,25 +805,14 @@ async function showPrintedCopy() {
     }
     await readCopy(copy.id);
 }
-function showWhiteboard(board = 0) {
-    const wing = board;
-    const hasMarker=physicalFor(save).held?.kind==='tool'&&physicalFor(save).held?.id==='marker';
+function showWhiteboard(_board?:number) {
+    const wing=world.wing;
     save.whiteboards ??= [[], [], [], []];
     world.setBoardPage(wing);
-    show('whiteboard', shell('Leave yourself a note', `W${wing + 1} / WHITEBOARD`, `<nav class="wing-tabs" aria-label="Whiteboard pages">${WINGS.map((w, i) => `<button data-board-page="${i}" class="${i === wing ? 'selected' : ''}">W${i + 1} · ${w}</button>`).join('')}</nav><div id="whiteboard-host"></div><div class="panel-foot"><span>One board, four saved wing pages.</span>${hasMarker?'':'<button id="take-board-marker">Equip whiteboard marker</button><button data-tool="inventory">Inventory / stow held object</button>'}<button id="leave-board" class="primary">Finish drawing ↗</button></div>`, true));
-    finishBoard = mountWhiteboard($('#whiteboard-host'), save.whiteboards[wing], () => {
-        audio.sound('pencil');
-        world.setWhiteboards(save.whiteboards!);
-        write();
-    }, () => notify('Board full. Undo strokes or clear the board to make space.'),hasMarker);
+    show('whiteboard',shell('Whiteboard',`W${wing+1}`, '<div id="whiteboard-host"></div>',true));
+    finishBoard=mountWhiteboard($('#whiteboard-host'),save.whiteboards[wing],()=>{audio.sound('pencil');world.setWhiteboards(save.whiteboards!);write();},()=>notify('Undo a stroke to make room.'));
     arrangeWhiteboard($('#whiteboard-host'));
     integratePhysicalChoices($('#whiteboard-host'));
-    $('#take-board-marker')?.addEventListener('click',()=>{if(physicalFor(save).held){notify('Stow the held object first.');return;}deskFor(save).tools.marker='held';physicalFor(save).held={kind:'tool',id:'marker'};write();world.syncPhysical();showWhiteboard(board);});
-    document.querySelectorAll<HTMLButtonElement>('[data-board-page]').forEach(button => button.onclick = () => showWhiteboard(Number(button.dataset.boardPage)));
-    $('#leave-board').onclick = leaveWhiteboard;
-}
-function leaveWhiteboard() {
-    show('board-finished', shell('Note retained', 'WHITEBOARD', `<div class="prose"><p>Your drawing has been saved on the work nook whiteboard in W4.</p></div><div class="panel-foot"><button data-action="resume" class="primary">Resume exploring ↗</button></div>`));
 }
 function showDesk() {
     show('desk', shell('Your desk', 'W4 WORK NOOK / PERSONAL RECORDS', `<div class="desk-grid"><div class="prose"><h3>Your file storage</h3><p>Opening the page with Martin's phrase completes the task. Keep interesting originals here for your own investigations.</p>${(['personal:0', 'personal:1', 'desk-tray'] as Container[]).map(c => `<p><button data-storage="${c}">${esc(containerLabel(c))} · ${containerLoad(physicalFor(save), c)}/${capacity(c)}</button></p>`).join('')}<div class="voucher-desk"><p><strong>${pendingVoucherValue(save, archive)} credits</strong> in collected vouchers.</p><button id="redeem-vouchers" ${!world.atDesk() || !pendingVoucherValue(save, archive) ? 'disabled' : ''}>Redeem vouchers ↗</button></div></div><div class="desk-options"><button id="desk-computer">Records Desktop ↗</button><button id="desk-pinboard">Personal pinboard ↗</button><button id="desk-collection">Collection compartment ↗</button><button id="desk-notices">Public notices ↗</button><button id="desk-receipt">Shift receipt ↗</button><button data-tool="inventory">Carried files / store documents ↗</button><button id="desk-legacy-binder">Older retained copies ↗</button><button data-tool="supplies">Equipment requisitions ↗</button><button data-tool="notebook">Your notebook ↗</button><button id="read-letter">Martin’s request ↗</button><button data-tool="hints">Filing notes ↗</button><button data-tool="comparison">Comparison stand ↗</button></div></div>`));
@@ -1192,7 +1178,7 @@ document.addEventListener('keydown', e => {
     if (e.key==='Escape'&&['reader','reader-loading','reader-error'].includes(mode)&&readerContainer){e.preventDefault();openStorage(readerContainer);return;}
     if (e.key === 'Escape' && mode === 'whiteboard') {
         e.preventDefault();
-        leaveWhiteboard();
+        resume(false);
         return;
     }
     if (e.key === 'Escape') {

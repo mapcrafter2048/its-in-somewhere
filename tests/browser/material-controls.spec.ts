@@ -73,25 +73,9 @@ test('physical controls remain usable at three sizes and computer controls retai
     expect(errors).toEqual([]);
 });
 
-test('pinboard supplies, sticky swatches, file instruments and mechanical settings keep their behavior', async ({ page }) => {
-    await boot(page);
-    await page.evaluate(() => { const g = (window as any).__GAME__; g.save.upgrades.push('sticky-colours'); g.stationery.box(); });
-    await page.locator('[data-tool-equip="pad"]').click(); await page.keyboard.press('KeyF');
-    await choose(page, 'sticky-colour', 'rose'); await page.fill('#sticky-text', 'A pink paper clue.');
-    await page.locator('#detach-sticky').click();
-    await page.evaluate(() => (window as any).__GAME__.deskScreens.board());
-    await page.locator('#pinboard-surface').click({ position: { x: 150, y: 100 } });
-    await expect(page.locator('[data-pin-kind="sticky"]')).toHaveCount(1);
-    await page.locator('#new-board-note').click(); await page.fill('#sticky-text', 'Another lead.'); await page.locator('#detach-sticky').click();
-    await page.evaluate(() => (window as any).__GAME__.deskScreens.board());
-    await page.locator('#pinboard-surface').click({ position: { x: 400, y: 150 } });
-    await page.locator('#board-thread').click(); await page.locator('[data-pin]').first().click(); await page.locator('[data-pin]').last().click();
-    expect(await page.evaluate(() => (window as any).__GAME__.save.deskLife.strings.length)).toBe(1);
-    await page.evaluate(async () => { const g = (window as any).__GAME__; await g.visit(g.tutorialId, 'archive:7:0'); });
-    await page.locator('#mark-searched').click();
-    expect(await page.evaluate(() => { const g = (window as any).__GAME__; return g.save.searched.includes(g.tutorialId); })).toBe(true);
-    await page.locator('#clip-page').click(); await expect(page.locator('.book-clipping')).toBeVisible();
-    await page.evaluate(() => document.querySelector<HTMLButtonElement>('[data-tool="pause"]')!.click());
-    await choose(page, 'quality', 'high');
-    expect(await page.evaluate(() => (window as any).__GAME__.save.settings.quality)).toBe('high');
+test('pinboard colours, connections and file clips use direct controls',async({page})=>{
+ await boot(page);await page.evaluate(()=>{const g=(window as any).__GAME__;g.save.upgrades.push('sticky-colours');g.stationery.board();});
+ for(const text of ['A pink paper clue.','Another lead.']){await page.click('#new-board-note');await choose(page,'board-sticky-colour','rose');await page.fill('#board-sticky-text',text);await page.click('#board-sticky-done');}
+ await page.click('#board-thread');await page.locator('[data-pin]').first().click();await page.locator('[data-pin]').last().click();expect(await page.evaluate(()=>(window as any).__GAME__.save.deskLife.strings.length)).toBe(1);
+ await page.evaluate(async()=>{const g=(window as any).__GAME__;await g.visit(g.tutorialId,'archive:7:0');});await page.click('#mark-searched');await page.click('#clip-page');await expect(page.locator('.book-clipping')).toBeVisible();
 });

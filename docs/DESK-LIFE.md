@@ -57,15 +57,13 @@ Desk data now uses version 2, adding response history, digital excerpts and a Sn
 
 ## Sticky notes and equipment
 
-The W4 utility table holds a compartmented stationery box. Use **E** to open it, equip the sticky pad, and press **F** or right-click to write. The pad retains one unfinished 280-character draft. **Discard draft** clears it; **Detach** places the committed note in your hand and stows the pad. Other held objects must be stowed first.
+The pinboard contains a Sticky pad stack and a Notebook sheets stack. Use **+** beside Sticky pad, write in the inline paper editor, and choose Done. The note is placed in a free board position automatically. Undo restores the text present when the editor opened. An unfinished draft is retained. No pad, thread spool or marker needs equipping; the former stationery-box model remains in the source but is no longer placed in the office.
 
-Sticky notes have their own capacity: 8 initially; **Additional sticky-note pads** costs 24 credits and increases it to 24. **Coloured sticky notes** costs 16 credits and adds rose, blue and sage to yellow. These are reusable capacity upgrades, not charges for every sheet. Notebook paper colours remain independent.
+Sticky capacity remains 8, or 24 with the existing capacity upgrade. The colour upgrade still unlocks rose, blue and sage. Select a board note to edit it. Drag or use arrow keys to move it. Its corner cross returns it to the saved stack, preserving its writing; choosing that stack entry pins it again. The Notebook sheets **+** opens saved, unpinned sheets for placement.
 
-With a sticky note held, use **E** on the personal board or **F** near the desk, then click the cork to place it. Focus the board and press Enter for automatic placement; successive keyboard placements choose separate positions. Select a pinned note to read its full writing or detach it. Notebook sheets remain pinnable and editable through their existing desk-board action.
+Thread enables click-to-connect: select two notes, optionally choose a colour and label, and use the small cross beside a saved connection to remove it. Escape cancels an unfinished connection or closes the inline editor before leaving the board. The 96-connection limit and typed note IDs remain unchanged.
 
-Equip the unlimited thread spool, click one pinned note, then another to connect them. Escape cancels the unfinished connection. Labels, colours and keyboard endpoint selectors are under Connection controls. A maximum of 96 saved links bounds board complexity; thread length is never consumed. Stow the spool to resume ordinary note selection and dragging. Arrow keys, arrangement undo and explicit link removal remain available.
-
-Inventory has separate stationery pockets with Equip, Stow, Return and Recycle actions. Returning a written sticky to the desk box preserves its writing. Recycling a committed sticky requires confirmation and removes its connections. Removing a note from the board preserves its text; arrangement undo can restore that board operation within the current board session. Markers are reusable equipment; the whiteboard offers an accessible Equip marker control as well as physical box pickup.
+Whiteboards are writable immediately and always use the current room's saved drawing. There is no room picker or marker-equipment gate. Existing drawings, paper notes, loose stickies and legacy held objects retain the same save format.
 
 ## Office time and refreshments
 

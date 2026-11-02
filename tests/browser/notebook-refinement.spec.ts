@@ -18,7 +18,7 @@ test('front spread preserves writing, supports the index and turns pages without
  await page.locator('#book-prev').click();await expect(page.locator('#note-text')).toHaveValue('Retain this line through every turn.');
  await page.locator('#book-next').click();
  const frames=await page.locator('.book-animation-layer').evaluate(layer=>layer.getAnimations({subtree:true}).flatMap(animation=>(animation.effect as KeyframeEffect).getKeyframes()).map(frame=>frame.transform));
- expect(frames.some(frame=>String(frame).includes('rotateY'))).toBe(true);
+ expect(frames).toEqual([]);
  await page.locator('#book-next').click();await expect(page.locator('#book-position')).toContainText('Sheet 3');
  await expect(page.locator('.book-turn-leaf')).toHaveCount(0);await expect(page.locator('.book-leaf')).toHaveCount(2);
  await page.locator('#book-contents').click();await page.keyboard.press('Escape');
@@ -36,8 +36,8 @@ test('colour chips, cropped upright tools, circular rings and attached tags work
   if(width===1440)await page.screenshot({path:'test-results/refined-notebook/colour-swatches.png',animations:'disabled'});
   const geometry=await page.locator('.notebook-book').evaluate(book=>{
    const rail=book.querySelector('.book-held-tools')!.getBoundingClientRect();const edge=book.querySelector('.book-spread')!.getBoundingClientRect().right;
-   const close=book.querySelector('.book-close')!.getBoundingClientRect(),contents=book.querySelector('#book-contents')!.getBoundingClientRect();
-   return {closeClear:close.right<=contents.left||close.bottom<=contents.top,cropped:[...book.querySelectorAll('.book-held-tools .choice-object')].every(tool=>tool.getBoundingClientRect().bottom>rail.bottom),straight:[...book.querySelectorAll('.book-held-tools .choice-object')].every(tool=>getComputedStyle(tool).transform==='none'),attached:[...book.querySelectorAll('.book-tabs button,#book-contents')].every(tag=>{const r=tag.getBoundingClientRect();return r.left<=edge&&r.right>edge;}),rings:[...book.querySelectorAll('.book-spread .book-binding i')].every(ring=>Math.abs(ring.getBoundingClientRect().width-ring.getBoundingClientRect().height)<1),rule:getComputedStyle(book.querySelector('.book-leaf')!).backgroundImage,textarea:getComputedStyle(book.querySelector('#note-text')!).backgroundImage};
+   const noClose=!book.querySelector('.book-close');
+   return {closeClear:noClose,cropped:[...book.querySelectorAll('.book-held-tools .choice-object')].every(tool=>tool.getBoundingClientRect().bottom>rail.bottom),straight:[...book.querySelectorAll('.book-held-tools .choice-object')].every(tool=>getComputedStyle(tool).transform==='none'),attached:[...book.querySelectorAll('.book-tabs button,#book-contents')].every(tag=>{const r=tag.getBoundingClientRect();return r.left<=edge&&r.right>edge;}),rings:[...book.querySelectorAll('.book-spread .book-binding i')].every(ring=>Math.abs(ring.getBoundingClientRect().width-ring.getBoundingClientRect().height)<1),rule:getComputedStyle(book.querySelector('.book-leaf')!).backgroundImage,textarea:getComputedStyle(book.querySelector('#note-text')!).backgroundImage};
   });
   expect(geometry).toMatchObject({closeClear:true,cropped:true,straight:true,attached:true,rings:true,textarea:'none'});expect(geometry.rule).toContain('repeating-linear-gradient');
   await page.screenshot({path:`test-results/refined-notebook/notes-${width}.png`,animations:'disabled'});

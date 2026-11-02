@@ -6,7 +6,7 @@ The archive keeps its typography and muted palette, while each tool has a physic
 | --- | --- |
 | Notebook and individual sheets | Blue cloth cover, broad facing pages, sewn binding, small horizontal page flags, numbered sheets and previous/next page controls |
 | Discoveries | Case headings, labelled evidence clippings and conclusions flow across the shared notebook leaves |
-| Original files | Drawer close-up with overlapping labelled folders; an opened jacket has a folded Contents slip and aligned loose sheets |
+| Original files | Drawer close-up with overlapping labelled folders; an opened jacket has one continuous edge, aligned sheets and a right-hand tool flap |
 | Correspondence / reports / forms / references / workbooks | Distinct letter stationery, report headings, typewritten fields, book extracts and ledger paper |
 | Carried inventory | Brown leather document wallet with numbered occupied and empty file pockets |
 | Supplies | Equipment requisition on a hard clipboard, with an order register and ruled rows |
@@ -23,7 +23,7 @@ The archive keeps its typography and muted palette, while each tool has a physic
 | Assignment / onboarding | Office letter packet and a taped personal memo |
 | Filing hints / source credits | Retained index card and bibliographic catalogue slips |
 | Pause / reset / import | Personnel settings card and routing slips |
-| Stationery | Compartmented desk box, separate loose sticky papers and reusable pad, thread and marker tools |
+| Stationery | Inline pinboard editor and saved sticky/notebook stacks; equipment-free board tools |
 | Office fixtures | Modelled clocks in all four wings, shared-date desk calendar, free W2 drinks machine and recycling bin |
 | Computer | Vintage CRT with Mail, Files, Directory, Print Queue and Snake; a separate reply sheet beside Mail |
 
@@ -35,9 +35,9 @@ Close controls, keyboard navigation and existing actions retain their normal pos
 
 Writing uses the left leaf and sketch/clippings use the right; narrow windows turn between them. Text editors scroll internally. Leaving an editor flushes pending text and strokes before changing sections, entries, sources or screens. All 12/36 numbered sheets are browsable. An empty spread is a view, not a saved note; the first written title/text, stroke or clipping retains it. Saved sheet positions survive recycling, and blank paper preferences are separate from note counters. Session navigation remains separate from saved progress. Short sections distribute their entries across both desktop leaves instead of reserving an index leaf.
 
-Opening storage now presents a drawer close-up without inspecting its first file. Overlapping folders have readable tabs, hover/focus separation and remembered browsing positions. The same controls adapt to front/rear drawers, wall cabinets, file boxes and personal storage. Folder selection opens the aligned reader, with page controls and handling tools below the sheet. Closing the folder returns to that drawer; closing the drawer resumes exploration. Bracket keys still switch files. The optional folded Contents slip replaces the permanent sidebar, including during loading/error states. Obsolete source loads cannot grant inspection or replace a newer selection.
+Opening storage presents a drawer without inspecting its first file. Folder selection opens the reader, with page controls below the paper and handling tools on its right flap. The contents slip is removed. Bracket keys still switch files and Escape returns to the drawer. Obsolete source loads cannot replace the current file.
 
-The stationery controller manages separate sticky drafts, written notes and equipment. Its board endpoints include a paper kind as well as an ID, allowing a sticky note and notebook sheet to share the same numeric ID. The original canvas painter now previews both kinds; readable full sticky text is available when selecting a pinned note. Thread is equipped before click-to-connect or keyboard endpoint selection. Keyboard placement chooses separate default positions; pointer placement and arrow-key arrangement remain available.
+The pinboard composes sticky notes inline and places them automatically. Notes render as readable paper elements over responsive cork and threads. The corner cross returns a note to its saved stack; sheet selection, dragging, arrow-key arrangement and thread connections remain available. The stationery-box asset is retained but detached from the game world. Whiteboards edit only the current room and require no equipment. Notebook page transitions are immediate, and very narrow Contents views omit the inside cover.
 
 Shared physical-control spacing lives in `src/styles/physical-life.css`: consistent height, type, padding, gaps, focus and destructive-action treatment. Object materials stay distinct and the computer retains its CRT controls. Obsolete note-preview/editor styles and the permanent reader grid have been removed.
 

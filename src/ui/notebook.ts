@@ -51,17 +51,16 @@ export class NotebookController {
  private resize?:ResizeObserver; private mutation?:MutationObserver; private frame=0; private leave?:()=>void;
  private sheetNavigation?:{index:number;total:number;turn:(direction:number)=>void};
  private roomNavigation?:{index:number;total:number;turn:(direction:number)=>void};
- private rendered=()=>{}; private customContents?: {label:string;select:()=>void}[]|(()=>{label:string;select:()=>void}[]); private editing=false; private narrow=false;  private frontOpen=false; private turnAnimation?:Animation;
+ private rendered=()=>{}; private customContents?: {label:string;select:()=>void}[]|(()=>{label:string;select:()=>void}[]); private editing=false; private narrow=false;  private frontOpen=false;
  constructor(private o:Options){}
  get section(){return this.view.section;}
  get active(){return !!this.root?.isConnected;}
  reset(){this.dispose();this.memory.clear();this.view={section:'notes',page:0};}
  private mount(){
   if(this.active)return;
-  this.o.show(`<section class="panel notebook-book" data-surface="notebook" role="dialog" aria-modal="true" aria-label="Your notebook"><div class="book-volume"><button id="new-note" class="book-write" aria-label="Write a new notebook sheet"><span class="book-pencil" aria-hidden="true"></span><span>New sheet</span></button><div class="book-cover-label" aria-hidden="true">PERSONAL FIELD BOOK / RECORDS & RETENTION</div><button id="book-contents" class="book-bookmark" aria-expanded="false" aria-controls="book-index">Contents</button><button class="close book-close" data-action="resume" aria-label="Close notebook">×</button><nav class="book-tabs" aria-label="Notebook sections">${sections.map(s=>`<button data-desk-tab="${s}">${names[s]}</button>`).join('')}</nav><div class="book-spread">${['left','right'].map(side=>`<article class="book-leaf" data-side="${side}"><header class="book-running-head"></header><div class="book-content"></div><footer class="book-folio"></footer></article>`).join('')}<div class="book-binding" aria-hidden="true">${'<i></i>'.repeat(6)}</div></div><div class="book-navigation"><button id="book-prev" aria-label="Previous notebook pages"><span aria-hidden="true">↶</span><span class="turn-caption">Previous</span></button><span id="book-position" role="status"></span><button id="book-next" aria-label="Next notebook pages"><span class="turn-caption">Next</span><span aria-hidden="true">↷</span></button></div><div class="book-front-spread" hidden><article class="book-front-cover" aria-label="Inside notebook cover"><div class="front-cover-label"><span>PERSONAL FIELD BOOK</span><h2>My notebook</h2><span class="front-owner-line" aria-hidden="true"></span><small>Records &amp; Retention</small></div></article><aside id="book-index" aria-label="Notebook contents" hidden></aside><div class="book-binding" aria-hidden="true">${'<i></i>'.repeat(6)}</div></div><div class="book-animation-layer" aria-hidden="true" inert></div><div class="book-content book-probe" aria-hidden="true" inert></div></div><aside class="book-palette" aria-label="Ink and paper colours"><div class="book-case-supplies"></div><p class="case-empty">Ink &amp; paper</p></aside><div class="book-held-tools" aria-label="Drawing tools"></div><div class="book-material-status"></div></section>`);
+  this.o.show(`<section class="panel notebook-book" data-surface="notebook" role="dialog" aria-modal="true" aria-label="Your notebook"><div class="book-volume"><div class="book-cover-label" aria-hidden="true">PERSONAL FIELD BOOK / RECORDS & RETENTION</div><button id="book-contents" class="book-bookmark" aria-expanded="false" aria-controls="book-index">Contents</button><nav class="book-tabs" aria-label="Notebook sections">${sections.map(s=>`<button data-desk-tab="${s}">${names[s]}</button>`).join('')}</nav><div class="book-spread">${['left','right'].map(side=>`<article class="book-leaf" data-side="${side}"><header class="book-running-head"></header><div class="book-content"></div><footer class="book-folio"></footer></article>`).join('')}<div class="book-binding" aria-hidden="true">${'<i></i>'.repeat(6)}</div></div><div class="book-navigation"><button id="book-prev" aria-label="Previous notebook pages"><span aria-hidden="true">↶</span><span class="turn-caption">Previous</span></button><span id="book-position" role="status"></span><button id="book-next" aria-label="Next notebook pages"><span class="turn-caption">Next</span><span aria-hidden="true">↷</span></button></div><div class="book-front-spread" hidden><article class="book-front-cover" aria-label="Inside notebook cover"><div class="front-cover-label"><span>PERSONAL FIELD BOOK</span><h2>My notebook</h2><span class="front-owner-line" aria-hidden="true"></span><small>Records &amp; Retention</small></div></article><aside id="book-index" aria-label="Notebook contents" hidden></aside><div class="book-binding" aria-hidden="true">${'<i></i>'.repeat(6)}</div></div><div class="book-animation-layer" aria-hidden="true" inert></div><div class="book-content book-probe" aria-hidden="true" inert></div></div><aside class="book-palette" aria-label="Ink and paper colours"><div class="book-case-supplies"></div><p class="case-empty">Ink &amp; paper</p></aside><div class="book-held-tools" aria-label="Drawing tools"></div><div class="book-material-status"></div></section>`);
   this.root=document.querySelector<HTMLElement>('.notebook-book')!;
 
-  this.root.querySelector<HTMLButtonElement>('#new-note')!.onclick=this.o.write;
   this.root.querySelectorAll<HTMLButtonElement>('[data-desk-tab]').forEach(b=>b.onclick=()=>this.o.select(b.dataset.deskTab as NotebookSection));
   this.root.querySelector<HTMLButtonElement>('#book-prev')!.onclick=()=>this.turn(-1);
   this.root.querySelector<HTMLButtonElement>('#book-next')!.onclick=()=>this.turn(1);
@@ -83,11 +82,11 @@ export class NotebookController {
   this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded','false');
  }
  private toggleFront(){
-  const snapshot=this.captureLeaf(this.frontOpen?1:-1);
+
   if(this.frontOpen){
    this.closeFrontSilently();
    if(this.editing)this.paintEditor();else this.layout();
-   this.o.sound();this.animate(1,snapshot);
+   this.o.sound();
    this.root!.querySelector<HTMLElement>('#book-contents')!.focus({preventScroll:true});
    return;
   }
@@ -97,7 +96,7 @@ export class NotebookController {
   this.root!.querySelector<HTMLElement>('.book-held-tools')!.hidden=true;
   this.root!.querySelector<HTMLElement>('.book-front-spread')!.hidden=false;
   this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded','true');
-  this.renderContents();this.paintFront();this.o.sound();this.animate(-1,snapshot);
+  this.renderContents();this.paintFront();this.o.sound();
   this.root!.querySelector<HTMLElement>('#book-index button')?.focus({preventScroll:true});
  }
  private paintFront(){
@@ -139,7 +138,7 @@ export class NotebookController {
   this.customContents=undefined;this.entries=entries;this.rendered=rendered;
   this.root!.querySelector<HTMLElement>('#book-index')!.hidden=true;
   this.root!.querySelector('#book-contents')!.setAttribute('aria-expanded','false');
-  this.layout();if(sectionChanged){this.o.sound();this.animate(1);}
+  this.layout();if(sectionChanged){this.o.sound();}
  }
  editor(left:string,right:string,rendered:()=>void,navigation?:{index:number;total:number;turn:(direction:number)=>void}){
   this.closeFrontSilently();
@@ -196,7 +195,6 @@ export class NotebookController {
  }
  private chrome(total:number){
   this.root!.dataset.section=this.view.section;
-  this.root!.querySelector<HTMLButtonElement>('#new-note')!.disabled=!this.o.canWrite();
   this.root!.querySelectorAll<HTMLButtonElement>('[data-desk-tab]').forEach(b=>{const active=b.dataset.deskTab===this.view.section;b.classList.toggle('selected',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   this.root!.querySelector<HTMLButtonElement>('#book-prev')!.disabled=this.view.page===0;
   this.root!.querySelector<HTMLButtonElement>('#book-next')!.disabled=this.view.page+(this.narrow?1:2)>=total;
@@ -221,8 +219,8 @@ export class NotebookController {
   const items=(typeof this.customContents==='function'?this.customContents():this.customContents)??this.entries.map(entry=>({label:entry.contentsLabel||entry.title||entry.id,select:()=>{this.view.anchor={id:entry.id,offset:0};this.layout();}}));
   index.hidden=!this.frontOpen;
   index.innerHTML=`<h3>Contents</h3><nav class="front-section-index" aria-label="Notebook sections in contents">${sections.map(section=>`<button data-front-section="${section}">${names[section]}</button>`).join('')}</nav><div class="front-entry-index"><p class="front-index-caption">${names[this.view.section]}</p>${items.map((item,i)=>`<button data-book-jump="${i}">${esc(item.label)}</button>`).join('')}</div>`;
-  index.querySelectorAll<HTMLButtonElement>('[data-front-section]').forEach(button=>button.onclick=()=>{const snapshot=this.captureLeaf(1);this.closeFrontSilently();this.o.select(button.dataset.frontSection as NotebookSection);this.o.sound();this.animate(1,snapshot);});
-  index.querySelectorAll<HTMLButtonElement>('[data-book-jump]').forEach(b=>b.onclick=()=>{const snapshot=this.captureLeaf(1);this.closeFrontSilently();items[Number(b.dataset.bookJump)].select();this.o.sound();this.animate(1,snapshot);});
+  index.querySelectorAll<HTMLButtonElement>('[data-front-section]').forEach(button=>button.onclick=()=>{this.closeFrontSilently();this.o.select(button.dataset.frontSection as NotebookSection);this.o.sound();});
+  index.querySelectorAll<HTMLButtonElement>('[data-book-jump]').forEach(b=>b.onclick=()=>{this.closeFrontSilently();items[Number(b.dataset.bookJump)].select();this.o.sound();});
  }
  private paintEditor(){
   this.narrow=matchMedia('(max-width:899px)').matches;
@@ -244,57 +242,18 @@ export class NotebookController {
  }
  private turn(direction:number){
   if(this.frontOpen){if(direction>0)this.toggleFront();return;}
-  const snapshot=this.captureLeaf(direction);
-  if(this.roomNavigation){const n=this.roomNavigation;if(n.index+direction>=0&&n.index+direction<n.total){n.turn(direction);this.o.sound();this.animate(direction,snapshot);}return;}
+
+  if(this.roomNavigation){const n=this.roomNavigation;if(n.index+direction>=0&&n.index+direction<n.total){n.turn(direction);this.o.sound();}return;}
   if(this.editing&&this.sheetNavigation){
    if(this.narrow&&((direction>0&&this.view.page===0)||(direction<0&&this.view.page===1))){this.view.page+=direction;this.paintEditor();}
    else if(this.sheetNavigation.index+direction>=0&&this.sheetNavigation.index+direction<this.sheetNavigation.total)this.sheetNavigation.turn(direction);
-   this.o.sound();this.animate(direction,snapshot);return;
+   this.o.sound();return;
   }
   const step=this.narrow?1:2,total=this.editing?2:this.pages.length,next=this.view.page+direction*step;
   if(next<0||next>=total)return;
   this.view.page=next;this.view.anchor=undefined;this.o.sound();
   if(this.editing)this.paintEditor();else this.paint();
-  this.animate(direction,snapshot);
+
  }
- private captureLeaf(direction:number):HTMLElement|undefined {
-  if(!this.active||document.body.classList.contains('reduced-motion')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const source=this.frontOpen?this.root!.querySelector<HTMLElement>(direction>0?'#book-index':'.book-front-cover'):this.root!.querySelector<HTMLElement>(`.book-leaf[data-side="${direction>0?'right':'left'}"]:not([hidden])`)??this.root!.querySelector<HTMLElement>('.book-leaf:not([hidden])');
-  if(!source)return;
-  const clone=source.cloneNode(true) as HTMLElement;
-  const style=getComputedStyle(source);
-  clone.style.cssText=Array.from(style).map(key=>`${key}:${style.getPropertyValue(key)}`).join(';');
-  clone.classList.remove('book-leaf');
-  if(source.id==='book-index')clone.classList.add('book-front-index-copy');
-  [clone,...clone.querySelectorAll<HTMLElement>('*')].forEach(el=>[...el.attributes].forEach(attribute=>{if(attribute.name.startsWith('data-'))el.removeAttribute(attribute.name);}));
-  clone.removeAttribute('id');clone.removeAttribute('hidden');
-  clone.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
-  clone.querySelectorAll('[name]').forEach(el=>el.removeAttribute('name'));
-  clone.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('input,textarea').forEach((el,i)=>{const original=source.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('input,textarea')[i];const originalStyle=getComputedStyle(original);el.value=original.value;el.style.font=originalStyle.font;el.style.width=`${original.clientWidth}px`;el.style.height=`${original.clientHeight}px`;el.disabled=true;});
-  clone.querySelectorAll<HTMLButtonElement>('button').forEach((button,i)=>{
-   const originalStyle=getComputedStyle(source.querySelectorAll('button')[i]);
-   for(const key of ['font','color','background','box-shadow','border-top','border-right','border-bottom','border-left','padding','margin','min-height','width','text-align','display','letter-spacing','text-decoration','opacity'])button.style.setProperty(key,originalStyle.getPropertyValue(key));
-  });
-  clone.querySelectorAll('canvas').forEach((canvas,i)=>{const original=source.querySelectorAll('canvas')[i];canvas.style.width=`${original.clientWidth}px`;canvas.style.height=`${original.clientHeight}px`;canvas.getContext('2d')?.drawImage(original,0,0);});
-  return clone;
- }
- private animate(direction:number,snapshot?:HTMLElement){
-  if(!this.active)return;
-  this.turnAnimation?.cancel();
-  const layer=this.root!.querySelector<HTMLElement>('.book-animation-layer')!;
-  layer.replaceChildren();
-  if(document.body.classList.contains('reduced-motion')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const leaf=document.createElement('div');
-  leaf.className=`book-turn-leaf ${direction>0?'turn-forward':'turn-backward'}`;
-  if(this.narrow)leaf.classList.add('turn-single');
-  if(snapshot){snapshot.classList.add('book-turn-snapshot');leaf.append(snapshot);}
-  layer.append(leaf);
-  this.turnAnimation=leaf.animate([
-   {transform:'rotateY(0deg)',filter:'brightness(1)',offset:0},
-   {transform:`rotateY(${direction>0?-85:85}deg)`,filter:'brightness(.83)',offset:.5},
-   {transform:`rotateY(${direction>0?-174:174}deg)`,filter:'brightness(.95)',offset:1}
-  ],{duration:340,easing:'cubic-bezier(.3,.05,.25,1)',fill:'forwards'});
-  this.turnAnimation.finished.then(()=>leaf.remove(),()=>leaf.remove());
- }
- dispose(){this.turnAnimation?.cancel();this.frontOpen=false;this.flush();this.remember();cancelAnimationFrame(this.frame);this.resize?.disconnect();this.mutation?.disconnect();this.root=undefined;this.editing=false;}
+ dispose(){this.frontOpen=false;this.flush();this.remember();cancelAnimationFrame(this.frame);this.resize?.disconnect();this.mutation?.disconnect();this.root=undefined;this.editing=false;}
 }
